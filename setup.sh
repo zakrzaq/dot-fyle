@@ -1,17 +1,19 @@
 #!/bin/bash
 
+if [ -z "$HOME" ]; then
+  export HOME="/home/$(whoami)"
+fi
+
 create_symlink() {
   ln -sf "$1" "$2"
 }
 
 setup_all() {
-  create_symlink "$HOME/min_jake/.bashrc" "$HOME/.bashrc"
-  create_symlink "$HOME/min_jake/.aliases.zsh" "$HOME/.aliases.zsh"
-  create_symlink "$HOME/min_jake/.gitconfig" "$HOME/.gitconfig"
-  create_symlink "$HOME/min_jake/.tmux.conf" "$HOME/.tmux.conf"
-  mv "$HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf.bak" 
-  create_symlink "$HOME/min_jake/kitty.conf" "$HOME/.config/kitty/kitty.conf"
-  create_symlink "$HOME/min_jake/nvim/" "$HOME/.config/"
+  create_symlink "$HOME/min_dot_jake/.bashrc" "$HOME/.bashrc"
+  create_symlink "$HOME/min_dot_jake/.aliases" "$HOME/.aliases"
+  create_symlink "$HOME/min_dot_jake/.gitconfig" "$HOME/.gitconfig"
+  create_symlink "$HOME/min_dot_jake/.tmux.conf" "$HOME/.tmux.conf"
+  create_symlink "$HOME/min_dot_jake/nvim" "$HOME/.config/nvim"
   echo 'Full run completed'
 }
 
@@ -32,20 +34,20 @@ menu() {
       setup_all
       ;;
     1)
-      create_symlink "$HOME/min_jake/.aliases.zsh" "$HOME/.aliases.zsh"
-      create_symlink "$HOME/min_jake/.bashrc" "$HOME/.bashrc"
+      create_symlink "$HOME/min_dot_jake/.aliases" "$HOME/.aliases"
+      create_symlink "$HOME/min_dot_jake/.bashrc" "$HOME/.bashrc"
       echo ".zshrc symlinked"
       ;;
     2)
-      create_symlink "$HOME/min_jake/.gitconfig" "$HOME/.gitconfig"
+      create_symlink "$HOME/min_dot_jake/.gitconfig" "$HOME/.gitconfig"
       echo ".gitconfig symlinked"
       ;;
     3)
-      create_symlink "$HOME/min_jake/.tmux.conf" "$HOME/.tmux.conf"
+      create_symlink "$HOME/min_dot_jake/.tmux.conf" "$HOME/.tmux.conf"
       echo ".tmux.conf symlinked"
       ;;
     4)
-      create_symlink "$HOME/min_jake/nvim" "$HOME/.config/nvim"
+      create_symlink "$HOME/min_dot_jake/nvim" "$HOME/.config/nvim"
       echo "nvim symlinked"
       ;;
     x|X)
