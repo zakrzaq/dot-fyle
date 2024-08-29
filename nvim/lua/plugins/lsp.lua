@@ -18,11 +18,6 @@ local on_attach = function(_, bufnr)
 	nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
 	nmap("<leader>K", vim.lsp.buf.signature_help, "Signature Documentation")
-	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-	nmap("<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, "[W]orkspace [L]ist Folders")
 	nmap("gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
 	nmap("[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
 	nmap("]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
@@ -46,6 +41,8 @@ local servers = {
 			"typescript.tsx",
 		},
 	},
+	ruff = {},
+	pyright = {},
 	html = {},
 	cssls = {},
 	tailwindcss = {},
@@ -69,7 +66,19 @@ require("neodev").setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-require("mason").setup()
+local additional_tools = {
+	"stylua",
+	"black",
+	"isort",
+	"flake8",
+	"eslint_d",
+	"prettier",
+	"prettier_d",
+	"cspell",
+}
+require("mason").setup({
+	ensure_installed = additional_tools,
+})
 
 local mason_lspconfig = require("mason-lspconfig")
 

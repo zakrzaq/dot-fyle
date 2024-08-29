@@ -3,7 +3,6 @@ require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 		"lua",
 		"python",
-		"rust",
 		"tsx",
 		"typescript",
 		"vim",
@@ -14,7 +13,6 @@ require("nvim-treesitter.configs").setup({
 		"json",
 		"bash",
 		"markdown",
-		"php",
 	},
 	auto_install = true,
 

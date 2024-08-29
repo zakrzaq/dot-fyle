@@ -1,18 +1,35 @@
-require("gitsigns").setup({
-	signs = {
-		add = { text = "▎" },
-		change = { text = "▎" },
-		delete = { text = "" },
-		topdelete = { text = "" },
-		changedelete = { text = "▎" },
-		untracked = { text = "▎" },
-	},
-	on_attach = function(buffer)
-		local gs = package.loaded.gitsigns
+local M = {}
 
-		local function map(mode, l, r, desc)
-			vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-		end
+function M.init()
+	--
+end
+
+-- 6270000208
+
+function M.setup()
+	local installed, gsn = pcall(require, "gitsigns")
+	if not installed then
+		vim.notify("Plugin 'gitsigns' is not installed")
+		return
+	end
+
+	M.init()
+
+	gsn.setup({
+		signs = {
+			add = { text = "▎" },
+			change = { text = "▎" },
+			delete = { text = "" },
+			topdelete = { text = "" },
+			changedelete = { text = "▎" },
+			untracked = { text = "▎" },
+		},
+		on_attach = function(buffer)
+			local gs = package.loaded.gitsigns
+
+			local function map(mode, l, r, desc)
+				vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+			end
 
 		-- stylua: ignore start
 		map("n", "]h", gs.next_hunk, "Next Hunk")
@@ -27,5 +44,8 @@ require("gitsigns").setup({
 		map("n", "<leader>ghd", gs.diffthis, "Diff This")
 		map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
 		map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
-	end,
-})
+		end,
+	})
+end
+
+return M

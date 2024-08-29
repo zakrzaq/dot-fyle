@@ -1,0 +1,97 @@
+########    OPTIONS   ########
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+
+right_format = """
+"""
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$git_metrics\
+$python\
+$nodejs\
+$fill\
+$cmd_duration\
+$username\
+$hostname\
+$os\
+$time\
+$line_break\
+$character
+"""
+
+########    MODULES CONFIG    ########
+
+[package]
+disabled = true
+
+[git_branch]
+disabled = false
+format = '[$symbol$branch]($style) '
+
+[git_status]
+disabled = false
+
+[python]
+symbol = ' '
+disabled = false
+format = '[${symbol} ${pyenv_prefix}(${version})(\($virtualenv\))]($style)'
+
+[nodejs]
+disabled = false
+format = '[$symbol($version )]($style)'
+
+[fill]
+symbol = ' '
+
+[time]
+disabled = false
+use_12hr = false
+format = '[ $time]($style) '
+time_format = '%R'
+
+[username]
+disabled = false
+style_user = 'white bold'
+style_root = 'red bold'
+format = '[$user]($style)'
+show_always = true
+
+[hostname]
+ssh_only = true
+format = "@[$hostname]($style)"
+trim_at = "-"
+style = "bold dimmed white"
+disabled = false
+
+[os]
+disabled = false
+format = ':[$symbol]($style) '
+
+[cmd_duration]
+disabled = false
+format = '[$duration]($style) '
+
+[aws]
+disabled = true
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+
+[character] 
+disabled = false
+# success_symbol = '[➜](bold green)' 
+success_symbol = '[>](bold green)' 
+
+[os.symbols]
+EndeavourOS = ""
+Linux = ""
+Manjaro = "󱘊"
+Mint = "󰣭"
+Pop = ""
+Unknown = ""
+Windows = "󰖳"
+Ubuntu = ""
+Macos = ""

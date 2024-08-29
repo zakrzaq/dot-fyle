@@ -9,11 +9,19 @@ create_symlink() {
 }
 
 setup_all() {
-  create_symlink "$HOME/min_dot_jake/.bashrc" "$HOME/.bashrc"
-  create_symlink "$HOME/min_dot_jake/.aliases" "$HOME/.aliases"
-  create_symlink "$HOME/min_dot_jake/.gitconfig" "$HOME/.gitconfig"
-  create_symlink "$HOME/min_dot_jake/.tmux.conf" "$HOME/.tmux.conf"
-  create_symlink "$HOME/min_dot_jake/nvim" "$HOME/.config/nvim"
+  create_symlink "$HOME/dot-fyle/.bashrc" "$HOME/.bashrc"
+  create_symlink "$HOME/dot-fyle/.aliases" "$HOME/.aliases"
+  create_symlink "$HOME/dot-fyle/.gitconfig" "$HOME/.gitconfig"
+  create_symlink "$HOME/dot-fyle/.tmux.conf" "$HOME/.tmux.conf"
+  mkdir -p "$HOME/.config/nvim"
+  ln -sf "$HOME/dot-fyle/nvim"/* "$HOME/.config/nvim/"
+  # create_symlink "$HOME/dot-fyle/nvim" "$HOME/.config/nvim"
+  create_symlink "$HOME/dot-fyle/.zshrc" "$HOME/.zshrc"
+  mkdir -p "$HOME/.config/kitty"
+  ln -sf "$HOME/dot-fyle/kitty"/* "$HOME/.config/kitty/"
+  # create_symlink "$HOME/dot-fyle/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
+  create_symlink "$HOME/dot-fyle/scripts" "$HOME/.local/bin"
+  create_symlink "$HOME/dot-fyle/starship.toml" "$HOME/.config/starship.toml"
   echo 'Full run completed'
 }
 
@@ -34,20 +42,20 @@ menu() {
       setup_all
       ;;
     1)
-      create_symlink "$HOME/min_dot_jake/.aliases" "$HOME/.aliases"
-      create_symlink "$HOME/min_dot_jake/.bashrc" "$HOME/.bashrc"
+      create_symlink "$HOME/dot-fyle/.aliases" "$HOME/.aliases"
+      create_symlink "$HOME/dot-fyle/.bashrc" "$HOME/.bashrc"
       echo ".zshrc symlinked"
       ;;
     2)
-      create_symlink "$HOME/min_dot_jake/.gitconfig" "$HOME/.gitconfig"
+      create_symlink "$HOME/dot-fyle/.gitconfig" "$HOME/.gitconfig"
       echo ".gitconfig symlinked"
       ;;
     3)
-      create_symlink "$HOME/min_dot_jake/.tmux.conf" "$HOME/.tmux.conf"
+      create_symlink "$HOME/dot-fyle/.tmux.conf" "$HOME/.tmux.conf"
       echo ".tmux.conf symlinked"
       ;;
     4)
-      create_symlink "$HOME/min_dot_jake/nvim" "$HOME/.config/nvim"
+      create_symlink "$HOME/dot-fyle/nvim" "$HOME/.config/nvim"
       echo "nvim symlinked"
       ;;
     x|X)
