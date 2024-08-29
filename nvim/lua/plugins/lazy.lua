@@ -171,4 +171,12 @@ require("lazy").setup({
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
+	{
+		"OXY2DEV/markview.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 }, {})
