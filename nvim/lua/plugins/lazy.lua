@@ -17,13 +17,15 @@ require("lazy").setup({
 
 	-- THEME
 	{
-		-- "rose-pine/neovim",
-		"folke/tokyonight.nvim",
+		"rose-pine/neovim",
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("tokyonight")
+			vim.cmd.colorscheme("rose-pine")
 		end,
 	},
+	{ "rebelot/kanagawa.nvim" },
+	{ "catppuccin/nvim" },
+	{ "folke/tokyonight.nvim" },
 
 	-- UI
 	{ "akinsho/bufferline.nvim", opts = {} },

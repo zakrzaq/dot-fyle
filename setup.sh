@@ -15,13 +15,13 @@ setup_all() {
   create_symlink "$HOME/dot-fyle/.tmux.conf" "$HOME/.tmux.conf"
   mkdir -p "$HOME/.config/nvim"
   ln -sf "$HOME/dot-fyle/nvim"/* "$HOME/.config/nvim/"
-  # create_symlink "$HOME/dot-fyle/nvim" "$HOME/.config/nvim"
   create_symlink "$HOME/dot-fyle/.zshrc" "$HOME/.zshrc"
   mkdir -p "$HOME/.config/kitty"
   ln -sf "$HOME/dot-fyle/kitty"/* "$HOME/.config/kitty/"
-  # create_symlink "$HOME/dot-fyle/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
   create_symlink "$HOME/dot-fyle/scripts" "$HOME/.local/bin"
   create_symlink "$HOME/dot-fyle/starship.toml" "$HOME/.config/starship.toml"
+  mkdir -p "$HOME/.local/bin"
+  ln -sf "$HOME/dot-fyle/bin"/* "$HOME/.local/bin"
   echo 'Full run completed'
 }
 
