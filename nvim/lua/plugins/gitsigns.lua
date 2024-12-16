@@ -4,8 +4,6 @@ function M.init()
 	--
 end
 
--- 6270000208
-
 function M.setup()
 	local installed, gsn = pcall(require, "gitsigns")
 	if not installed then
