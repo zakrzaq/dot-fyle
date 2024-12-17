@@ -31,7 +31,7 @@ local servers = {
 	volar = {
 		filetypes = { "vue", "json" },
 	},
-	tsserver = {
+	ts_ls = {
 		filetypes = {
 			"javascript",
 			"javascriptreact",
