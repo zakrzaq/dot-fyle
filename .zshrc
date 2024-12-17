@@ -1,5 +1,4 @@
-# Add deno completions to search path
-if [[ ":$FPATH:" != *":/home/jake/.zsh/completions:"* ]]; then export FPATH="/home/jake/.zsh/completions:$FPATH"; fi
+
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(git)
@@ -33,4 +32,8 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 
 [ -f $HOME/.deno/env ] && . "/home/jake/.deno/env"
+if [[ ":$FPATH:" != *":/home/jake/.zsh/completions:"* ]]; then 
+  export FPATH="/home/jake/.zsh/completions:$FPATH"; 
+fi
+
 [ -d /snap/bin ] && export PATH=$PATH:/snap/bin
