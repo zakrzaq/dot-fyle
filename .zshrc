@@ -33,3 +33,4 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 
 [ -f $HOME/.deno/env ] && . "/home/jake/.deno/env"
+[ -d /snap/bin ] && export PATH=$PATH:/snap/bin
