@@ -61,12 +61,7 @@ vim.keymap.set(
 	require("telescope.builtin").current_buffer_fuzzy_find,
 	{ desc = "[S]earch in [b]uffer" }
 )
-vim.keymap.set(
-	"n",
-	"<leader>sd",
-	require("telescope.builtin").diagnostics,
-	{ desc = "[S]earch buffer [D]iagnostics" }
-)
+vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch buffer [D]iagnostics" })
 vim.keymap.set("n", "<leader>st", "<cmd>:TodoTelescope<CR>", { desc = "[S]earch [T]odos" })
 vim.keymap.set("n", "<leader>ss", "<cmd>:Telescope lsp_document_symbols<CR>", { desc = "[S]earch document [s]ymbol" })
 vim.keymap.set(
@@ -176,17 +171,17 @@ vim.keymap.set(
 )
 
 -- DADBOD --
-vim.keymap.set({ "n", "v" }, "<leader>du>", "<cmd>:DBUI<cr>", { desc = "[D]adbod [U]I", silent = true })
+vim.keymap.set({ "n", "v" }, "<leader>du", "<cmd>:DBUI<cr>", { desc = "[D]adbod [U]I", silent = true })
 vim.keymap.set({ "n", "v" }, "<leader>dt>", "<cmd>:DBUIToggle<cr>", { desc = "[D]adbod [T]ogge", silent = true })
 vim.keymap.set(
 	{ "n", "v" },
-	"<leader>da>",
+	"<leader>da",
 	"<cmd>:DBUIAddConnection<cr>",
 	{ desc = "[D]adbod [A]dd connection", silent = true }
 )
 vim.keymap.set(
 	{ "n", "v" },
-	"<leader>df>",
+	"<leader>df",
 	"<cmd>:DBUIFindBuffer<cr>",
 	{ desc = "[D]adbod [F]ind buffer", silent = true }
 )
@@ -199,8 +194,8 @@ vim.keymap.set(
 -- THEMES --
 vim.keymap.set(
 	{ "n", "v" },
-	"<leader>lrd",
-	"<cmd>:colorscheme rose-pine<cr>",
+	"<leader>lrr",
+	"<cmd>:colorscheme rose-pine-main<cr>",
 	{ desc = "[L]ook [R]ose-Pine [D]ark", silent = true }
 )
 vim.keymap.set(
@@ -208,6 +203,42 @@ vim.keymap.set(
 	"<leader>lrl",
 	"<cmd>:colorscheme rose-pine-dawn<cr>",
 	{ desc = "[L]ook [R]ose-Pine [L]ight", silent = true }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>lkk",
+	"<cmd>:colorscheme kanagawa<cr>",
+	{ desc = "[L]ook [K]anagawa [D]ark", silent = true }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>lkl",
+	"<cmd>:colorscheme kanagawa-lotus<cr>",
+	{ desc = "[L]ook [K]anagawa [L]ight", silent = true }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>lyy",
+	"<cmd>:colorscheme tokyonight-night<cr>",
+	{ desc = "[L]ook tok[Y]onight [D]ark", silent = true }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>lyr",
+	"<cmd>:colorscheme tokyonight-day<cr>",
+	{ desc = "[L]ook tok[Y]onight [L]ight", silent = true }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>lcc",
+	"<cmd>:colorscheme catppuccin-mocha<cr>",
+	{ desc = "[L]ook [C]atppuccin [D]ark", silent = true }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>lcl",
+	"<cmd>:colorscheme catppuccin-latte<cr>",
+	{ desc = "[L]ook [C]atppuccin [L]ight", silent = true }
 )
 
 -- OTHER --
