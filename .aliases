@@ -32,7 +32,6 @@ alias me='echo $(whoami) $(uname -n) $(uname -s) $(my-ip)'
 alias lz='exa --long --icons --git'
 alias lza='exa --long --icons'
 alias l='exa --long --icons'
-alias a='aaa'
 alias ld='lazydocker'
 alias lg='lazygit'
 
@@ -68,15 +67,6 @@ alias gbr-local='fn() { git branch | grep -v "$1" | xargs git branch -D; }; fn'
 alias wgst='watch -n 1 git status'
 alias grv='fn() { git reset --"$1" HEAD~"$2" }; fn'
 
-# DEV SERVERS
-alias nrs='npm run serve'
-alias nrd='npm run dev'
-alias nrw='npm run watch'
-alias nst='npm start'
-alias yd='yarn dev'
-alias yb='yarn build'
-alias ys='yarn start'
-
 # GIT STASH
 alias gsta='fn() { git add .; git stash save "$1"; }; fn'
 alias gstl='git stash list'
@@ -85,7 +75,6 @@ alias gstd='fn() { git stash drop stash@\{"$1"\} }; fn'
 
 # NVIM
 alias nv='nvim'
-alias lv='NVIM_APPNAME="lvim" nvim'
 
 # DOCKER
 alias dc-ls='docker ps'
