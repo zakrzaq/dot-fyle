@@ -15,6 +15,9 @@ setup_all() {
   create_symlink "$HOME/dot-fyle/.tmux.conf" "$HOME/.tmux.conf"
   mkdir -p "$HOME/.config/nvim"
   ln -sf "$HOME/dot-fyle/nvim"/* "$HOME/.config/nvim/"
+  ln -sf "$HOME/dot-fyle/rofi" "$HOME/.config"
+  ln -sf "$HOME/dot-fyle/i3" "$HOME/.config"
+  ln -sf "$HOME/dot-fyle/polybar" "$HOME/.config"
   create_symlink "$HOME/dot-fyle/.zshrc" "$HOME/.zshrc"
   mkdir -p "$HOME/.config/kitty"
   ln -sf "$HOME/dot-fyle/kitty"/* "$HOME/.config/kitty/"
@@ -44,7 +47,7 @@ menu() {
     1)
       create_symlink "$HOME/dot-fyle/.aliases" "$HOME/.aliases"
       create_symlink "$HOME/dot-fyle/.bashrc" "$HOME/.bashrc"
-      echo ".zshrc symlinked"
+      echo ".bashrc symlinked"
       ;;
     2)
       create_symlink "$HOME/dot-fyle/.gitconfig" "$HOME/.gitconfig"

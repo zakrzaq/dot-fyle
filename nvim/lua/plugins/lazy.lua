@@ -112,8 +112,11 @@ require("lazy").setup({
 			"folke/neodev.nvim",
 		},
 	},
-	-- FORMATTING
-	{ "stevearc/conform.nvim", opts = {} },
+
+	{ -- FORMATTING
+		"stevearc/conform.nvim",
+		opts = {},
+	},
 	{ -- CODEIUM
 		"jcdickinson/codeium.nvim",
 		dependencies = {
@@ -173,12 +176,15 @@ require("lazy").setup({
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
-	{
+	{ -- MARDOWNVIEW
 		"OXY2DEV/markview.nvim",
 		lazy = false,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
 		},
+	},
+	{ -- DIFFVIEW
+		"sindrets/diffview.nvim",
 	},
 }, {})

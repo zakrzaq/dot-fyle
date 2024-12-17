@@ -31,6 +31,7 @@ my-ip() { ip addr | grep -Po 'inet \K[\d.]+' | sort -nr | tr "\n" "  " ;};
 alias me='echo $(whoami) $(uname -n) $(uname -s) $(my-ip)'
 alias lz='exa --long --icons --git'
 alias lza='exa --long --icons'
+alias l='exa --long --icons'
 alias a='aaa'
 alias ld='lazydocker'
 alias lg='lazygit'
