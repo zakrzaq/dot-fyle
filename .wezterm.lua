@@ -10,6 +10,7 @@ config.colors = theme.colors()
 config.window_frame = theme.window_frame()
 
 -- Font configuration
+config.font = wezterm.font("FiraCode Nerd Font")
 config.font_size = 12
 
 -- Window padding
