@@ -85,25 +85,46 @@ config.keys = {
 		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 
-	-- Navigate panes using Alt + HJKL (vim style)
 	{
 		key = "h",
-		mods = "ALT",
+		mods = "CTRL|ALT",
 		action = act.ActivatePaneDirection("Left"),
 	},
 	{
 		key = "l",
-		mods = "ALT",
+		mods = "CTRL|ALT",
 		action = act.ActivatePaneDirection("Right"),
 	},
 	{
 		key = "k",
-		mods = "ALT",
+		mods = "CTRL|ALT",
 		action = act.ActivatePaneDirection("Up"),
 	},
 	{
 		key = "j",
-		mods = "ALT",
+		mods = "CTRL|ALT",
+		action = act.ActivatePaneDirection("Down"),
+	},
+
+	-- Navigate panes using arrow keys with CTRL + ALT
+	{
+		key = "LeftArrow",
+		mods = "CTRL|ALT",
+		action = act.ActivatePaneDirection("Left"),
+	},
+	{
+		key = "RightArrow",
+		mods = "CTRL|ALT",
+		action = act.ActivatePaneDirection("Right"),
+	},
+	{
+		key = "UpArrow",
+		mods = "CTRL|ALT",
+		action = act.ActivatePaneDirection("Up"),
+	},
+	{
+		key = "DownArrow",
+		mods = "CTRL|ALT",
 		action = act.ActivatePaneDirection("Down"),
 	},
 }
