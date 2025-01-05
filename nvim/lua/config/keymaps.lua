@@ -97,6 +97,11 @@ vim.keymap.set("n", "<leader>gL", "<cmd>:Gitsigns blame_line<CR>", { desc = "[G]
 -- NEOTREE --
 vim.keymap.set({ "n", "v" }, "<leader>t", ":Neotree toggle<CR>", { silent = true, desc = "Neo[T]ree Toggle" })
 
+-- TERMINAL --
+vim.keymap.set({ "n", "v" }, "<leader>1", ":ToggleTerm 1<CR>", { silent = true, desc = "Terminal 1" })
+vim.keymap.set({ "n", "v" }, "<leader>2", ":ToggleTerm 2<CR>", { silent = true, desc = "Terminal 2" })
+vim.keymap.set({ "n", "v" }, "<leader>3", ":ToggleTerm 3<CR>", { silent = true, desc = "Terminal 3" })
+
 -- URL-OPEN --
 vim.keymap.set(
 	"n",
@@ -172,7 +177,7 @@ vim.keymap.set(
 
 -- DADBOD --
 vim.keymap.set({ "n", "v" }, "<leader>du", "<cmd>:DBUI<cr>", { desc = "[D]adbod [U]I", silent = true })
-vim.keymap.set({ "n", "v" }, "<leader>dt>", "<cmd>:DBUIToggle<cr>", { desc = "[D]adbod [T]ogge", silent = true })
+vim.keymap.set({ "n", "v" }, "<leader>dt", "<cmd>:DBUIToggle<cr>", { desc = "[D]adbod [T]ogge", silent = true })
 vim.keymap.set(
 	{ "n", "v" },
 	"<leader>da",
