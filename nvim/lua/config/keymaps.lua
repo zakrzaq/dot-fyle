@@ -98,9 +98,11 @@ vim.keymap.set("n", "<leader>gL", "<cmd>:Gitsigns blame_line<CR>", { desc = "[G]
 vim.keymap.set({ "n", "v" }, "<leader>t", ":Neotree toggle<CR>", { silent = true, desc = "Neo[T]ree Toggle" })
 
 -- TERMINAL --
+vim.keymap.set({ "n", "v" }, "<leader>b", ":ToggleTerm<CR>", { silent = true, desc = "Terminal Toggle" })
 vim.keymap.set({ "n", "v" }, "<leader>1", ":ToggleTerm 1<CR>", { silent = true, desc = "Terminal 1" })
 vim.keymap.set({ "n", "v" }, "<leader>2", ":ToggleTerm 2<CR>", { silent = true, desc = "Terminal 2" })
 vim.keymap.set({ "n", "v" }, "<leader>3", ":ToggleTerm 3<CR>", { silent = true, desc = "Terminal 3" })
+vim.keymap.set({ "n", "v" }, "<leader>4", ":ToggleTerm 4<CR>", { silent = true, desc = "Terminal 3" })
 
 -- URL-OPEN --
 vim.keymap.set(
