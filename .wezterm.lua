@@ -10,8 +10,7 @@ config.colors = theme.colors()
 config.window_frame = theme.window_frame()
 
 -- Font configuration
-config.font = wezterm.font("FiraCode Nerd Font")
-config.font_size = 11
+config.font_size = 12
 
 -- Window padding
 config.window_padding = {
@@ -29,7 +28,11 @@ config.use_fancy_tab_bar = true
 local default_prog = {}
 local launch_menu = {}
 
-if os_name == "windows" then
+local function is_windows()
+	return wezterm.target_triple:find("windows") ~= nil
+end
+
+if is_windows() then
 	local git_bash_path = "C:\\Program Files\\Git\\bin\\bash.exe"
 
 	launch_menu = {
@@ -47,14 +50,13 @@ if os_name == "windows" then
 		},
 	}
 	default_prog = { "powershell.exe", "-NoLogo" }
-elseif os_name == "linux" then
+else
 	launch_menu = {
 		{
 			label = "Zsh Shell",
 			args = { "zsh" },
 		},
 	}
-
 	default_prog = { "zsh" }
 end
 
@@ -82,28 +84,6 @@ config.keys = {
 		key = "-",
 		mods = "ALT",
 		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
-	},
-
-	-- Navigate panes using Alt + Arrow keys
-	{
-		key = "LeftArrow",
-		mods = "ALT",
-		action = act.ActivatePaneDirection("Left"),
-	},
-	{
-		key = "RightArrow",
-		mods = "ALT",
-		action = act.ActivatePaneDirection("Right"),
-	},
-	{
-		key = "UpArrow",
-		mods = "ALT",
-		action = act.ActivatePaneDirection("Up"),
-	},
-	{
-		key = "DownArrow",
-		mods = "ALT",
-		action = act.ActivatePaneDirection("Down"),
 	},
 
 	-- Navigate panes using Alt + HJKL (vim style)
