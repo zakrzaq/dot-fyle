@@ -2,9 +2,10 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local act = wezterm.action
 
+local os_name = wezterm.target_triple:match("([^%-]+)")
+
 -- Color scheme (Rose Pine)
 local theme = wezterm.plugin.require("https://github.com/neapsix/wezterm").main
-config.color_scheme = "Rose Pine"
 config.colors = theme.colors()
 config.window_frame = theme.window_frame()
 
@@ -28,28 +29,33 @@ config.use_fancy_tab_bar = true
 local default_prog = {}
 local launch_menu = {}
 
-if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-	-- PowerShell
-	table.insert(launch_menu, {
-		label = "PowerShell",
-		args = { "powershell.exe", "-NoLogo" },
-	})
-
-	-- Git Bash
+if os_name == "windows" then
 	local git_bash_path = "C:\\Program Files\\Git\\bin\\bash.exe"
-	table.insert(launch_menu, {
-		label = "Git Bash",
-		args = { git_bash_path, "--login", "-i" },
-	})
 
-	-- WSL
-	table.insert(launch_menu, {
-		label = "WSL",
-		args = { "wsl.exe", "~" },
-	})
-
-	-- Set PowerShell as default
+	launch_menu = {
+		{
+			label = "Windows PowerShell",
+			args = { "powershell.exe", "-NoLogo" },
+		},
+		{
+			label = "Git Bash",
+			args = { git_bash_path, "--login", "-i" },
+		},
+		{
+			label = "WSL",
+			args = { "wsl.exe" },
+		},
+	}
 	default_prog = { "powershell.exe", "-NoLogo" }
+elseif os_name == "linux" then
+	launch_menu = {
+		{
+			label = "Zsh Shell",
+			args = { "zsh" },
+		},
+	}
+
+	default_prog = { "zsh" }
 end
 
 config.default_prog = default_prog
@@ -122,6 +128,5 @@ config.keys = {
 		action = act.ActivatePaneDirection("Down"),
 	},
 }
-
 
 return config
