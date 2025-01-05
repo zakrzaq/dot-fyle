@@ -2,8 +2,6 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local act = wezterm.action
 
-local os_name = wezterm.target_triple:match("([^%-]+)")
-
 -- Color scheme (Rose Pine)
 local theme = wezterm.plugin.require("https://github.com/neapsix/wezterm").main
 config.colors = theme.colors()
