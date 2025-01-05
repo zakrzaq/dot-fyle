@@ -61,12 +61,7 @@ vim.keymap.set(
 	require("telescope.builtin").current_buffer_fuzzy_find,
 	{ desc = "[S]earch in [b]uffer" }
 )
-vim.keymap.set(
-	"n",
-	"<leader>sd",
-	require("telescope.builtin").diagnostics,
-	{ desc = "[S]earch buffer [D]iagnostics" }
-)
+vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch buffer [D]iagnostics" })
 vim.keymap.set("n", "<leader>st", "<cmd>:TodoTelescope<CR>", { desc = "[S]earch [T]odos" })
 vim.keymap.set("n", "<leader>ss", "<cmd>:Telescope lsp_document_symbols<CR>", { desc = "[S]earch document [s]ymbol" })
 vim.keymap.set(
@@ -200,7 +195,7 @@ vim.keymap.set(
 vim.keymap.set(
 	{ "n", "v" },
 	"<leader>lrd",
-	"<cmd>:colorscheme rose-pine<cr>",
+	"<cmd>:colorscheme rose-pine-main<cr>",
 	{ desc = "[L]ook [R]ose-Pine [D]ark", silent = true }
 )
 vim.keymap.set(
