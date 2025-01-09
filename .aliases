@@ -1,3 +1,5 @@
+alias _="fn() {  }; fn"
+
 # TMUX
 alias ta='tmux attach'
 alias td='tmux detach'
@@ -98,3 +100,9 @@ alias dfh="df -h | grep home | awk '{print \$4}'"
 alias rmv-dirs='fn() { find . -name $1 -type d -prune -exec rm -rf '{}' + }; fn'
 alias cheat='fn() { curl cheat.sh/$1 }; fn'
 
+#TORRENT
+alias tra="transmission-remote -a"
+alias trl="transmission-remote -l"
+alias tr="transmission-remote -t"
+alias trs="transmission-remote -s"
+alias trsa="transmission-remote -t all --stop"
