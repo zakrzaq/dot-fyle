@@ -1,0 +1,79 @@
+# Alacritty configuration file
+
+# Window settings
+window:
+  padding:
+    x: 0
+    y: 0
+  decorations: full  # Options: full, none, transparent
+  dynamic_title: true
+
+  # font:
+  family: "FiraCode Nerd Font"  # Primary font
+  size: 11.0
+  normal:
+    style: Regular
+  bold:
+    style: Bold
+  italic:
+    style: Italic
+  fallback:
+    - "FiraCode Nerd Font"       # Explicit fallback for glyphs/icons
+    - "Noto Color Emoji"         # Emoji support (optional)
+    - "DejaVu Sans Mono"
+
+# Cursor settings
+cursor:
+  style: Block  # Options: Block, Underline, Beam
+  unfocused_hollow: true
+
+# Colors: Rose-Pine
+colors:
+  primary:
+    background: "#191724"
+    foreground: "#e0def4"
+  normal:
+    black:   "#26233a"
+    red:     "#eb6f92"
+    green:   "#31748f"
+    yellow:  "#f6c177"
+    blue:    "#9ccfd8"
+    magenta: "#c4a7e7"
+    cyan:    "#ebbcba"
+    white:   "#e0def4"
+  bright:
+    black:   "#6e6a86"
+    red:     "#eb6f92"
+    green:   "#31748f"
+    yellow:  "#f6c177"
+    blue:    "#9ccfd8"
+    magenta: "#c4a7e7"
+    cyan:    "#ebbcba"
+    white:   "#e0def4"
+
+# Scrollback buffer
+scrolling:
+  history: 10000  # Number of lines in the scrollback buffer
+  multiplier: 3
+
+# Keybindings
+key_bindings:
+  - { key: V, mods: Control, action: Paste }
+  - { key: C, mods: Control, action: Copy }
+  - { key: PageUp,   action: ScrollPageUp }
+  - { key: PageDown, action: ScrollPageDown }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Minus, mods: Control, action: DecreaseFontSize }
+  - { key: Key0, mods: Control, action: ResetFontSize }
+
+# Performance
+debug:
+  render_timer: false
+  persistent_logging: false
+
+# Decorations
+decorations:
+  opacity: 0.95
+
+env:
+  COLORTERM: "truecolor"
