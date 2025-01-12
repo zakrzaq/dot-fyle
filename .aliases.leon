@@ -1,12 +1,5 @@
 # LEON
 alias ssp='sudo systemctl suspend'
-alias br1='xrandr --output eDP-1 --brightness 0.1'
-alias br2='xrandr --output eDP-1 --brightness 0.2'
-alias br3='xrandr --output eDP-1 --brightness 0.3'
-alias br4='xrandr --output eDP-1 --brightness 0.4'
-alias br5='xrandr --output eDP-1 --brightness 0.5'
-alias brm='xrandr --output eDP-1 --brightness 1'
-alias st-tlp='sudo tlp start'
 alias wu="sudo ifup wlp1s0"
 alias wd="sudo ifdown wlp1s0"
 alias wr="sudo ifdown wlp1s0 && sudo ifup wlp1s0"
