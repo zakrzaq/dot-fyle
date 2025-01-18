@@ -7,6 +7,14 @@ Host oberon
   HostName 192.168.21.20
   User jake
 
+Host oberon-ports
+  HostName 192.168.21.20
+  User jake
+  LocalForward 3000 localhost:3000
+  LocalForward 5000 localhost:5000
+  LocalForward 5173 localhost:5173
+  LocalForward 7070 localhost:7000
+
 Host oberon-cf
   HostName ssh.zakrzaq.xyz
   User jake
@@ -15,17 +23,9 @@ Host oberon-cf
 Host oberon-cf-ports
   HostName ssh.zakrzaq.xyz
   User jake
-  LocalForward 3000 localhost:3000
-  LocalForward 5000 localhost:5000
-  LocalForward 5173 localhost:5173
-  LocalForward 8071 localhost:7071
-
-Host oberon-cf-ports
-  HostName ssh.zakrzaq.xyz
-  User jake
   ProxyCommand cloudflared access ssh --hostname %h
   LocalForward 3000 localhost:3000
   LocalForward 5000 localhost:5000
   LocalForward 5173 localhost:5173
-  LocalForward 8071 localhost:7071
+  LocalForward 7000 localhost:7000
 
