@@ -7,6 +7,7 @@ plugins=(git)
 [ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 
 [ -f $HOME/.aliases ] && source $HOME/.aliases
+[ -f $HOME/.aliases.local ] && source $HOME/.aliases.local
 
 [ -d $HOME/.local/bin ] && export PATH=$HOME/.local/bin:$PATH
 

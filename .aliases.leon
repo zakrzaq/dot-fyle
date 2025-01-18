@@ -1,0 +1,10 @@
+# LEON
+alias ssp='sudo systemctl suspend'
+alias wu="sudo ifup wlp1s0"
+alias wd="sudo ifdown wlp1s0"
+alias wr="sudo ifdown wlp1s0 && sudo ifup wlp1s0"
+alias we="sudo nano /etc/network/interfaces"
+alias wt="ping -c 3 8.8.8.8"
+
+export TERM="xterm-256color"
+
