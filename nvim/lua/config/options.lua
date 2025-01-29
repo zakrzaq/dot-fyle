@@ -38,7 +38,7 @@ vim.opt.splitbelow = true
 
 vim.opt.hidden = true
 
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 2
 
 vim.opt.foldmethod = "manual"
 vim.opt.foldenable = true

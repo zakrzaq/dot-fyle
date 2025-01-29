@@ -26,7 +26,7 @@ function M.setup()
 		},
 		templates = {
 			folder = "_templates",
-			date_format = "%Y-%m-%d-%a",
+			date_format = "%Y-%m-%d",
 			time_format = "%H:%M",
 		},
 	})
