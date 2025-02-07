@@ -109,4 +109,4 @@ alias trsa="transmission-remote -t all --stop"
 
 #OBERON
 alias mnt-oberon="sudo sshfs -o allow_other,default_permissions jake@192.168.21.20:/mnt/data /mnt/data"
-alis mnt-data="sudo sshfs -o allow_other,default_permissions jake@192.168.21.20:/mnt/data /mnt/data"
+alias mnt-data="sudo sshfs -o allow_other,default_permissions jake@192.168.21.20:/mnt/data /mnt/data"
