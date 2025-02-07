@@ -24,6 +24,11 @@ function M.setup()
 				path = "~/notes-dev",
 			},
 		},
+		templates = {
+			folder = "_templates",
+			date_format = "%Y-%m-%d",
+			time_format = "%H:%M",
+		},
 	})
 end
 
