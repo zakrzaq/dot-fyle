@@ -108,6 +108,10 @@ alias tr="transmission-remote -t"
 alias trs="transmission-remote -s"
 alias trsa="transmission-remote -t all --stop"
 
+#WINDOW TOOLS
+alias window-get="xdotool selectwindow"
+alias window-name="fn() { xdotool set_window --name $1 $2 }; fn"
+
 #OBERON
 alias mnt-oberon="sudo sshfs -o allow_other,default_permissions jake@192.168.21.20:/mnt/data /mnt/data"
 alias mnt-data="sudo sshfs -o allow_other,default_permissions jake@192.168.21.20:/mnt/data /mnt/data"

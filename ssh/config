@@ -38,3 +38,16 @@ Host oberon-cf-ports
   LocalForward 5173 localhost:5173
   LocalForward 7000 localhost:7000
 
+Host euvic
+  HostName 192.168.21.11
+  User jake
+  Port 2222
+
+Host euvic-ports
+  HostName 192.168.21.11
+  User jake
+  Port 2222
+  LocalForward 8000 localhost:8000
+  LocalForward 7000 localhost:7000
+  LocalForward 5000 localhost:5000
+  LocalForward 5432 localhost:5432
