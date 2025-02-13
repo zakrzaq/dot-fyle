@@ -8,8 +8,8 @@ window:
   decorations: full  # Options: full, none, transparent
   dynamic_title: true
 
-  # font:
-  family: "FiraCode Nerd Font"  # Primary font
+font:
+  family: "FiraCode Nerd Font Mono"  # Primary font
   size: 11.0
   normal:
     style: Regular

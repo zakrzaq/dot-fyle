@@ -193,4 +193,10 @@ require("lazy").setup({
 	{ -- DIFFVIEW
 		"sindrets/diffview.nvim",
 	},
+	{ -- GEMINI AI
+		"kiddos/gemini.nvim",
+		config = function()
+			require("gemini").setup()
+		end,
+	},
 }, {})
