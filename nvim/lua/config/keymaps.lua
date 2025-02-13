@@ -15,7 +15,7 @@ vim.keymap.set("n", "N", "Nzz")
 -- vim.keymap.({ "n", "x" }, "x", '"_x')
 
 -- COPY/PASTE --
-vim.keymap.set({ "n", "v" }, "<C-a>", "ggVG", { desc = "Select [A]ll" })
+-- vim.keymap.set({ "n", "v" }, "<C-a>", "ggVG", { desc = "Select [A]ll" })
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
 
@@ -256,3 +256,11 @@ end, { desc = "[F]ind in [D]otfiles" })
 vim.keymap.set({ "n", "v" }, "<leader>fc", function()
 	require("telescope.builtin").find_files({ search_dirs = { "~/cht" } })
 end, { desc = "[F]ind [C]heats" })
+
+-- CODECOMPANION --
+vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<leader>a", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])
