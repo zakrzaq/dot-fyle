@@ -273,4 +273,5 @@ client.background        $base
 
 # Startup
 exec --no-startup-id dunst
+exec --no-startup-id redshift -l 50.2649:19.0238 -t 5700:3500
 exec --no-startup-id sh -c '[ -x ~/.startup.sh ] && ~/.startup.sh'
