@@ -124,3 +124,4 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -d "$HOME/.cargo" ] && . "$HOME/.cargo/env"
 . "/home/jake/.deno/env"
+complete -C /usr/bin/terraform terraform

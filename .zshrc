@@ -39,3 +39,6 @@ if [[ ":$FPATH:" != *":/home/jake/.zsh/completions:"* ]]; then
 fi
 
 [ -d /snap/bin ] && export PATH=$PATH:/snap/bin
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
