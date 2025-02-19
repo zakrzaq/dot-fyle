@@ -215,7 +215,23 @@ require("lazy").setup({
 			require("codecompanion").setup({
 				api_key = gemini_api_key,
 				provider = "gemini", -- Explicitly set the provider to Gemini
-				-- Other configuration options (see below)
+				adapters = {
+					ollama = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							env = {
+								url = "http://localhost:11434",
+								api_key = "OLLAMA_API_KEY",
+							},
+							headers = {
+								["Content-Type"] = "application/json",
+								["Authorization"] = "Bearer ${api_key}",
+							},
+							parameters = {
+								sync = true,
+							},
+						})
+					end,
+				},
 			})
 		end,
 	},
@@ -227,7 +243,42 @@ require("lazy").setup({
 		opts = {
 			-- add any opts here
 			-- for example
-			provider = "gemini",
+			provider = "ollama",
+			-- provider = "gemini",
+			vendors = {
+				ollama = {
+					__inherited_from = "openai",
+					api_key_name = "",
+					endpoint = "http://127.0.0.1:11434/v1",
+					model = "llama3.2:3b",
+				},
+			},
+			-- vendors = {
+			-- 	---@type AvanteProvider
+			-- 	ollama = {
+			-- 		endpoint = "http://localhost:11434/v1",
+			-- 		model = "llama3.2:3b",
+			-- 		parse_curl_args = function(opts, code_opts)
+			-- 			return {
+			-- 				url = opts.endpoint .. "/chat/completions",
+			-- 				headers = {
+			-- 					["Accept"] = "application/json",
+			-- 					["Content-Type"] = "application/json",
+			-- 					["x-api-key"] = "ollama",
+			-- 				},
+			-- 				body = {
+			-- 					model = opts.model,
+			-- 					messages = require("avante.providers").copilot.parse_message(code_opts), -- you can make your own message, but this is very advanced
+			-- 					max_tokens = 2048,
+			-- 					stream = true,
+			-- 				},
+			-- 			}
+			-- 		end,
+			-- 		parse_response_data = function(data_stream, event_state, opts)
+			-- 			require("avante.providers").openai.parse_response(data_stream, event_state, opts)
+			-- 		end,
+			-- 	},
+			-- },
 			openai = {
 				endpoint = "https://api.openai.com/v1",
 				model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
