@@ -3,6 +3,15 @@ Host namecheap
   User jukeuklg
   Port 21098
 
+Host namecheap-jukesite-db
+  HostName 67.223.118.27
+  User jukeuklg
+  Port 21098
+  LocalForward 5532 127.0.0.1:5432
+  ExitOnForwardFailure yes
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+
 Host oberon
   HostName 192.168.21.20
   User jake

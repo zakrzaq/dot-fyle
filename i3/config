@@ -242,6 +242,7 @@ bindsym Control+Shift+1 exec ~/.screenlayout/left.sh
 bindsym Control+Shift+2 exec ~/.screenlayout/right.sh
 bindsym Control+Shift+9 exec ~/.screenlayout/both.sh
 
+bindsym $mod+Shift+i exec rofimoji --action copy
 
 #### THEME ####
 
