@@ -42,3 +42,4 @@ fi
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
+source /usr/share/nvm/init-nvm.sh
