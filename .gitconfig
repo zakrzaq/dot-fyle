@@ -17,3 +17,5 @@
   lg = !"git lg1"
 [interactive]
 	diffFilter = diff-so-fancy --patch
+[credential]
+	helper = store

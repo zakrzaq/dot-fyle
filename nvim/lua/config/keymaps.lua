@@ -263,10 +263,58 @@ vim.keymap.set({ "n", "v" }, "<leader>fc", function()
 	require("telescope.builtin").find_files({ search_dirs = { "~/cht" } })
 end, { desc = "[F]ind [C]heats" })
 
--- CODECOMPANION --
-vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "<leader>a", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
-vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
-
--- Expand 'cc' into 'CodeCompanion' in the command line
-vim.cmd([[cab cc CodeCompanion]])
+-- AI TOOLS --
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>aca",
+	"<cmd>CodeCompanionActions<cr>",
+	{ noremap = true, silent = true, desc = "CC Actions" }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>act",
+	"<cmd>CodeCompanionChat Toggle<cr>",
+	{ noremap = true, silent = true, desc = "CC Chat" }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>aat",
+	"<cmd>AvanteToggle<cr>",
+	{ noremap = true, silent = true, desc = "Avante Toggle" }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>aac",
+	"<cmd>AvanteChat<cr>",
+	{ noremap = true, silent = true, desc = "Avante Chat" }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>agc",
+	"<cmd>GeminiChat<cr>",
+	{ noremap = true, silent = true, desc = "Gemini Chat" }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>age",
+	"<cmd>GeminiCodeExplain<cr>",
+	{ noremap = true, silent = true, desc = "Gemini Code Explain" }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>agr",
+	"<cmd>GeminiCodeReview<cr>",
+	{ noremap = true, silent = true, desc = "Gemini Code Review" }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>agh",
+	"<cmd>GeminiFunction Hint<cr>",
+	{ noremap = true, silent = true, desc = "Gemini Function Hint" }
+)
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>agt",
+	"<cmd>GeminiUnitTest Hint<cr>",
+	{ noremap = true, silent = true, desc = "Gemini Unit Test" }
+)
