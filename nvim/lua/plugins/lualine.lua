@@ -8,7 +8,7 @@ end
 lln.setup({
 	options = {
 		icons_enabled = false,
-		theme = "tokyonight",
+		theme = "nordic",
 		component_separators = "|",
 		section_separators = "",
 	},
