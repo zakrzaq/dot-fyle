@@ -15,6 +15,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
+  autoload -U +X bashcompinit && bashcompinit
+  complete -o nospace -C /usr/bin/terraform terraform
+  source /usr/share/nvm/init-nvm.sh
+fi
+
 export PYENV_ROOT="$HOME/.pyenv"
 if [[ -d $PYENV_ROOT/bin ]]; then
   export PATH="$PYENV_ROOT/bin:$PATH"
@@ -40,6 +46,4 @@ fi
 
 [ -d /snap/bin ] && export PATH=$PATH:/snap/bin
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/bin/terraform terraform
-source /usr/share/nvm/init-nvm.sh
+export NNN_FCOLORS="0000E6E6D6CAFCF2F5F4FFCACAEA"
