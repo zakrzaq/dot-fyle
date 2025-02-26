@@ -23,23 +23,24 @@ require("lazy").setup({
 			vim.cmd.colorscheme("rose-pine-main")
 		end,
 	},
+	{ 'AlexvZyl/nordic.nvim' }
 	{ "rebelot/kanagawa.nvim" },
 	{ "catppuccin/nvim" },
 	{ "folke/tokyonight.nvim" },
 
 	-- UI
-	{ "akinsho/bufferline.nvim", opts = {} },
+	{ "akinsho/bufferline.nvim",  opts = {} },
 	{ "moll/vim-bbye" },
-	{ "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
+	{ "windwp/nvim-autopairs",    event = "InsertEnter", opts = {} },
 	{ "akinsho/toggleterm.nvim" },
-	{ "folke/which-key.nvim", opts = {} },
+	{ "folke/which-key.nvim",     opts = {} },
 	{ "nvim-lualine/lualine.nvim" },
 	{
 		"echasnovski/mini.indentscope",
 		version = false,
 		event = { "BufReadPre", "BufNewFile" },
 	},
-	{ "numToStr/Comment.nvim", opts = {} },
+	{ "numToStr/Comment.nvim",    opts = {} },
 	{ "folke/todo-comments.nvim", opts = {} },
 
 	{ -- OPEN URL
@@ -169,7 +170,7 @@ require("lazy").setup({
 	{ -- DADBOD UI / DBMS
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
-			{ "tpope/vim-dadbod", lazy = true },
+			{ "tpope/vim-dadbod",                     lazy = true },
 			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
 		},
 		cmd = {
@@ -277,12 +278,12 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			--- The below dependencies are optional,
-			"echasnovski/mini.pick", -- for file_selector provider mini.pick
+			"echasnovski/mini.pick",      -- for file_selector provider mini.pick
 			"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-			"ibhagwan/fzf-lua", -- for file_selector provider fzf
+			"hrsh7th/nvim-cmp",           -- autocompletion for avante commands and mentions
+			"ibhagwan/fzf-lua",           -- for file_selector provider fzf
 			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			"zbirenbaum/copilot.lua", -- for providers='copilot'
+			"zbirenbaum/copilot.lua",     -- for providers='copilot'
 			{
 				-- support for image pasting
 				"HakonHarnes/img-clip.nvim",

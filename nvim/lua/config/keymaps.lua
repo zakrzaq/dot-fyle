@@ -207,6 +207,12 @@ vim.keymap.set(
 )
 vim.keymap.set(
 	{ "n", "v" },
+	"<leader>ln",
+	"<cmd>:colorscheme nordic<cr>",
+	{ desc = "[L]ook [N]ordic", silent = true }
+)
+vim.keymap.set(
+	{ "n", "v" },
 	"<leader>lrl",
 	"<cmd>:colorscheme rose-pine-dawn<cr>",
 	{ desc = "[L]ook [R]ose-Pine [L]ight", silent = true }
