@@ -23,7 +23,7 @@ require("lazy").setup({
 			vim.cmd.colorscheme("rose-pine-main")
 		end,
 	},
-	{ 'AlexvZyl/nordic.nvim' }
+	{ 'AlexvZyl/nordic.nvim' },
 	{ "rebelot/kanagawa.nvim" },
 	{ "catppuccin/nvim" },
 	{ "folke/tokyonight.nvim" },
