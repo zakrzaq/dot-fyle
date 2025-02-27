@@ -15,6 +15,9 @@ function M.setup()
 
 	module.setup({
 		enable_inline = false,
+    -- inline = {
+			-- 	adapter = "gemini",
+			-- },
 		adapters = {
 			gemini = function()
 				return require("codecompanion.adapters").extend("gemini", {
@@ -52,9 +55,6 @@ function M.setup()
 			chat = {
 				adapter = "gemini",
 			},
-			-- inline = {
-			-- 	adapter = "gemini",
-			-- },
 		},
 	})
 end
