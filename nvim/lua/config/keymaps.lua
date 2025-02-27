@@ -1,320 +1,231 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>ue", vim.cmd.Explore, { desc = "Nvim Explorer" })
-vim.keymap.set("i", "jj", "<ESC>", { silent = true })
+-- Helper function for mapping multiple keys
+local function map(mode, lhs, rhs, opts)
+	opts = opts or {}
+	opts.silent = opts.silent ~= false
+	vim.keymap.set(mode, lhs, rhs, opts)
+end
 
--- move selected up/down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+-- Basic mappings
+map("i", "jj", "<ESC>")
+map("n", "<leader>ue", vim.cmd.Explore, { desc = "Nvim Explorer" })
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
 
--- center screen when searching/navigating
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzz")
-vim.keymap.set("n", "N", "Nzz")
--- vim.keymap.({ "n", "x" }, "x", '"_x')
+-- Center screen mappings
+local center_maps = { "<C-d>", "<C-u>", "n", "N" }
+for _, key in ipairs(center_maps) do
+	map("n", key, key .. "zz")
+end
 
--- COPY/PASTE --
--- vim.keymap.set({ "n", "v" }, "<C-a>", "ggVG", { desc = "Select [A]ll" })
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
+-- Clipboard operations
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
+map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
 
--- GENERAL --
-vim.keymap.set("n", "<C-q>", "<cmd>qa!<CR>", { desc = "[Q]uit nvim" })
-vim.keymap.set("n", "<space>w", "<cmd>write<cr>", { desc = "[W]write changes" })
-vim.keymap.set("n", "<C-s>", "<cmd>Format<cr> <cmd>write<cr>", { desc = "[W]write changes" })
-vim.keymap.set("n", "]b", "<cmd>:bn<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "[b", "<cmd>:bp<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
-vim.keymap.set("n", "<M-h>", "<C-w>h")
-vim.keymap.set("n", "<M-j>", "<C-w>j")
-vim.keymap.set("n", "<M-k>", "<C-w>k")
-vim.keymap.set("n", "<M-l>", "<C-w>l")
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
+-- Window navigation
+local window_maps = {
+	["<C-h>"] = "h",
+	["<C-l>"] = "l",
+	["<M-h>"] = "h",
+	["<M-j>"] = "j",
+	["<M-k>"] = "k",
+	["<M-l>"] = "l",
+}
+for key, dir in pairs(window_maps) do
+	map("n", key, "<C-w>" .. dir)
+end
 
--- Close buffer --
-vim.keymap.set("n", "<leader>q", "<cmd>Bdelete<CR>", { desc = "[Q]uit current buffer" })
+-- Buffer operations
+map("n", "<C-q>", "<cmd>qa!<CR>", { desc = "[Q]uit nvim" })
+map("n", "<space>w", "<cmd>write<cr>", { desc = "[W]rite changes" })
+map("n", "<C-s>", "<cmd>Format<cr> <cmd>write<cr>", { desc = "[W]rite changes" })
+map("n", "]b", "<cmd>bn<CR>", { desc = "Next buffer" })
+map("n", "[b", "<cmd>bp<CR>", { desc = "Previous buffer" })
+map("n", "<leader>q", "<cmd>Bdelete<CR>", { desc = "[Q]uit current buffer" })
 
--- CUSTOM --
-vim.keymap.set("n", "<C-f>", "<cmd>:silent !tmux neww tmux-sessionizer<CR>", { desc = "Create Tmux Session" })
+-- Visual mode indentation
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
--- TELESCOPE --
-vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
-vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, { desc = "[F]ind existing [b]uffers" })
-vim.keymap.set("n", "<leader>/", function()
-	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+-- Custom
+map("n", "<C-f>", "<cmd>:silent !tmux neww tmux-sessionizer<CR>", { desc = "Create Tmux Session" })
+
+-- Telescope mappings
+local telescope = require("telescope.builtin")
+local telescope_maps = {
+	["<leader>?"] = { telescope.oldfiles, "Find recently opened files" },
+	["<leader>fb"] = { telescope.buffers, "Find existing buffers" },
+	["<leader><space>"] = { telescope.find_files, "Search Files" },
+	["<C-p>"] = { telescope.git_files, "Search Git Files" },
+	["<leader>sh"] = { telescope.help_tags, "Search help" },
+	["<leader>sw"] = { telescope.grep_string, "Search current word" },
+	["<leader>sg"] = { telescope.live_grep, "Search by grep" },
+	["<leader>sd"] = { telescope.diagnostics, "Search buffer Diagnostics" },
+	["<leader>ss"] = { "<cmd>:Telescope lsp_document_symbols<CR>", "Search document symbol" },
+	["<leader>sS"] = { telescope.lsp_dynamic_workspace_symbols, "Search workspace Symbol" },
+}
+
+for key, value in pairs(telescope_maps) do
+	map("n", key, value[1], { desc = value[2] })
+end
+
+-- Fuzzy find in current buffer
+map("n", "<leader>/", function()
+	telescope.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 		winblend = 10,
 		previewer = true,
 	}))
 end, { desc = "[/] Fuzzily search in current buffer" })
-vim.keymap.set("n", "<leader><space>", require("telescope.builtin").find_files, { desc = "Search Files" })
-vim.keymap.set("n", "<C-p>", require("telescope.builtin").git_files, { desc = "Search Git Files" })
 
-vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [h]elp" })
-vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [w]ord" })
-vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [g]rep" })
-vim.keymap.set(
-	"n",
-	"<leader>sb",
-	require("telescope.builtin").current_buffer_fuzzy_find,
-	{ desc = "[S]earch in [b]uffer" }
-)
-vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch buffer [D]iagnostics" })
-vim.keymap.set("n", "<leader>st", "<cmd>:TodoTelescope<CR>", { desc = "[S]earch [T]odos" })
-vim.keymap.set("n", "<leader>ss", "<cmd>:Telescope lsp_document_symbols<CR>", { desc = "[S]earch document [s]ymbol" })
-vim.keymap.set(
-	"n",
-	"<leader>sS",
-	require("telescope.builtin").lsp_dynamic_workspace_symbols,
-	{ desc = "[S]earch workspace [S]ymbol" }
-)
-vim.keymap.set("n", "<leader>sc", function()
-	require("telescope.builtin").lsp_document_symbols({ symbols = { "class" } })
-end, { desc = "[S]earch document [c]lasses" })
-vim.keymap.set("n", "<leader>sf", function()
-	require("telescope.builtin").lsp_document_symbols({ symbols = { "function" } })
-end, { desc = "[S]earch document [f]functions" })
-vim.keymap.set("n", "<leader>sm", function()
-	require("telescope.builtin").lsp_document_symbols({ symbols = { "method" } })
-end, { desc = "[S]earch document [m]ethods" })
-vim.keymap.set("n", "<leader>sr", function()
-	require("telescope.builtin").marks()
+-- Symbol search mappings
+local symbol_maps = {
+	["<leader>sc"] = "class",
+	["<leader>sf"] = "function",
+	["<leader>sm"] = "method",
+}
+
+for key, symbol in pairs(symbol_maps) do
+	map("n", key, function()
+		telescope.lsp_document_symbols({ symbols = { symbol } })
+	end, { desc = string.format("[S]earch document %ss", symbol) })
+end
+
+map("n", "<leader>sr", function()
+	telescope.marks()
 end, { desc = "[S]earch ma[r]ks" })
-vim.keymap.set("n", "<leader>gs", "<cmd>:Telescope git_status<CR>", { desc = "[G]it [S]atus" })
-vim.keymap.set("n", "<leader>gc", "<cmd>:Telescope git_commits<CR>", { desc = "[G]it [C]ommits" })
-vim.keymap.set("n", "<leader>gb", "<cmd>:Telescope git_branches<CR>", { desc = "[G]it [B]ranches" })
-vim.keymap.set("n", "<leader>gt", "<cmd>:Telescope git_stash<CR>", { desc = "[G]it s[T]ash" })
-vim.keymap.set(
-	"n",
-	"<leader>gl",
-	"<cmd>:Gitsigns toggle_current_line_blame<cr>",
-	{ silent = true, desc = "[G]it b[L]ame line" }
-)
-vim.keymap.set("n", "<leader>gL", "<cmd>:Gitsigns blame_line<CR>", { desc = "[G]it b[L]ame popup" })
 
--- NEOTREE --
-vim.keymap.set({ "n", "v" }, "<leader>t", ":Neotree toggle<CR>", { silent = true, desc = "Neo[T]ree Toggle" })
+-- Git mappings
+local git_maps = {
+	["<leader>gs"] = { "git_status", "[G]it [S]atus" },
+	["<leader>gc"] = { "git_commits", "[G]it [C]ommits" },
+	["<leader>gb"] = { "git_branches", "[G]it [B]ranches" },
+	["<leader>gt"] = { "git_stash", "[G]it s[T]ash" },
+}
 
--- TERMINAL --
-vim.keymap.set({ "n", "v" }, "<leader>b", ":ToggleTerm<CR>", { silent = true, desc = "Terminal Toggle" })
-vim.keymap.set({ "n", "v" }, "<leader>1", ":ToggleTerm 1<CR>", { silent = true, desc = "Terminal 1" })
-vim.keymap.set({ "n", "v" }, "<leader>2", ":ToggleTerm 2<CR>", { silent = true, desc = "Terminal 2" })
-vim.keymap.set({ "n", "v" }, "<leader>3", ":ToggleTerm 3<CR>", { silent = true, desc = "Terminal 3" })
-vim.keymap.set({ "n", "v" }, "<leader>4", ":ToggleTerm 4<CR>", { silent = true, desc = "Terminal 3" })
+for key, value in pairs(git_maps) do
+	map("n", key, "<cmd>:Telescope " .. value[1] .. "<CR>", { desc = value[2] })
+end
 
--- URL-OPEN --
-vim.keymap.set(
-	"n",
-	"<leader>uo",
-	"<esc>:URLOpenUnderCursor<cr>",
-	{ silent = true, desc = "[u][u]RL under cursor open" }
-)
-vim.keymap.set("n", "<leader>us", "<esc>:URLOpenHighlightAll<cr>", { silent = true, desc = "[u]RL highlight all" })
-vim.keymap.set(
-	"n",
-	"<leader>uS",
-	"<esc>:URLOpenHighlightAllClear<cr>",
-	{ silent = true, desc = "[u]RL clear highlight all" }
-)
+map("n", "<leader>gl", "<cmd>:Gitsigns toggle_current_line_blame<cr>", { silent = true, desc = "[G]it b[L]ame line" })
+map("n", "<leader>gL", "<cmd>:Gitsigns blame_line<CR>", { desc = "[G]it b[L]ame popup" })
 
--- POMODORO --
-vim.keymap.set("n", "<leader>pss", "<cmd>:TimerStart 25m<cr>", { desc = "Start [P]omodoro 25m", silent = true })
-vim.keymap.set("n", "<leader>psl", "<cmd>:TimerStart55m<cr>", { desc = "Start [P]omodoro 55m", silent = true })
-vim.keymap.set("n", "<leader>pb5", "<cmd>:TimerStart 5m<cr>", { desc = "Start [P]omodoro break 5m", silent = true })
-vim.keymap.set("n", "<leader>pbl", "<cmd>:TimerStart 15m<cr>", { desc = "Start [P]omodoro break 15m", silent = true })
-vim.keymap.set("n", "<leader>pe", "<cmd>:TimerStop<cr>", { desc = "Stop [P]omodoro", silent = true })
-vim.keymap.set("n", "<leader>pp", "<cmd>:TimerPause<cr>", { desc = "Pause [P]omodoro", silent = true })
-vim.keymap.set("n", "<leader>pr", "<cmd>:TimerResume<cr>", { desc = "Resume [P]omodoro", silent = true })
-vim.keymap.set("n", "<leader>pns", "<cmd>:TimerShow<cr>", { desc = "[P]omodoro [n]otification [s]how", silent = true })
-vim.keymap.set("n", "<leader>pnh", "<cmd>:TimerHide<cr>", { desc = "[P]omodoro [n]otification [h]ide", silent = true })
+-- Neotree and Terminal
+map({ "n", "v" }, "<leader>t", ":Neotree toggle<CR>", { silent = true, desc = "Neo[T]ree Toggle" })
+map({ "n", "v" }, "<leader>b", ":ToggleTerm<CR>", { silent = true, desc = "Terminal Toggle" })
 
--- OBSIDIAN --
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>oo",
-	"<cmd>:ObsidianQuickSwitch<cr>",
-	{ desc = "[O]bsidian [o]pen", silent = true }
-)
-vim.keymap.set({ "n", "v" }, "<leader>os", "<cmd>:ObsidianSearch<cr>", { desc = "[O]bsidian [s]earch", silent = true })
-vim.keymap.set({ "n", "v" }, "<leader>on", "<cmd>:ObsidianNew<cr>", { desc = "[O]bsidian [n]new note", silent = true })
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>or",
-	"<cmd>:ObsidianRename<cr>",
-	{ desc = "[O]bsidian [r]ename note", silent = true }
-)
-vim.keymap.set({ "n", "v" }, "<leader>ot", "<cmd>:ObsidianToday<cr>", { desc = "[O]bsidian [t]odayn", silent = true })
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>oy",
-	"<cmd>:ObsidianYesterday<cr>",
-	{ desc = "[O]bsidian [y]esterday", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>om",
-	"<cmd>:ObsidianTomorrow<cr>",
-	{ desc = "[O]bsidian to[m]orrow", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>ol",
-	"<cmd>:ObsidianTemplate<cr>",
-	{ desc = "[O]bsidian temp[l]ete", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>oe",
-	"<cmd>:ObsidianExtractNote <cr>",
-	{ desc = "[O]bsidian [e]extract to new note", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>ow",
-	"<cmd>:ObsidianWorkspace <cr>",
-	{ desc = "[O]bsidian [e]extract to new note", silent = true }
-)
+-- Terminal numbers
+for i = 1, 4 do
+	map({ "n", "v" }, "<leader>" .. i, ":ToggleTerm " .. i .. "<CR>", { desc = "Terminal " .. i, silent = true })
+end
 
--- DADBOD --
-vim.keymap.set({ "n", "v" }, "<leader>du", "<cmd>:DBUI<cr>", { desc = "[D]adbod [U]I", silent = true })
-vim.keymap.set({ "n", "v" }, "<leader>dt", "<cmd>:DBUIToggle<cr>", { desc = "[D]adbod [T]ogge", silent = true })
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>da",
-	"<cmd>:DBUIAddConnection<cr>",
-	{ desc = "[D]adbod [A]dd connection", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>df",
-	"<cmd>:DBUIFindBuffer<cr>",
-	{ desc = "[D]adbod [F]ind buffer", silent = true }
-)
-vim.keymap.set(
+-- URL handling
+map("n", "<leader>uo", "<esc>:URLOpenUnderCursor<cr>", { silent = true, desc = "[u][u]RL under cursor open" })
+map("n", "<leader>us", "<esc>:URLOpenHighlightAll<cr>", { silent = true, desc = "[u]RL highlight all" })
+map("n", "<leader>uS", "<esc>:URLOpenHighlightAllClear<cr>", { silent = true, desc = "[u]RL clear highlight all" })
+
+-- Pomodoro mappings
+local pomodoro_maps = {
+	["<leader>pss"] = { "25m", "Start [P]omodoro 25m" },
+	["<leader>psl"] = { "55m", "Start [P]omodoro 55m" },
+	["<leader>pb5"] = { "5m", "Start [P]omodoro break 5m" },
+	["<leader>pbl"] = { "15m", "Start [P]omodoro break 15m" },
+}
+
+for key, value in pairs(pomodoro_maps) do
+	map("n", key, "<cmd>:TimerStart " .. value[1] .. "<cr>", { desc = value[2], silent = true })
+end
+
+local pomodoro_commands = {
+	["<leader>pe"] = { "Stop", "Stop [P]omodoro" },
+	["<leader>pp"] = { "Pause", "Pause [P]omodoro" },
+	["<leader>pr"] = { "Resume", "Resume [P]omodoro" },
+	["<leader>pns"] = { "Show", "[P]omodoro [n]otification [s]how" },
+	["<leader>pnh"] = { "Hide", "[P]omodoro [n]otification [h]ide" },
+}
+
+for key, value in pairs(pomodoro_commands) do
+	map("n", key, "<cmd>:Timer" .. value[1] .. "<cr>", { desc = value[2], silent = true })
+end
+
+-- Obsidian mappings
+local obsidian_maps = {
+	["<leader>oo"] = { "QuickSwitch", "[O]bsidian [o]pen" },
+	["<leader>os"] = { "Search", "[O]bsidian [s]earch" },
+	["<leader>on"] = { "New", "[O]bsidian [n]new note" },
+	["<leader>or"] = { "Rename", "[O]bsidian [r]ename note" },
+	["<leader>ot"] = { "Today", "[O]bsidian [t]oday" },
+	["<leader>oy"] = { "Yesterday", "[O]bsidian [y]esterday" },
+	["<leader>om"] = { "Tomorrow", "[O]bsidian to[m]orrow" },
+	["<leader>ol"] = { "Template", "[O]bsidian temp[l]ate" },
+	["<leader>oe"] = { "ExtractNote", "[O]bsidian [e]xtract to new note" },
+	["<leader>ow"] = { "Workspace", "[O]bsidian [w]orkspace" },
+}
+
+for key, value in pairs(obsidian_maps) do
+	map({ "n", "v" }, key, "<cmd>:Obsidian" .. value[1] .. "<cr>", { desc = value[2], silent = true })
+end
+
+-- Dadbod mappings
+local dadbod_maps = {
+	["<leader>du"] = { "DBUI", "[D]adbod [U]I" },
+	["<leader>dt"] = { "DBUIToggle", "[D]adbod [T]oggle" },
+	["<leader>da"] = { "DBUIAddConnection", "[D]adbod [A]dd connection" },
+	["<leader>df"] = { "DBUIFindBuffer", "[D]adbod [F]ind buffer" },
+}
+
+for key, value in pairs(dadbod_maps) do
+	map({ "n", "v" }, key, "<cmd>:" .. value[1] .. "<cr>", { desc = value[2], silent = true })
+end
+
+map(
 	{ "n", "v" },
 	"<leader>ds",
 	":lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Plug>(DBUI_SaveQuery)', true, true, true), 'n', false)",
 	{ desc = "[D]adbod [S]ave query", silent = true }
 )
--- THEMES --
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>lrd",
-	"<cmd>:colorscheme rose-pine-main<cr>",
-	{ desc = "[L]ook [R]ose-Pine [D]ark", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>ln",
-	"<cmd>:colorscheme nordic<cr>",
-	{ desc = "[L]ook [N]ordic", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>lrl",
-	"<cmd>:colorscheme rose-pine-dawn<cr>",
-	{ desc = "[L]ook [R]ose-Pine [L]ight", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>lkk",
-	"<cmd>:colorscheme kanagawa<cr>",
-	{ desc = "[L]ook [K]anagawa [D]ark", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>lkl",
-	"<cmd>:colorscheme kanagawa-lotus<cr>",
-	{ desc = "[L]ook [K]anagawa [L]ight", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>lyy",
-	"<cmd>:colorscheme tokyonight-night<cr>",
-	{ desc = "[L]ook tok[Y]onight [D]ark", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>lyr",
-	"<cmd>:colorscheme tokyonight-day<cr>",
-	{ desc = "[L]ook tok[Y]onight [L]ight", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>lcc",
-	"<cmd>:colorscheme catppuccin-mocha<cr>",
-	{ desc = "[L]ook [C]atppuccin [D]ark", silent = true }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>lcl",
-	"<cmd>:colorscheme catppuccin-latte<cr>",
-	{ desc = "[L]ook [C]atppuccin [L]ight", silent = true }
-)
 
--- OTHER --
-vim.keymap.set({ "n", "v" }, "<leader>cp", "<cmd>:echo expand('%:p') <cr>", { desc = "[C]ode [P]ath", silent = true })
-vim.keymap.set({ "n", "v" }, "<leader>fd", function()
-	require("telescope.builtin").find_files({ search_dirs = { "~/dot_jake" } })
+-- Theme mappings
+local themes = {
+	["lrd"] = "rose-pine-main",
+	["ln"] = "nordic",
+	["lrl"] = "rose-pine-dawn",
+	["lkk"] = "kanagawa",
+	["lkl"] = "kanagawa-lotus",
+	["lyy"] = "tokyonight-night",
+	["lyr"] = "tokyonight-day",
+	["lcc"] = "catppuccin-mocha",
+	["lcl"] = "catppuccin-latte",
+}
+
+for key, theme in pairs(themes) do
+	map(
+		{ "n", "v" },
+		"<leader>" .. key,
+		"<cmd>colorscheme " .. theme .. "<cr>",
+		{ desc = "Theme: " .. theme, silent = true }
+	)
+end
+
+-- Other mappings
+map({ "n", "v" }, "<leader>cp", "<cmd>:echo expand('%:p') <cr>", { desc = "[C]ode [P]ath", silent = true })
+map({ "n", "v" }, "<leader>fd", function()
+	telescope.find_files({ search_dirs = { "~/dot_jake" } })
 end, { desc = "[F]ind in [D]otfiles" })
-vim.keymap.set({ "n", "v" }, "<leader>fc", function()
-	require("telescope.builtin").find_files({ search_dirs = { "~/cht" } })
+map({ "n", "v" }, "<leader>fc", function()
+	telescope.find_files({ search_dirs = { "~/cht" } })
 end, { desc = "[F]ind [C]heats" })
 
--- AI TOOLS --
-vim.keymap.set(
+-- AI Tools
+map(
 	{ "n", "v" },
-	"<leader>aca",
+	"<leader>ica",
 	"<cmd>CodeCompanionActions<cr>",
 	{ noremap = true, silent = true, desc = "CC Actions" }
 )
-vim.keymap.set(
+map(
 	{ "n", "v" },
-	"<leader>act",
+	"<leader>ict",
 	"<cmd>CodeCompanionChat Toggle<cr>",
-	{ noremap = true, silent = true, desc = "CC Chat" }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>aat",
-	"<cmd>AvanteToggle<cr>",
-	{ noremap = true, silent = true, desc = "Avante Toggle" }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>aac",
-	"<cmd>AvanteChat<cr>",
-	{ noremap = true, silent = true, desc = "Avante Chat" }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>agc",
-	"<cmd>GeminiChat<cr>",
-	{ noremap = true, silent = true, desc = "Gemini Chat" }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>age",
-	"<cmd>GeminiCodeExplain<cr>",
-	{ noremap = true, silent = true, desc = "Gemini Code Explain" }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>agr",
-	"<cmd>GeminiCodeReview<cr>",
-	{ noremap = true, silent = true, desc = "Gemini Code Review" }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>agh",
-	"<cmd>GeminiFunction Hint<cr>",
-	{ noremap = true, silent = true, desc = "Gemini Function Hint" }
-)
-vim.keymap.set(
-	{ "n", "v" },
-	"<leader>agt",
-	"<cmd>GeminiUnitTest Hint<cr>",
-	{ noremap = true, silent = true, desc = "Gemini Unit Test" }
+	{ noremap = true, silent = true, desc = "cc chat" }
 )

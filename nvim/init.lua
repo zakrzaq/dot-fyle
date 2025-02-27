@@ -11,6 +11,8 @@ require("plugins.lsp")
 require("plugins.autocmp")
 require("plugins.conform")
 require("plugins.obsidian").setup()
+require("plugins.codecompanion").setup()
+-- require("plugins.gemini").setup()
 
 require("config.options")
 require("config.autocmd")

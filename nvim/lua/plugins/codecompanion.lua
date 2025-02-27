@@ -15,9 +15,6 @@ function M.setup()
 
 	module.setup({
 		enable_inline = false,
-    -- inline = {
-			-- 	adapter = "gemini",
-			-- },
 		adapters = {
 			gemini = function()
 				return require("codecompanion.adapters").extend("gemini", {
@@ -33,13 +30,43 @@ function M.setup()
 					},
 				})
 			end,
+			-- VER.2 of remote access
+			-- ollama_remote = function()
+			-- 	return require("codecompanion.adapters").extend("ollama", {
+			-- 		name = "ollama_remote",
+			-- 		env = {
+			-- 			url = os.getenv("OLLAMA_URL") or "http://192.168.21.15:11434/api/generate",
+			-- 			-- "https://my_ollama_url",
+			-- 			api_key = "OLLAMA_API_KEY",
+			-- 		},
+			-- 		headers = {
+			-- 			["Content-Type"] = "application/json",
+			-- 			["Authorization"] = "Bearer ${api_key}",
+			-- 		},
+			-- 		parameters = {
+			-- 			sync = true,
+			-- 		},
+			-- 		schema = {
+			-- 			model = {
+			-- 				default = "llama3.1:70b",
+			-- 			},
+			-- 			num_ctx = {
+			-- 				default = 16384,
+			-- 			},
+			-- 			num_predict = {
+			-- 				default = -1,
+			-- 			},
+			-- 		},
+			-- 	})
+			-- end,
 			llama3 = function()
 				return require("codecompanion.adapters").extend("ollama", {
-					name = "llama3",
+					name = "oberon",
 					-- Give this adapter a different name to differentiate it from the default ollama adapter
 					schema = {
 						model = {
-							default = "llama3:latest",
+							-- default = "qwen2.5-coder:latest",
+							default = "qwen2.5:3b",
 						},
 						num_ctx = {
 							default = 16384,
@@ -47,13 +74,28 @@ function M.setup()
 						num_predict = {
 							default = -1,
 						},
+						url = {
+							default = os.getenv("OLLAMA_URL") or "http://192.168.21.20:11434/api/generate",
+						},
 					},
 				})
 			end,
 		},
 		strategies = {
 			chat = {
-				adapter = "gemini",
+				adapter = "copilot",
+			},
+		},
+		display = {
+			action_palette = {
+				width = 45,
+				height = 10,
+				prompt = "Prompt ", -- Prompt used for interactive LLM calls
+				provider = "telescope", -- default|telescope|mini_pick
+				opts = {
+					show_default_actions = true, -- Show the default actions in the action palette?
+					show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+				},
 			},
 		},
 	})

@@ -5,90 +5,95 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	-- TAB SHIFT WIDTH
-	"tpope/vim-sleuth",
+	-- Core Utilities
+	{ "tpope/vim-sleuth", event = "VeryLazy" },
 
-	-- THEME
+	-- Theme Configuration
 	{
-		'AlexvZyl/nordic.nvim',
+		"AlexvZyl/nordic.nvim",
 		priority = 1000,
 		config = function()
 			vim.cmd.colorscheme("nordic")
 		end,
 	},
-	{},
-	{ "rose-pine/neovim" },
-	{ "rebelot/kanagawa.nvim" },
-	{ "catppuccin/nvim" },
-	{ "folke/tokyonight.nvim" },
+	{ "rose-pine/neovim", enabled = false },
+	{ "rebelot/kanagawa.nvim", enabled = false },
+	{ "catppuccin/nvim", enabled = false },
+	{ "folke/tokyonight.nvim", enabled = false },
 
-	-- UI
-	{ "akinsho/bufferline.nvim",  opts = {} },
-	{ "moll/vim-bbye" },
-	{ "windwp/nvim-autopairs",    event = "InsertEnter", opts = {} },
-	{ "akinsho/toggleterm.nvim" },
-	{ "folke/which-key.nvim",     opts = {} },
-	{ "nvim-lualine/lualine.nvim" },
+	-- UI Components
+	{ "akinsho/bufferline.nvim", event = "VeryLazy", opts = {} },
+	{ "moll/vim-bbye", event = "VeryLazy" },
+	{ "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
+	{ "akinsho/toggleterm.nvim", event = "VeryLazy", opts = {} },
+	{ "folke/which-key.nvim", event = "VeryLazy", opts = {} },
+	{ "nvim-lualine/lualine.nvim", event = "VeryLazy", opts = {} },
 	{
 		"echasnovski/mini.indentscope",
 		version = false,
 		event = { "BufReadPre", "BufNewFile" },
+		opts = {},
 	},
-	{ "numToStr/Comment.nvim",    opts = {} },
-	{ "folke/todo-comments.nvim", opts = {} },
+	{ "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
+	{ "folke/todo-comments.nvim", event = "VeryLazy", opts = {} },
 
-	{ -- OPEN URL
+	-- URL Handler
+	{
 		"sontungexpt/url-open",
 		event = "VeryLazy",
 		cmd = "URLOpenUnderCursor",
-		config = function()
-			local status_ok, url_open = pcall(require, "url-open")
-			if not status_ok then
-				return
-			end
-			url_open.setup({})
-		end,
+		opts = {},
 	},
-	{ -- VIM SURROUND
+
+	-- Text Manipulation
+	{
 		"kylechui/nvim-surround",
 		version = "*",
 		event = "VeryLazy",
 		opts = {},
 	},
-	{ -- TELESCOPE
+
+	-- Fuzzy Finding
+	{
 		"nvim-telescope/telescope.nvim",
+		cmd = "Telescope",
 		version = "*",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"BurntSushi/ripgrep",
 			"sharkdp/fd",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+				cond = function()
+					return vim.fn.executable("make") == 1
+				end,
+			},
 		},
 	},
+
+	-- Syntax & Language
 	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-		cond = function()
-			return vim.fn.executable("make") == 1
-		end,
-	},
-	{ -- TREESITTER
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
+		build = ":TSUpdate",
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 		config = function()
 			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
 		end,
 	},
-	{ -- NEOTREE
+
+	-- File Explorer
+	{
 		"nvim-neo-tree/neo-tree.nvim",
+		cmd = "Neotree",
 		version = "*",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -99,14 +104,23 @@ require("lazy").setup({
 			vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 		end,
 	},
-	-- GIT SIGNS
-	{ "lewis6991/gitsigns.nvim" },
-	{ -- AUTOCOMPLETE
+
+	-- Git Integration
+	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" }, opts = {} },
+
+	-- LSP & Completion
+	{
 		"hrsh7th/nvim-cmp",
-		dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
+		event = "InsertEnter",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+		},
 	},
-	{ -- LSP
+	{
 		"neovim/nvim-lspconfig",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -115,201 +129,75 @@ require("lazy").setup({
 		},
 	},
 
-	{ -- FORMATTING
-		"stevearc/conform.nvim",
-		opts = {},
-	},
-	{ -- CODEIUM --
-		"Exafunction/codeium.vim",
-		config = function()
-			-- Change '<C-g>' here to any keycode you like.
-			vim.keymap.set("i", "<C-g>", function()
-				return vim.fn["codeium#Accept"]()
-			end, { expr = true, silent = true })
-			vim.keymap.set("i", "<c-;>", function()
-				return vim.fn["codeium#CycleCompletions"](1)
-			end, { expr = true, silent = true })
-			vim.keymap.set("i", "<c-,>", function()
-				return vim.fn["codeium#CycleCompletions"](-1)
-			end, { expr = true, silent = true })
-			vim.keymap.set("i", "<c-x>", function()
-				return vim.fn["codeium#Clear"]()
-			end, { expr = true, silent = true })
-		end,
-	},
-	{ -- OBSIDIAN
+	-- Formatting
+	{ "stevearc/conform.nvim", event = "BufReadPre", opts = {} },
+
+	-- Note Taking
+	{
 		"epwalsh/obsidian.nvim",
 		version = "*",
-		lazy = true,
 		ft = "markdown",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
+		dependencies = { "nvim-lua/plenary.nvim" },
 	},
-	{ -- POMODORO
+
+	-- Productivity
+	{
 		"epwalsh/pomo.nvim",
 		version = "*",
-		lazy = true,
 		cmd = { "TimerStart", "TimerRepeat" },
-		dependencies = {
-			"rcarriga/nvim-notify",
-		},
+		dependencies = { "rcarriga/nvim-notify" },
 		opts = {},
 	},
-	{ -- AUTO SESSION
+
+	-- Session Management
+	{
 		"rmagatti/auto-session",
-		lazy = false,
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		opts = {
+			auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
 		},
-		config = function()
-			require("auto-session").setup({
-				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-			})
-		end,
 	},
-	{ -- DADBOD UI / DBMS
+
+	-- Database Tools
+	{
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
-			{ "tpope/vim-dadbod",                     lazy = true },
-			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+			{ "tpope/vim-dadbod", lazy = true },
+			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" } },
 		},
-		cmd = {
-			"DBUI",
-			"DBUIToggle",
-			"DBUIAddConnection",
-			"DBUIFindBuffer",
-		},
+		cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
 		init = function()
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
-	-- { -- MARKVIEW
-	-- 	"OXY2DEV/markview.nvim",
-	-- 	lazy = false,
-	-- 	dependencies = {
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 		"nvim-tree/nvim-web-devicons",
-	-- 	},
-	-- },
-	{ -- DIFFVIEW
-		"sindrets/diffview.nvim",
+
+	-- Git Diff Tools
+	{ "sindrets/diffview.nvim", cmd = { "DiffviewOpen", "DiffviewFileHistory" } },
+
+	-- AI Tools
+	{
+		"Exafunction/codeium.vim",
+		event = "InsertEnter",
 	},
-	{ -- GEMINI AI
-		"kiddos/gemini.nvim",
-		config = function()
-			require("gemini").setup()
-		end,
-	},
-	{ -- CODE COMPANION AI
+	{
 		"olimorris/codecompanion.nvim",
+		event = "VeryLazy",
+		config = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
+			"j-hui/fidget.nvim",
 		},
-		config = function()
-			local gemini_api_key = vim.env.GEMINI_API_KEY
-			if not gemini_api_key then
-				vim.notify("GEMINI_API_KEY environment variable not set!", vim.log.levels.ERROR)
-				return
-			end
-
-			require("codecompanion").setup({
-				api_key = gemini_api_key,
-				provider = "gemini", -- Explicitly set the provider to Gemini
-				adapters = {
-					ollama = function()
-						return require("codecompanion.adapters").extend("ollama", {
-							env = {
-								url = "http://localhost:11434",
-								api_key = "OLLAMA_API_KEY",
-							},
-							headers = {
-								["Content-Type"] = "application/json",
-								["Authorization"] = "Bearer ${api_key}",
-							},
-							parameters = {
-								sync = true,
-							},
-						})
-					end,
-				},
-			})
-		end,
 	},
-	{ -- AVANTE AI
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		lazy = false,
-		version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
-		opts = {
-			-- add any opts here
-			-- for example
-			-- provider = "ollama",
-			provider = "gemini",
-			vendors = {
-				ollama = {
-					__inherited_from = "openai",
-					api_key_name = "",
-					endpoint = "http://127.0.0.1:11434/v1",
-					model = "llama3.2:3b",
-				},
-			},
-			openai = {
-				endpoint = "https://api.openai.com/v1",
-				model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
-				timeout = 30000, -- timeout in milliseconds
-				temperature = 0, -- adjust if needed
-				max_tokens = 4096,
-			},
-			gemini = {
-				endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-				-- model = "gemini-2.0-flash",
-				model = "gemini-1.5-flash-latest",
-				timeout = 30000, -- Timeout in milliseconds
-				temperature = 0,
-				max_tokens = 4096,
-			},
-		},
-		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-		build = "make",
-		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		cmd = { "CopilotChat", "CopilotChatToggle" },
 		dependencies = {
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			--- The below dependencies are optional,
-			"echasnovski/mini.pick",      -- for file_selector provider mini.pick
-			"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-			"hrsh7th/nvim-cmp",           -- autocompletion for avante commands and mentions
-			"ibhagwan/fzf-lua",           -- for file_selector provider fzf
-			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			"zbirenbaum/copilot.lua",     -- for providers='copilot'
-			{
-				-- support for image pasting
-				"HakonHarnes/img-clip.nvim",
-				event = "VeryLazy",
-				opts = {
-					-- recommended settings
-					default = {
-						embed_image_as_base64 = false,
-						prompt_for_file_name = false,
-						drag_and_drop = {
-							insert_mode = true,
-						},
-						-- required for Windows users
-						-- use_absolute_path = true,
-					},
-				},
-			},
-			{
-				-- Make sure to set this up properly if you have lazy=true
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
-			},
+			"github/copilot.vim",
+			{ "nvim-lua/plenary.nvim", branch = "master" },
 		},
+		build = "make tiktoken",
+		opts = {},
 	},
 }, {})
