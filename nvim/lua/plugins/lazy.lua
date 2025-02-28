@@ -177,4 +177,15 @@ require("lazy").setup({
 			"j-hui/fidget.nvim",
 		},
 	},
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		dependencies = {
+			{ "github/copilot.vim" },
+			{ "nvim-lua/plenary.nvim" },
+		},
+		build = "make tiktoken", -- Only on macOS or Linux
+		opts = {
+			-- Configuration options
+		},
+	},
 }, {})
