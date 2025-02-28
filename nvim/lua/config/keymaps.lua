@@ -219,13 +219,13 @@ end, { desc = "[F]ind [C]heats" })
 -- AI Tools
 map(
 	{ "n", "v" },
-	"<leader>ica",
+	"<leader>ia",
 	"<cmd>CodeCompanionActions<cr>",
 	{ noremap = true, silent = true, desc = "CC Actions" }
 )
 map(
 	{ "n", "v" },
-	"<leader>ict",
+	"<leader>it",
 	"<cmd>CodeCompanionChat Toggle<cr>",
 	{ noremap = true, silent = true, desc = "cc chat" }
 )

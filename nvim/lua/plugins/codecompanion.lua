@@ -30,6 +30,9 @@ function M.setup()
 					},
 				})
 			end,
+			copilot = function()
+				return require("codecompanion.adapters").extend("copilot")
+			end,
 			-- VER.2 of remote access
 			-- ollama_remote = function()
 			-- 	return require("codecompanion.adapters").extend("ollama", {
@@ -90,10 +93,10 @@ function M.setup()
 			action_palette = {
 				width = 45,
 				height = 10,
-				prompt = "Prompt ", -- Prompt used for interactive LLM calls
-				provider = "telescope", -- default|telescope|mini_pick
+				prompt = "Prompt ",              -- Prompt used for interactive LLM calls
+				provider = "telescope",          -- default|telescope|mini_pick
 				opts = {
-					show_default_actions = true, -- Show the default actions in the action palette?
+					show_default_actions = true,   -- Show the default actions in the action palette?
 					show_default_prompt_library = true, -- Show the default prompt library in the action palette?
 				},
 			},
