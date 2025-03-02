@@ -41,13 +41,18 @@ Host oberon-cf-ports
   LocalForward 5173 localhost:5173 # Frontend
   LocalForward 7000 localhost:7000
 
+ssh deimos
+  HostName 192.168.21.15
+  User jake
+
+
 Host euvic
-  HostName 192.168.21.8
+  HostName 192.168.21.4
   User jake
   Port 2222
 
 Host euvic-ports
-  HostName 192.168.21.8
+  HostName 192.168.21.4
   User jake
   Port 2222
   LocalForward 8000 localhost:8000
