@@ -1,87 +1,10 @@
-[[keyboard.bindings]]
-action = "Paste"
-key = "V"
-mods = "Control|Shift"
+[general]
+import = [
+  "~/.config/alacritty/keybind.toml",
+  # "~/.config/alacritty/rose-pine.toml",
+  "~/.config/alacritty/nord.toml",
+]
 
-[[keyboard.bindings]]
-action = "Copy"
-key = "C"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "ScrollPageUp"
-key = "PageUp"
-
-[[keyboard.bindings]]
-action = "ScrollPageDown"
-key = "PageDown"
-
-[[keyboard.bindings]]
-action = "IncreaseFontSize"
-key = "Equals"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "DecreaseFontSize"
-key = "Minus"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ResetFontSize"
-key = "Key0"
-mods = "Control"
-
-# THEME: NORD
-
-[colors.bright]
-black = "#3b4252"
-blue = "#81a1c1"
-cyan = "#88c0d0"
-green = "#a3be8c"
-magenta = "#b48ead"
-red = "#bf616a"
-white = "#e5e9f0"
-yellow = "#ebcb8b"
-
-[colors.normal]
-black = "#2e3440"
-blue = "#5e81ac"
-cyan = "#88c0d0"
-green = "#a3be8c"
-magenta = "#b48ead"
-red = "#bf616a"
-white = "#e5e9f0"
-yellow = "#ebcb8b"
-
-[colors.primary]
-background = "#2e3440"
-foreground = "#e5e9f0"
-
-# THEME: ROSE PINE
-
-# [colors.bright]
-# black = "#6e6a86"
-# blue = "#9ccfd8"
-# cyan = "#ebbcba"
-# green = "#31748f"
-# magenta = "#c4a7e7"
-# red = "#eb6f92"
-# white = "#e0def4"
-# yellow = "#f6c177"
-
-# [colors.normal]
-# black = "#26233a"
-# blue = "#9ccfd8"
-# cyan = "#ebbcba"
-# green = "#31748f"
-# magenta = "#c4a7e7"
-# red = "#eb6f92"
-# white = "#e0def4"
-# yellow = "#f6c177"
-
-# [colors.primary]
-# background = "#191724"
-# foreground = "#e0def4"
 
 [cursor]
 style = "Block"
@@ -120,3 +43,4 @@ x = 0
 y = 0
 
 [keyboard]
+

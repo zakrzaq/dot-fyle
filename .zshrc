@@ -46,4 +46,3 @@ fi
 
 [ -d /snap/bin ] && export PATH=$PATH:/snap/bin
 
-export NNN_FCOLORS="0000E6E6D6CAFCF2F5F4FFCACAEA"
