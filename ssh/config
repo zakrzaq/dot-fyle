@@ -50,15 +50,11 @@ Host euvic
   HostName 192.168.21.4
   User jake
   Port 2222
-  X11Forwarding yes
-  X11DisplayOffset 10
 
 Host euvic-ports
   HostName 192.168.21.4
   User jake
   Port 2222
-  X11Forwarding yes
-  X11DisplayOffset 10
   LocalForward 8000 localhost:8000
   LocalForward 8020 localhost:8020
   LocalForward 7700 localhost:7700
