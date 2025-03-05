@@ -46,3 +46,8 @@ fi
 
 [ -d /snap/bin ] && export PATH=$PATH:/snap/bin
 
+if [ -d /usr/local/go/bin ]; then
+  export PATH=$PATH:/usr/local/go/bin
+  export PATH=$PATH:/home/jake/go/bin
+fi
+
