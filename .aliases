@@ -78,6 +78,7 @@ alias gstd='fn() { git stash drop stash@\{"$1"\} }; fn'
 # NVIM
 alias nv='nvim'
 alias lv="NVIM_APPNAME=nvim-lazy nvim"
+alias mv="NVIM_APPNAME=nvim-min nvim"
 
 # DOCKER
 alias dc-ls='docker ps'
