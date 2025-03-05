@@ -13,7 +13,6 @@ local on_attach = function(_, bufnr)
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
 	nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -31,7 +30,7 @@ local servers = {
 	volar = {
 		filetypes = { "vue", "json" },
 	},
-	tsserver = {
+	ts_ls = {
 		filetypes = {
 			"javascript",
 			"javascriptreact",
@@ -68,12 +67,11 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local additional_tools = {
 	"stylua",
-	"black",
-	"isort",
-	"flake8",
 	"eslint_d",
 	"prettier",
 	"prettier_d",
+	"ruff",
+	"pyright",
 	"cspell",
 }
 require("mason").setup({
