@@ -45,6 +45,10 @@ Host deimos
   HostName 192.168.21.15
   User jake
 
+Host win-euvic
+  HostName 192.168.21.4
+  User jzakrzewski
+  Port 22
 
 Host euvic
   HostName 192.168.21.4

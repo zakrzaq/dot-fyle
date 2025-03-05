@@ -103,6 +103,8 @@ alias rmv-dirs='fn() { find . -name $1 -type d -prune -exec rm -rf '{}' + }; fn'
 alias cheat='fn() { curl cheat.sh/$1 }; fn'
 alias fnd-py-comment="rg '^\s*#' --glob '*.py'"
 alias rs="redshift -l 50.2649:19.0238 -t 5700:3500"
+alias pm="pulsemixer"
+alias bt="bluetui"
 
 #TORRENT
 alias tra="transmission-remote -a"
