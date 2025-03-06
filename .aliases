@@ -142,7 +142,7 @@ alias trs="transmission-remote -s"
 alias trsa="transmission-remote -t all --stop"
 
 # TODOIST
-alias td="todoist add"
+alias tda="todoist add"
 alias tdc="todoist complete $@"
 alias tdd="todoist delete $@"
 alias tdl="todoist list"
