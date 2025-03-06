@@ -70,6 +70,7 @@ alias ld='lazydocker'
 alias lg='lazygit'
 
 alias rs="redshift -l 50.2649:19.0238 -t 5700:3500"
+alias tt="EDITOR=nvim taskwarrior-tui"
 
 # DEVELOPER
 alias edit-hosts='fn() { sudo nvim /etc/hosts && sudo dscacheutil -flashcache}; fn'
