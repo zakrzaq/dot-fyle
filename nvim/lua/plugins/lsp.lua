@@ -73,6 +73,7 @@ local additional_tools = {
 	"ruff",
 	"pyright",
 	"cspell",
+	"sqlfmt",
 }
 require("mason").setup({
 	ensure_installed = additional_tools,
