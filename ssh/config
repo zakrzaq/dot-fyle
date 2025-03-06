@@ -65,3 +65,10 @@ Host euvic-ports
   LocalForward 5000 localhost:5000
   LocalForward 5433 localhost:5432
   LocalForward 3000 localhost:3000
+
+
+Host euvic-cf
+  HostName 192.168.21.4
+  User jake
+  Port 2222
+  ProxyJump oberon-cf
