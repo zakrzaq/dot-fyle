@@ -46,8 +46,8 @@ return {
     "folke/which-key.nvim",
     optional = true,
     opts = {
-      defaults = {
-        ["<leader>r"] = { name = "+React" },
+      defults = {
+        { "<leader>r", group = "React" },
       },
     },
   },

@@ -117,8 +117,8 @@ alias gstd='fn() { git stash drop stash@\{"$1"\} }; fn'
 
 # NVIM
 alias nv='nvim'
-alias lv="NVIM_APPNAME=nvim-lazy nvim"
-alias mv="NVIM_APPNAME=nvim-min nvim"
+alias lv="NVIM_APPNAME=lazyvim nvim"
+alias mv="NVIM_APPNAME=minvim nvim"
 
 # DOCKER
 alias dc-ls='docker ps'
@@ -133,7 +133,6 @@ alias dc-img='docker images -a'
 alias dc-sh='fn() { docker exec -it $(docker ps -qf expose=$1) sh }; fn'
 alias dc-up='docker compose up'
 alias dc-down='docker compose down'
-
 
 # TORRENT
 alias tra="transmission-remote -a"

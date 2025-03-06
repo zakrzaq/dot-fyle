@@ -10,6 +10,7 @@ require("plugins.conform")
 require("plugins.obsidian").setup()
 require("plugins.codeium").setup()
 require("plugins.snacks").setup()
+require("plugins.kulala").setup()
 
 require("config.options")
 require("config.autocmd")
