@@ -1,4 +1,17 @@
-export PATH="$HOME/.local/bin:$PATH"
+# SETUP
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY      # Write to history immediately, not at exit
+setopt SHARE_HISTORY           # Share history across multiple Zsh sessions
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+
+mkdir -p "${HOME}/.local/bin"
+mkdir -p "${HOME}/.local/jin"
+
+export EDITOR=nvim
 
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
@@ -10,6 +23,7 @@ plugins=(git)
 [ -f $HOME/.aliases.local ] && source $HOME/.aliases.local
 
 [ -d $HOME/.local/bin ] && export PATH=$HOME/.local/bin:$PATH
+[ -d $HOME/.local/jin ] && export PATH=$HOME/.local/jin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

@@ -9,6 +9,8 @@ end
 
 -- Basic mappings
 map("i", "jj", "<ESC>")
+map({ "n", "v" }, "nn", ":noh <CR>", { silent = true, desc = "No Highlight" })
+map({ "i" }, "nnn", "<ESC>:noh<CR><ESC>i", { silent = true, desc = "No Highlight" })
 map("n", "<leader>ue", vim.cmd.Explore, { desc = "Nvim Explorer" })
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")

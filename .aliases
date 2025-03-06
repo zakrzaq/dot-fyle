@@ -1,8 +1,28 @@
 alias _="fn() {  }; fn"
 
+# SETUP
+mkdir -p "${HOME}/remotes"
+mkdir -p "${HOME}/remotes/oberon"
+mkdir -p "${HOME}/remotes/data"
+mkdir -p "${HOME}/remotes/deimos"
+mkdir -p "${HOME}/remotes/euvic"
+mkdir -p "${HOME}/remotes/jake-mbp"
+mkdir -p "${HOME}/remotes/judy-mbp"
+
+# VARS
+SSH_USER="jake"
+LOCAL_IP="192.168.21."
+OBERON="${LOCAL_IP}20"
+DEIMOS="${LOCAL_IP}"
+EUVIC="${LOCAL_IP}4"
+MBP="${LOCAL_IP}7"
+REMOTES_DIR="$HOME/remotes"
+
 # TMUX
+alias t='tmux'
 alias ta='tmux attach'
 alias td='tmux detach'
+alias tk='tmux kill-server'
 
 # SYS UBUNTU 
 alias apd='sudo apt update'
@@ -20,26 +40,47 @@ alias pau='sudo pacman -Syu'
 
 
 # SYS TERM
-alias la='ls -la'
+alias rsh="source ~/.zshrc"
 alias rmv='rm -rf'
+alias rmv-dirs='fn() { find . -name $1 -type d -prune -exec rm -rf '{}' + }; fn'
+alias la='ls -la'
 alias cl='clear'
 alias x='exit'
 alias mkd='fn() { mkdir "$1" && cd "$1"; }; fn'
-alias we='watch echo'
+alias wi='function _we() { watch -n "$1" "${@:2}"; }; _we'
 alias src='fn() { source ./"$1"/bin/activate }; fn'
+alias lc="fc -l 1 | tac | fzf --tac | xargs -r -I {} /bin/zsh -c '{}'"
 alias ls-cmd='fc -l -n 1 | fzf | xargs -r -I {} /bin/zsh -c "{}"'
-alias fnd="fzf --preview 'bat --color=always {}'"
-my-ip() { ip addr | grep -Po 'inet \K[\d.]+' | sort -nr | tr "\n" "  " ;};
+alias fz="fzf --preview 'bat --color=always {}'"
 alias me='echo $(whoami) $(uname -n) $(uname -s) $(my-ip)'
-alias lz='exa --long --icons --git'
-alias lza='exa --long --icons'
-alias l='exa --long --icons'
+
+alias lt='exa --long --icons -T --git'
+alias lh='exa -a --long --icons --git'
+alias ll='exa --long --icons --git'
+alias la='exa --icons'
+alias l='exa --icons'
+
+alias dfh="df -h | grep home | awk '{print \$4}'"
+alias dff='duf -only local'
+alias ds='dust'
+
+alias fm='yazi'
+
 alias ld='lazydocker'
 alias lg='lazygit'
 
+alias rs="redshift -l 50.2649:19.0238 -t 5700:3500"
+
+# DEVELOPER
+alias edit-hosts='fn() { sudo nvim /etc/hosts && sudo dscacheutil -flashcache}; fn'
+alias cheat='fn() { curl cheat.sh/$1 }; fn'
+alias fnd-comment-py="rg '^\s*#' --glob '*.py'"
+alias fnd-comment="rg '^\s*//|/\*|\*/' --glob '*.{js,ts}'"
+
 # GIT:
-alias gint='git init && git branch -m main'
+alias gini='git init && git branch -m main'
 alias gst='git status'
+alias gft='git fetch'
 alias gsm='git switch master'
 alias gsn='git switch main'
 alias gsd='git switch develop'
@@ -66,7 +107,6 @@ alias gdf-main='git diff main'
 alias gdf-conf='git diff --name-only --diff-filter=U --relative'
 alias gdf='git diff'
 alias gbr-local='fn() { git branch | grep -v "$1" | xargs git branch -D; }; fn'
-alias wgst='watch -n 1 git status'
 alias grv='fn() { git reset --"$1" HEAD~"$2" }; fn'
 
 # GIT STASH
@@ -94,27 +134,29 @@ alias dc-sh='fn() { docker exec -it $(docker ps -qf expose=$1) sh }; fn'
 alias dc-up='docker compose up'
 alias dc-down='docker compose down'
 
-#UTILS
-alias rsh="source ~/.zshrc"
-alias edit-hosts='fn() { sudo nvim /etc/hosts && sudo dscacheutil -flashcache}; fn'
-alias dus='fn() { du -h --max-depth=1 $1 | sort -hr }; fn'
-alias dfh="df -h | grep home | awk '{print \$4}'"
-alias rmv-dirs='fn() { find . -name $1 -type d -prune -exec rm -rf '{}' + }; fn'
-alias cheat='fn() { curl cheat.sh/$1 }; fn'
-alias fnd-py-comment="rg '^\s*#' --glob '*.py'"
-alias rs="redshift -l 50.2649:19.0238 -t 5700:3500"
 
-#TORRENT
+# TORRENT
 alias tra="transmission-remote -a"
 alias trl="transmission-remote -l"
 alias tr="transmission-remote -t"
 alias trs="transmission-remote -s"
 alias trsa="transmission-remote -t all --stop"
 
-#WINDOW TOOLS
+# TODOIST
+alias td="todoist add"
+alias tdc="todoist complete $@"
+alias tdd="todoist delete $@"
+alias tdl="todoist list"
+alias tdp="todoist projects"
+
+# WINDOW TOOLS
 alias window-get="xdotool selectwindow"
 alias window-name="fn() { xdotool set_window --name $1 $2 }; fn"
 
-#OBERON
-alias mnt-oberon="sudo sshfs -o allow_other,default_permissions jake@192.168.21.20:/home/jake /mnt/oberon"
-alias mnt-data="sudo sshfs -o allow_other,default_permissions jake@192.168.21.20:/mnt/data /mnt/data"
+# REMOTES
+alias sshfs-oberon="sudo sshfs -o allow_other,default_permissions ${USER}@${OBERON}:/home/${USER} ${REMOTES_DIR}/oberon"
+alias sshfs-data="sudo sshfs -o allow_other,default_permissions ${USER}@${OBERON}:/home/${USER}/data ${REMOTES_DIR}/data"
+alias sshfs-deimos="sudo sshfs -o allow_other,default_permissions ${USER}@${DEIMOS}:/home/${USER} ${REMOTES_DIR}/deimos"
+alias sshfs-euvic="sudo sshfs -p 2222 -o allow_other,default_permissions ${USER}@${EUVIC}:/home/${USER} ${REMOTES_DIR}/euvic"
+alias sshfs-mbp-judy="sudo sshfs -o allow_other,default_permissions judy@${MBP}:/Users/judy ${REMOTES_DIR}/judy-mbp"
+alias sshfs-mbp-jake="sudo sshfs -o allow_other,default_permissions ${USER}@${MBP}:/Users/${USER} ${REMOTES_DIR}/jake-mbp"
