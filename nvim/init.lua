@@ -9,6 +9,7 @@ require("plugins.conform")
 
 require("plugins.obsidian").setup()
 require("plugins.codeium").setup()
+require("plugins.codecomp").setup()
 require("plugins.snacks").setup()
 require("plugins.kulala").setup()
 

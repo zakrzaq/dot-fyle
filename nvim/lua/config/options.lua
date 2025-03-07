@@ -42,3 +42,8 @@ vim.opt.conceallevel = 2
 
 vim.opt.foldmethod = "manual"
 vim.opt.foldenable = true
+
+vim.opt.spell = true                                                           -- Enable spell checking
+vim.opt.spelllang = "en"                                                       -- Set languages to English and Polish
+vim.opt.spelloptions = "camel"                                                 -- Support camelCase words in code
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/programming.utf-8.add" -- Custom word list

@@ -2,9 +2,9 @@ vim.g.mapleader = " "
 
 -- Helper function for mapping multiple keys
 local function map(mode, lhs, rhs, opts)
-	opts = opts or {}
-	opts.silent = opts.silent ~= false
-	vim.keymap.set(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 -- Basic mappings
@@ -18,7 +18,7 @@ map("v", "K", ":m '<-2<CR>gv=gv")
 -- Center screen mappings
 local center_maps = { "<C-d>", "<C-u>", "n", "N" }
 for _, key in ipairs(center_maps) do
-	map("n", key, key .. "zz")
+  map("n", key, key .. "zz")
 end
 
 -- Clipboard operations
@@ -27,15 +27,15 @@ map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" }
 
 -- Window navigation
 local window_maps = {
-	["<C-h>"] = "h",
-	["<C-l>"] = "l",
-	["<M-h>"] = "h",
-	["<M-j>"] = "j",
-	["<M-k>"] = "k",
-	["<M-l>"] = "l",
+  ["<C-h>"] = "h",
+  ["<C-l>"] = "l",
+  ["<M-h>"] = "h",
+  ["<M-j>"] = "j",
+  ["<M-k>"] = "k",
+  ["<M-l>"] = "l",
 }
 for key, dir in pairs(window_maps) do
-	map("n", key, "<C-w>" .. dir)
+  map("n", key, "<C-w>" .. dir)
 end
 
 -- Buffer operations
@@ -63,19 +63,19 @@ map({ "n", "v" }, "<leader>,", ":lua Snacks.picker.buffers() <CR>", { silent = t
 map({ "n", "v" }, "<leader>/", ":lua Snacks.picker.grep() <CR>", { silent = true, desc = "Grep" })
 map({ "n", "v" }, "<leader>:", ":lua Snacks.picker.command_history() <CR>", { silent = true, desc = "Command History" })
 map(
-	{ "n", "v" },
-	"<leader>n",
-	":lua Snacks.picker.notifications() <CR>",
-	{ silent = true, desc = "Notification History" }
+  { "n", "v" },
+  "<leader>n",
+  ":lua Snacks.picker.notifications() <CR>",
+  { silent = true, desc = "Notification History" }
 )
 map({ "n", "v" }, "<leader>e", ":lua Snacks.explorer() <CR>", { silent = true, desc = "File Explorer" })
 
 map({ "n", "v" }, "<leader>fb", ":lua Snacks.picker.buffers() <CR>", { silent = true, desc = "Buffers" })
 map(
-	{ "n", "v" },
-	"<leader>fc",
-	":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) <CR>",
-	{ silent = true, desc = "Find Config File" }
+  { "n", "v" },
+  "<leader>fc",
+  ":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) <CR>",
+  { silent = true, desc = "Find Config File" }
 )
 map({ "n", "v" }, "<leader>ff", ":lua Snacks.picker.files() <CR>", { silent = true, desc = "Find Files" })
 map({ "n", "v" }, "<leader>fg", ":lua Snacks.picker.git_files() <CR>", { silent = true, desc = "Find Git Files" })
@@ -94,20 +94,20 @@ map({ "n", "v" }, "<leader>sb", ":lua Snacks.picker.lines() <CR>", { silent = tr
 map({ "n", "v" }, "<leader>sB", ":lua Snacks.picker.grep_buffers() <CR>", { silent = true, desc = "Grep Open Buffers" })
 map({ "n", "v" }, "<leader>sg", ":lua Snacks.picker.grep() <CR>", { silent = true, desc = "Grep" })
 map(
-	{ "n", "v" },
-	"<leader>sw",
-	":lua Snacks.picker.grep_word() <CR>",
-	{ silent = true, desc = "Visual selection or word" }
+  { "n", "v" },
+  "<leader>sw",
+  ":lua Snacks.picker.grep_word() <CR>",
+  { silent = true, desc = "Visual selection or word" }
 )
 
 map({ "n", "v" }, '<leader>s"', ":lua Snacks.picker.registers() <CR>", { silent = true, desc = "Registers" })
 map({ "n", "v" }, "<leader>s/", ":lua Snacks.picker.search_history() <CR>", { silent = true, desc = "Search History" })
 map({ "n", "v" }, "<leader>sa", ":lua Snacks.picker.autocmds() <CR>", { silent = true, desc = "Autocmds" })
 map(
-	{ "n", "v" },
-	"<leader>sc",
-	":lua Snacks.picker.command_history() <CR>",
-	{ silent = true, desc = "Command History" }
+  { "n", "v" },
+  "<leader>sc",
+  ":lua Snacks.picker.command_history() <CR>",
+  { silent = true, desc = "Command History" }
 )
 map({ "n", "v" }, "<leader>sC", ":lua Snacks.picker.commands() <CR>", { silent = true, desc = "Commands" })
 map({ "n", "v" }, "<leader>sd", ":lua Snacks.picker.diagnostics() <CR>", { silent = true, desc = "Diagnostics" })
@@ -117,10 +117,10 @@ map({ "n", "v" }, "<leader>sp", ":lua Snacks.picker.lazy() <CR>", { silent = tru
 map({ "n", "v" }, "<leader>su", ":lua Snacks.picker.undo() <CR>", { silent = true, desc = "Undo History" })
 map({ "n", "v" }, "gd", ":lua Snacks.picker.lsp_definitions() <CR>", { silent = true, desc = "Goto Definition" })
 map(
-	{ "n", "v" },
-	"gr",
-	":lua Snacks.picker.lsp_references() <CR>",
-	{ silent = true, nowait = true, desc = "References" }
+  { "n", "v" },
+  "gr",
+  ":lua Snacks.picker.lsp_references() <CR>",
+  { silent = true, nowait = true, desc = "References" }
 )
 
 ---- Terminal
@@ -139,22 +139,35 @@ map({ "n", "v" }, "<leader>tl", ":lua Snacks.terminal.list() <CR>", { silent = t
 
 -- Obsidian mappings
 local obsidian_maps = {
-	["<leader>oo"] = { "QuickSwitch", "[O]bsidian [o]pen" },
-	["<leader>os"] = { "Search", "[O]bsidian [s]earch" },
-	["<leader>on"] = { "New", "[O]bsidian [n]new note" },
-	["<leader>or"] = { "Rename", "[O]bsidian [r]ename note" },
-	["<leader>ot"] = { "Today", "[O]bsidian [t]oday" },
-	["<leader>oy"] = { "Yesterday", "[O]bsidian [y]esterday" },
-	["<leader>om"] = { "Tomorrow", "[O]bsidian to[m]orrow" },
-	["<leader>ol"] = { "Template", "[O]bsidian temp[l]ate" },
-	["<leader>oe"] = { "ExtractNote", "[O]bsidian [e]xtract to new note" },
-	["<leader>ow"] = { "Workspace", "[O]bsidian [w]orkspace" },
+  ["<leader>oo"] = { "QuickSwitch", "[O]bsidian [o]pen" },
+  ["<leader>os"] = { "Search", "[O]bsidian [s]earch" },
+  ["<leader>on"] = { "New", "[O]bsidian [n]new note" },
+  ["<leader>or"] = { "Rename", "[O]bsidian [r]ename note" },
+  ["<leader>ot"] = { "Today", "[O]bsidian [t]oday" },
+  ["<leader>oy"] = { "Yesterday", "[O]bsidian [y]esterday" },
+  ["<leader>om"] = { "Tomorrow", "[O]bsidian to[m]orrow" },
+  ["<leader>ol"] = { "Template", "[O]bsidian temp[l]ate" },
+  ["<leader>oe"] = { "ExtractNote", "[O]bsidian [e]xtract to new note" },
+  ["<leader>ow"] = { "Workspace", "[O]bsidian [w]orkspace" },
 }
 
 for key, value in pairs(obsidian_maps) do
-	map({ "n", "v" }, key, "<cmd>:Obsidian" .. value[1] .. "<cr>", { desc = value[2], silent = true })
+  map({ "n", "v" }, key, "<cmd>:Obsidian" .. value[1] .. "<cr>", { desc = value[2], silent = true })
 end
+
+-- CodeCompanionChat
+map({ "n", "v" }, "<leader>at", ":CodeCompanionChat Toggle<CR>", { silent = true, desc = "CodeCompanion Toggle" })
+map({ "n", "v" }, "<leader>aa", ":CodeCompanionActions<CR>", { silent = true, desc = "CodeCompanion Actions" })
+map({ "n", "v" }, "<leader>af", ":CodeCompanionChat Add<CR>", { silent = true, desc = "CodeCompanion Add" })
+map({ "v" }, "<leader>ae", ":CodeCompanionChat Ask explain<CR>", { silent = true, desc = "Explain Code" })
+map({ "v" }, "<leader>ar", ":CodeCompanionChat Ask review<CR>", { silent = true, desc = "Review Code" })
+map({ "v" }, "<leader>ad", ":CodeCompanionChat Ask document<CR>", { silent = true, desc = "Document Code" })
+map({ "v" }, "<leader>aT", ":CodeCompanionChat Ask test<CR>", { silent = true, desc = "Generate Tests" })
+map({ "n" }, "<leader>ac", ":CodeCompanionChat Close<CR>", { silent = true, desc = "Close Current Chat" })
+map({ "n" }, "<leader>an", ":CodeCompanionChat Rename<CR>", { silent = true, desc = "Rename Current Chat" })
+
 
 -- Other mappings
 map({ "n", "v" }, "<leader>cp", "<cmd>:echo expand('%:p') <cr>", { desc = "[C]ode [P]ath", silent = true })
+
 map({ "n", "v" }, "<leader>Rs", ":lua require('kulala').run() <CR>", { silent = true, desc = "Run Request" })

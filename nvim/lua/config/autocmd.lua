@@ -1,10 +1,21 @@
 -- VIRTUAL TEXT OFF
 vim.diagnostic.config({
-	float = { source = "always", border = "rounded" },
-	virtual_text = false,
-	signs = true,
+  float = {
+    source = true,
+    border = "rounded",
+    header = "",
+    prefix = "",
+    format = function(diagnostic)
+      return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+    end,
+  },
+  virtual_text = false,
+  -- virtual_text = {
+  -- 	prefix = "●", -- Could be '●', '▎', 'x'
+  -- 	spacing = 4,
+  -- },
+  -- signs = true,
 })
--- vim.cmd([[ autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 
 -- DIAGNOSTICS ICONS
 local diagnostic_signs = {
@@ -19,9 +30,14 @@ for _, sign in ipairs(diagnostic_signs) do
 end
 
 -- SAVE FOLD ON FILE SAVE
+vim.opt.viewoptions:append("folds") -- Ensure folds are included in viewoptions
 local group = vim.api.nvim_create_augroup("AutoSaveFolds", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufLeave" }, { command = "mkview", pattern = ".*", group = group })
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, { command = "mkview", pattern = ".*", group = group })
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, { command = "loadview", pattern = ".*", group = group })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, { command = "loadview", pattern = ".*", group = group })
-
+-- SPELL CHECKER
+local spell_dir = vim.fn.stdpath("config") .. "/spell"
+if vim.fn.isdirectory(spell_dir) == 0 then
+  vim.fn.mkdir(spell_dir, "p")
+end
