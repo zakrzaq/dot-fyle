@@ -23,7 +23,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# Use brithnessctl to adjust screen brightness.
+# Use brightnessctl to adjust screen brightness.
 bindsym $mod+p exec --no-startup-id brightnessctl set +5% && $refresh_i3status
 bindsym $mod+o exec --no-startup-id brightnessctl set 5%- && $refresh_i3status
 
@@ -223,6 +223,7 @@ bindsym $mod+Ctrl+n move workspace to output down
 bindsym Control+Shift+1 exec ~/.screenlayout/left.sh
 bindsym Control+Shift+2 exec ~/.screenlayout/right.sh
 bindsym Control+Shift+3 exec ~/.screenlayout/lap-mon-top-one.sh
+bindsym Control+Shift+4 exec ~/.screenlayout/lap-mon-top-two.sh
 bindsym Control+Shift+9 exec ~/.screenlayout/both.sh
 bindsym Control+Shift+0 exec ~/.screenlayout/none.sh
 
@@ -247,7 +248,7 @@ set $highlightlow   #2a283e
 set $highlightmed   #44415a
 set $highlighthigh  #56526e
 
-# Teming border and Windows --------------
+# Theming border and Windows --------------
 # target                 title     bg    text   indicator  border
 client.focused           $rose     $base $text  $rose      $rose
 client.focused_inactive  $text     $base $text  $subtle    $surface
