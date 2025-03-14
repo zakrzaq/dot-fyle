@@ -168,7 +168,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # bar {
@@ -193,28 +192,14 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 #### JAKE ####
 
-exec_always --no-startup-id picom  -b --config ~/.config/picom.conf
-
-exec gnome-settings-daemon
-
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
-
-bindsym $mod+Shift+p exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-
-for_window [class="^.*"] border pixel 0
-
-exec_always feh --bg-scale ~/Pictures/wallpapers/background.jpg
-bindsym $mod+Shift+t exec --no-startup-id feh --no-fehbg --geometry +0+0 --zoom fill --fullscreen ~/Pictures/wallpapers/background.jpg
-
 font pango:FiraCode Nerd Font Light 10
-
-bindsym $mod+Shift+w sticky toggle 
 
 gaps inner 6
 gaps outer 2
 
 default_border pixel 0
 default_floating_border pixel 0
+for_window [class="^.*"] border pixel 0
 
 bindsym $mod+Ctrl+greater move workspace to output right
 bindsym $mod+Ctrl+less move workspace to output left
@@ -228,6 +213,9 @@ bindsym Control+Shift+9 exec ~/.screenlayout/both.sh
 bindsym Control+Shift+0 exec ~/.screenlayout/none.sh
 
 bindsym $mod+Shift+i exec rofimoji --action copy
+bindsym $mod+Shift+w sticky toggle 
+bindsym $mod+Shift+p exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+bindsym $mod+Shift+t exec --no-startup-id feh --no-fehbg --geometry +0+0 --zoom fill --fullscreen ~/Pictures/wallpapers/background.jpg
 
 #### THEME ####
 
@@ -259,5 +247,10 @@ client.background        $base
 
 # Startup
 exec --no-startup-id dunst
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id picom  -b --config ~/.config/picom.conf
+exec gnome-settings-daemon
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec_always feh --bg-scale ~/Pictures/wallpapers/background.jpg
 exec --no-startup-id redshift -l 50.2649:19.0238 -t 5700:3500
 exec --no-startup-id sh -c '[ -x ~/.startup.sh ] && ~/.startup.sh'
