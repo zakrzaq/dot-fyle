@@ -217,6 +217,8 @@ bindsym $mod+Shift+w sticky toggle
 bindsym $mod+Shift+p exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 bindsym $mod+Shift+t exec --no-startup-id feh --no-fehbg --geometry +0+0 --zoom fill --fullscreen ~/Pictures/wallpapers/background.jpg
 
+bindsym Mod1+Tab focus next
+
 #### THEME ####
 
 # set primary Rosé Pine Moon colorscheme colors
