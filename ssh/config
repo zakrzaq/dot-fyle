@@ -46,17 +46,17 @@ Host deimos
   User jake
 
 Host win-euvic
-  HostName 192.168.21.6
+  HostName 192.168.21.11
   User jzakrzewski
   Port 22
 
 Host euvic
-  HostName 192.168.21.6
+  HostName 192.168.21.11
   User jake
   Port 2222
 
 Host euvic-ports
-  HostName 192.168.21.6
+  HostName 192.168.21.11
   User jake
   Port 2222
   LocalForward 8000 localhost:8000
@@ -68,7 +68,7 @@ Host euvic-ports
 
 
 Host euvic-cf
-  HostName 192.168.21.6
+  HostName 192.168.21.11
   User jake
   Port 2222
   ProxyJump oberon-cf
