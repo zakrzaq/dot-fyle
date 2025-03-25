@@ -6,6 +6,7 @@ require("plugins.gitsigns").setup()
 require("plugins.lsp")
 require("plugins.autocmp")
 require("plugins.conform")
+require("plugins.dap").setup()
 
 require("plugins.obsidian").setup()
 require("plugins.codeium").setup()
