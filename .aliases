@@ -57,7 +57,7 @@ alias me='echo $(whoami) $(uname -n) $(uname -s) $(my-ip)'
 alias lt='exa --long --icons -T --git'
 alias lh='exa -a --long --icons --git'
 alias ll='exa --long --icons --git'
-alias la='exa --icons'
+alias la='exa -a --icons'
 alias l='exa --icons'
 
 alias dfh="df -h | grep home | awk '{print \$4}'"
