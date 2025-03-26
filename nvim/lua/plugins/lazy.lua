@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	-- Core Utilities
-	{ "tpope/vim-sleuth", event = "VeryLazy" },
+	{ "tpope/vim-sleuth",          event = "VeryLazy" },
 
 	-- Theme Configuration
 	{
@@ -25,12 +25,12 @@ require("lazy").setup({
 	},
 
 	-- UI Components
-	{ "akinsho/bufferline.nvim", event = "VeryLazy", opts = {} },
-	{ "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
-	{ "folke/which-key.nvim", event = "VeryLazy", opts = {} },
-	{ "nvim-lualine/lualine.nvim", event = "VeryLazy", opts = {} },
-	{ "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
-	{ "folke/todo-comments.nvim", event = "VeryLazy", opts = {} },
+	{ "akinsho/bufferline.nvim",   event = "VeryLazy",    opts = {} },
+	{ "windwp/nvim-autopairs",     event = "InsertEnter", opts = {} },
+	{ "folke/which-key.nvim",      event = "VeryLazy",    opts = {} },
+	{ "nvim-lualine/lualine.nvim", event = "VeryLazy",    opts = {} },
+	{ "numToStr/Comment.nvim",     event = "VeryLazy",    opts = {} },
+	{ "folke/todo-comments.nvim",  event = "VeryLazy",    opts = {} },
 
 	{
 		"folke/snacks.nvim",
@@ -82,7 +82,7 @@ require("lazy").setup({
 	},
 
 	-- Formatting
-	{ "stevearc/conform.nvim", event = "BufReadPre", opts = {} },
+	{ "stevearc/conform.nvim",   event = "BufReadPre",                   opts = {} },
 
 	-- Note Taking
 	{
@@ -113,7 +113,7 @@ require("lazy").setup({
 	{
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
-			{ "tpope/vim-dadbod", lazy = true },
+			{ "tpope/vim-dadbod",                     lazy = true },
 			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
 		},
 		cmd = {
@@ -127,6 +127,19 @@ require("lazy").setup({
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
+
+	-- DAP --
+	{
+		"mfussenegger/nvim-dap",
+		event = "VeryLazy",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"nvim-neotest/nvim-nio",
+			"jay-babu/mason-nvim-dap.nvim",
+			"theHamsta/nvim-dap-virtual-text",
+		},
+	},
+
 
 	-- AI Tools
 	{ -- Codeium
