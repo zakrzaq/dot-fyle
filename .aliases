@@ -84,6 +84,8 @@ j() { # list / reopen jobs
   fi
 }
 
+alias nvr="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "
+
 # DEVELOPER
 alias edit-hosts='fn() { sudo nvim /etc/hosts && sudo dscacheutil -flashcache}; fn'
 alias cheat='fn() { curl cheat.sh/$1 }; fn'
