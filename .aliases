@@ -55,7 +55,7 @@ alias fz="fzf --preview 'bat --color=always {}'"
 alias me='echo $(whoami) $(uname -n) $(uname -s) $(my-ip)'
 
 alias lt='exa --long --icons -T --git'
-alias lh='exa -a --long --icons --git'
+alias lla='exa -a --long --icons --git'
 alias ll='exa --long --icons --git'
 alias la='exa -a --icons'
 alias l='exa --icons'
@@ -74,6 +74,15 @@ alias bt='bluetui'
 
 alias rs="redshift -l 50.2649:19.0238 -t 5700:3500"
 alias tt="EDITOR=nvim taskwarrior-tui"
+
+j() { # list / reopen jobs
+  if [ -z "$1" ]; then
+    jobs
+  else
+    eval "fg %$1"
+    # jobs | grep -E "^\[$1\]" || echo "No such job: $1"
+  fi
+}
 
 # DEVELOPER
 alias edit-hosts='fn() { sudo nvim /etc/hosts && sudo dscacheutil -flashcache}; fn'
