@@ -57,6 +57,7 @@ map("n", "<C-f>", "<cmd>:silent !tmux neww tmux-sessionizer<CR>", { desc = "Crea
 -- Snacks
 map({ "n", "v" }, "<leader>q", ":lua Snacks.bufdelete() <CR>", { silent = true, desc = "Delete buffer" })
 map({ "n", "v" }, "<leader>e", ":lua Snacks.explorer() <CR>", { silent = true, desc = "Toggle Explorer" })
+map({ "n", "v" }, "<C-b>", ":lua Snacks.explorer() <CR>", { silent = true, desc = "Toggle Explorer" })
 map({ "n", "v" }, "<leader>gg", ":lua Snacks.lazygit() <CR>", { silent = true, desc = "Toggle LazyGit" })
 map({ "n", "v" }, "<leader>rr", ":lua Snacks.rename_file() <CR>", { silent = true, desc = "Toggle LazyGit" })
 
@@ -134,7 +135,7 @@ map({ "n", "v" }, "<leader>sT", ":lua Snacks.picker.todo_comments({ keywords = {
 
 ---- Terminal
 map({ "n", "v" }, "<leader>tt", ":lua Snacks.terminal.toggle() <CR>", { silent = true, desc = "Toggle Terminal" })
-map({ "n", "v", "t" }, "<C-b>", function()
+map({ "n", "v", "t" }, "<C-,>", function()
   if vim.bo.filetype == "terminal" then
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "t", false)
   else
@@ -199,6 +200,7 @@ end, { desc = "Set Exception Breakpoints", silent = true })
 
 -- CodeCompanionChat
 map({ "n", "v" }, "<leader>at", ":CodeCompanionChat Toggle<CR>", { silent = true, desc = "CodeCompanion Toggle" })
+map({ "n", "v" }, "<C-M-i>", ":CodeCompanionChat Toggle<CR>", { silent = true, desc = "CodeCompanion Toggle" })
 map({ "n", "v" }, "<leader>aa", ":CodeCompanionActions<CR>", { silent = true, desc = "CodeCompanion Actions" })
 map({ "n", "v" }, "<leader>af", ":CodeCompanionChat Add<CR>", { silent = true, desc = "CodeCompanion Add" })
 map({ "v" }, "<leader>ae", ":CodeCompanionChat Ask explain<CR>", { silent = true, desc = "Explain Code" })
