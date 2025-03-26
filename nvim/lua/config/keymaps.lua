@@ -145,7 +145,7 @@ map(
 map({ "n", "v" }, "<leader>tt", ":lua Snacks.terminal.toggle() <CR>", { silent = true, desc = "Toggle Terminal" })
 map({ "n", "v", "t" }, "<C-,>", function()
 	if vim.bo.filetype == "terminal" then
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), ",", false)
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "t", false)
 	else
 		Snacks.terminal.toggle()
 	end
