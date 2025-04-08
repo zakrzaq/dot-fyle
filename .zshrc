@@ -9,7 +9,7 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 
 mkdir -p "${HOME}/.local/bin"
-mkdir -p "${HOME}/.local/jin"
+mkdir -p "${HOME}/.local/_bin"
 
 export EDITOR=nvim
 export BROWSER=google-chrome-stable
@@ -25,7 +25,9 @@ plugins=(git fzf)
 [ -f $HOME/.aliases.local ] && source $HOME/.aliases.local
 
 [ -d $HOME/.local/bin ] && export PATH=$HOME/.local/bin:$PATH
-[ -d $HOME/.local/jin ] && export PATH=$HOME/.local/jin:$PATH
+[ -d $HOME/.local/_bin ] && export PATH=$HOME/.local/_bin:$PATH
+
+[ -d /opt/nvim-linux-x86_64 ] && export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 [ -f $HOME/fzf.zsh ] && source ~/.fzf.zsh
 

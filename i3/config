@@ -215,8 +215,8 @@ bindsym Control+Shift+9 exec ~/.screenlayout/both.sh
 bindsym Control+Shift+0 exec ~/.screenlayout/none.sh
 
 bindsym $mod+Shift+x exec i3lock -c 000000
-bindsym $mod+t exec --no-startup-id ~/.local/bin/toggle-input 17
-bindsym $mod+b exec --no-startup-id ~/.local/bin/toggle-bluetooth
+bindsym $mod+t exec --no-startup-id ~/.local/_bin/toggle-input 17
+bindsym $mod+b exec --no-startup-id ~/.local/_bin/toggle-bluetooth
 
 bindsym $mod+Shift+i exec rofimoji --action copy
 bindsym $mod+Shift+w sticky toggle 
