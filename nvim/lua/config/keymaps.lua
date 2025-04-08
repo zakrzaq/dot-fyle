@@ -29,7 +29,6 @@ map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" }
 local window_maps = {
   ["<C-h>"] = "h",
   ["<C-l>"] = "l",
-  ["<C-j>"] = "j",
   ["<C-k>"] = "k",
   ["<M-h>"] = "h",
   ["<M-j>"] = "j",
@@ -54,6 +53,13 @@ map("n", "<C-s>", "<cmd>Format<cr> <cmd>write<cr>", { desc = "[W]rite changes" }
 map("n", "]b", "<cmd>bn<CR>", { desc = "Next buffer" })
 map("n", "[b", "<cmd>bp<CR>", { desc = "Previous buffer" })
 
+-- Tab operations
+map("n", "<C-q>", "<cmd>qa!<CR>", { desc = "[Q]uit nvim" })
+map("n", "<space>w", "<cmd>write<cr>", { desc = "[W]rite changes" })
+map("n", "<C-s>", "<cmd>Format<cr> <cmd>write<cr>", { desc = "[W]rite changes" })
+map("n", "]b", "<cmd>bn<CR>", { desc = "Next buffer" })
+map("n", "[b", "<cmd>bp<CR>", { desc = "Previous buffer" })
+
 -- Visual mode indentation
 map("v", "<", "<gv")
 map("v", ">", ">gv")
@@ -65,7 +71,10 @@ map("n", "<C-f>", "<cmd>:silent !tmux neww tmux-sessionizer<CR>", { desc = "Crea
 map({ "n", "v" }, "<leader>q", ":lua Snacks.bufdelete()<CR>", { silent = true, desc = "Delete buffer" })
 map({ "n", "v" }, "<leader>Q", ":close<CR>", { silent = true, desc = "Close" })
 map({ "n", "v" }, "<leader>e", ":lua Snacks.explorer()<CR>", { silent = true, desc = "Toggle Explorer" })
-map({ "n", "v" }, "<C-b>", ":lua Snacks.explorer()<CR>", { silent = true, desc = "Toggle Explorer" })
+map({ "n", "v" }, "<C-b>", function()
+  require("snacks").explorer()
+end
+, { silent = true, desc = "Toggle Explorer" })
 map({ "n", "v" }, "<leader>gg", ":lua Snacks.lazygit()<CR>", { silent = true, desc = "Toggle LazyGit" })
 map({ "n", "v" }, "<leader>rr", ":lua Snacks.rename_file()<CR>", { silent = true, desc = "Toggle LazyGit" })
 
@@ -150,16 +159,16 @@ map(
 )
 
 ---- Terminal
-map({ "n", "v" }, "<leader>tt", ":lua Snacks.terminal.toggle() <CR>", { silent = true, desc = "Toggle Terminal" })
-map({ "n", "v", "t" }, "<C-,>", function()
-  if vim.bo.filetype == "terminal" then
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "t", false)
-  else
-    Snacks.terminal.toggle()
-  end
-end, { silent = true, desc = "Toggle Terminal" })
-map({ "n", "v" }, "<leader>tn", ":lua Snacks.terminal.open() <CR>", { silent = true, desc = "Toggle Terminal" })
-map({ "n", "v" }, "<leader>tl", ":lua Snacks.terminal.list() <CR>", { silent = true, desc = "List Terminals" })
+map({ "n", "v" }, "<leader>t", ":lua Snacks.terminal.toggle()<CR>", { silent = true, desc = "Toggle Terminal" })
+map({ "t" }, "<leader>tt", function()
+  require("snacks").terminal.toggle()
+end
+, { silent = true, desc = "Toggle Terminal" })
+map({ "n", "v" }, "<C-j>", ":lua Snacks.terminal.toggle()<CR>", { silent = true, desc = "Toggle Terminal" })
+map({ "t" }, "<C-j>", function()
+  require("snacks").terminal.toggle()
+end
+, { silent = true, desc = "Toggle Terminal" })
 
 -- Obsidian mappings
 local obsidian_maps = {
