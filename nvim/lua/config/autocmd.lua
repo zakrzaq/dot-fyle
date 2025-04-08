@@ -54,3 +54,15 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		})
 	end,
 })
+
+--- handle shebang for uv scripts ---
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*",
+	callback = function()
+		local first_line = vim.fn.getline(1)
+		if string.find(first_line, "uv run") then
+			-- if string.match(first_line, "^#!.*/uv run --script") then
+			vim.bo.filetype = "python"
+		end
+	end
+})

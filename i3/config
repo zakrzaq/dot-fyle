@@ -9,7 +9,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork i3lock -c 000000
 
 exec --no-startup-id nm-applet
 
@@ -33,7 +33,7 @@ floating_modifier $mod
 # start a apps
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec alacritty
-bindsym $mod+b exec google-chrome-stable
+bindsym $mod+n exec google-chrome-stable
 bindsym $mod+x exec thunar
 
 # kill focused window
@@ -214,12 +214,18 @@ bindsym Control+Shift+4 exec ~/.screenlayout/lap-mon-top-two.sh
 bindsym Control+Shift+9 exec ~/.screenlayout/both.sh
 bindsym Control+Shift+0 exec ~/.screenlayout/none.sh
 
+bindsym $mod+Shift+x exec i3lock -c 000000
+bindsym $mod+t exec --no-startup-id ~/.local/bin/toggle-input 17
+bindsym $mod+b exec --no-startup-id ~/.local/bin/toggle-bluetooth
+
 bindsym $mod+Shift+i exec rofimoji --action copy
 bindsym $mod+Shift+w sticky toggle 
 bindsym $mod+Shift+p exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 bindsym $mod+Shift+t exec --no-startup-id feh --no-fehbg --geometry +0+0 --zoom fill --fullscreen ~/Pictures/wallpapers/background.jpg
 
 bindsym Mod1+Tab focus next
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
 
 #### THEME ####
 
