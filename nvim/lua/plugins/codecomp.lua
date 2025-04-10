@@ -18,6 +18,9 @@ function M.setup()
 			chat = {
 				adapter = "gemini",
 			},
+			inline = {
+				adapter = "copilot",
+			},
 		},
 		adapters = {
 			opts = {
