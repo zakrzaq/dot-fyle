@@ -44,7 +44,7 @@ end
 
 -- COPILOT SYNTAX HIGHLIGHT
 vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "nordic",
+	pattern = "nord",
 	-- group = ...,
 	callback = function()
 		vim.api.nvim_set_hl(0, "CopilotSuggestion", {

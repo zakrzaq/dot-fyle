@@ -1,5 +1,6 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+local lspkind = require('lspkind')
 
 luasnip.config.setup({})
 
@@ -42,4 +43,18 @@ cmp.setup({
 		{ name = "codeium" },
 		{ name = "vim-dadbod-completion" },
 	},
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = 'symbol',
+			maxwidth = {
+				menu = 50,
+				abbr = 50,
+			},
+			ellipsis_char = '...',
+			show_labelDetails = true,
+			before = function(entry, vim_item)
+				return vim_item
+			end
+		})
+	}
 })

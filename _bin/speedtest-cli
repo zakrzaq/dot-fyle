@@ -1,0 +1,75 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#    "speedtest-cli>=2.1.3",
+# ]
+# ///
+
+import json
+import datetime
+import speedtest as st
+import time
+import itertools
+from typing import Dict, Any
+from pathlib import Path
+import threading
+
+def display_spinner(stop_event: threading.Event):
+    """Display a spinner in the console until stop_event is set."""
+    spinner = itertools.cycle(['-', '/', '|', '\\'])
+    while not stop_event.is_set():
+        print(next(spinner), end='\r')
+        time.sleep(0.1)
+    print(" " * 20, end='\r')  # Clear the spinner line
+
+LOG_DIR = Path(Path.home()).joinpath(".logs", "speedtest-cli")
+LOG_FILE = LOG_DIR.joinpath("speedtest.json")
+
+if not LOG_DIR.exists():
+    LOG_DIR.mkdir(parents=True)
+
+if LOG_FILE.exists():
+    try:
+        data = json.loads(LOG_FILE.read_text())
+        if not isinstance(data, list):
+            data = []
+    except json.JSONDecodeError:
+        data = []
+else:
+    data = []
+
+def main():
+    stop_event = threading.Event()
+    spinner_thread = threading.Thread(target=display_spinner, args=(stop_event,))
+    spinner_thread.start()
+
+    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    output: Dict[str, Any] = {"date": date}
+    output_str = f"{date} | "
+
+    server = st.Speedtest()
+    server.get_best_server()
+
+    ping = server.results.ping
+    output_str += f"Ping {ping} |"
+    output['ping'] = ping
+
+    down = server.download()
+    down = down / 1000000
+    output_str += f" DL: {down:.2f} Mb/s | "
+    output['download'] = down
+
+    up = server.upload()
+    up = up / 1000000
+    output_str += f" UP: {up:.2f} Mb/s"
+    output['upload'] = up
+
+    data.append(output)
+    LOG_FILE.write_text(json.dumps(data, indent=2))
+    stop_event.set()
+    spinner_thread.join()
+    print(output_str)
+
+if __name__ == "__main__":
+    main()

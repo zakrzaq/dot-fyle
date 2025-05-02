@@ -1,0 +1,33 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "pillow",
+#     "pytesseract",
+# ]
+# ///
+
+
+from PIL import ImageGrab
+import pytesseract
+import sys
+
+def clipboard_to_text():
+    try:
+        # Grab image from clipboard
+        img = ImageGrab.grabclipboard()
+
+        if img is None:
+            print("❌ No image found in clipboard.")
+            return
+
+        # OCR processing
+        text = pytesseract.image_to_string(img)
+        print("✅ Text from clipboard image:\n")
+        print(text.strip())
+
+    except Exception as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
+
+if __name__ == "__main__":
+    clipboard_to_text()
