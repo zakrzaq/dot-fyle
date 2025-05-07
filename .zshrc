@@ -8,9 +8,6 @@ setopt SHARE_HISTORY           # Share history across multiple Zsh sessions
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 
-mkdir -p "${HOME}/.local/bin"
-mkdir -p "${HOME}/.local/_bin"
-
 export EDITOR=nvim
 export BROWSER=google-chrome-stable
 

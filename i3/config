@@ -227,6 +227,9 @@ bindsym Mod1+Tab focus next
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
+bindsym Ctrl+Shift+m exec --no-startup-id systemctl suspend
+bindsym Ctrl+Shift+n exec --no-startup-id systemctl hibernate
+
 #### THEME ####
 
 # set primary Rosé Pine Moon colorscheme colors
