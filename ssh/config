@@ -1,45 +1,33 @@
-Host namecheap
-  HostName 67.223.118.27
-  User jukeuklg
-  Port 21098
-
-Host namecheap-jukesite-db
-  HostName 67.223.118.27
-  User jukeuklg
-  Port 21098
-  LocalForward 5532 127.0.0.1:5432
-  ExitOnForwardFailure yes
-  ServerAliveInterval 60
-  ServerAliveCountMax 3
+# === Shared base config for local network hosts ===
+Host oberon oberon-deepmirror oberon-dev
+  HostName 192.168.21.2
+  User jake
 
 Host oberon
-  HostName 192.168.21.14
-  User jake
+  # No overrides
 
-Host oberon-ports
-  HostName 192.168.21.14
-  User jake
-  LocalForward 3300 localhost:3000
-  LocalForward 5500 localhost:5000
-  LocalForward 5573 localhost:5173
-  LocalForward 5550 localhost:5432
-  LocalForward 9000 localhost:7000
-  LocalForward 9001 localhost:9091
-  LocalForward 9002 localhost:8384
+Host oberon-dev
+  LocalForward 8000 localhost:8000
+  LocalForward 5173 localhost:5173
 
-Host oberon-cf
-  HostName ssh.zakrzaq.xyz
-  User jake
-  ProxyCommand cloudflared access ssh --hostname %h
-
-Host oberon-cf-ports
-  HostName ssh.zakrzaq.xyz
-  User jake
-  ProxyCommand cloudflared access ssh --hostname %h
-  LocalForward 3000 localhost:3000 # Backend
+Host oberon-deepmirror
   LocalForward 5000 localhost:5000
-  LocalForward 5173 localhost:5173 # Frontend
-  LocalForward 7000 localhost:7000
+  LocalForward 5050 localhost:5050
+
+# === Shared base config for remote hosts ===
+Host rm-oberon rm-oberon-dev
+  HostName ssh.zakrzaq.xyz
+  User jake
+  ProxyCommand cloudflared access ssh --hostname %h
+
+Host rm-oberon
+  # No overrides
+
+Host rm-oberon-dev
+  LocalForward 8000 localhost:8000   # Backend
+  LocalForward 5173 localhost:5173   # Frontend
+
+
 
 Host deimos
   HostName 192.168.21.15
