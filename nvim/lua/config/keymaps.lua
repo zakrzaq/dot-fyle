@@ -188,7 +188,7 @@ for key, value in pairs(obsidian_maps) do
   map({ "n", "v" }, key, "<cmd>:Obsidian" .. value[1] .. "<cr>", { desc = value[2], silent = true })
 end
 
--- DAP
+-- DAP / debugger
 map({ "n", "v" }, "<leader>dt", function()
   require("dap").toggle_breakpoint()
 end, { desc = "Toggle breakpoint", silent = true })

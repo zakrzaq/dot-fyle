@@ -230,6 +230,11 @@ bindsym $mod+Shift+Tab workspace prev
 bindsym Ctrl+Shift+m exec --no-startup-id systemctl suspend
 bindsym Ctrl+Shift+n exec --no-startup-id systemctl hibernate
 
+bindsym $mod+Shift+a exec powerprofilesctl set power-saver
+bindsym $mod+Shift+s exec powerprofilesctl set balanced
+bindsym $mod+Shift+d exec powerprofilesctl set performance
+
+
 #### THEME ####
 
 # set primary Rosé Pine Moon colorscheme colors

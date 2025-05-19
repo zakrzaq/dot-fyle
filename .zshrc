@@ -67,3 +67,10 @@ if [ -d /usr/local/go/bin ]; then
   export PATH=$PATH:/home/jake/go/bin
 fi
 
+
+# bun completions
+[ -s "/home/jake/.bun/_bun" ] && source "/home/jake/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
