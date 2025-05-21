@@ -17,11 +17,12 @@ require("lazy").setup({
 
   -- Theme Configuration
   {
-    "rose-pine/neovim",
+    "catppuccin/nvim",
+    -- "rose-pine/neovim",
     -- "shaunsingh/nord.nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("rose-pine")
+      vim.cmd.colorscheme("catppuccin-mocha")
       -- vim.cmd.colorscheme("nord")
     end,
   },

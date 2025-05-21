@@ -1,8 +1,7 @@
 [general]
 import = [
   "~/.config/alacritty/keybind.toml",
-  "~/.config/alacritty/rose-pine.toml",
-  # "~/.config/alacritty/nord.toml",
+  "~/.config/alacritty/theme.toml",
 ]
 
 
@@ -28,13 +27,13 @@ style = "Bold"
 style = "Italic"
 
 [font.normal]
-# style = "Light"
-style = "Regular"
-family = "Hack Nerd Font Mono"
+style = "Light"
+# style = "Regular"
+# family = "Hack Nerd Font Mono"
 # family = "JetBrainsMono Nerd Font"
 # family = "CaskaydiaCove Nerd Font"
+family = "BlexMono Nerd Font"
 # family = "FiraCode Nerd Font Mono"
-# family = "BlexMono Nerd Font"
 
 [scrolling]
 history = 10000

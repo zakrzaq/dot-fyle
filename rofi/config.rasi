@@ -1,18 +1,3 @@
-// ROSE PINE
-// configuration {
-//     // font:				Cascadia Code 12";
-//     show-icons:				true;
-//     // icon-theme:				"Arc-X-D";
-//     display-drun:			"Apps";
-// 		combi-modes: [window,drun];
-//     drun-display-format:		"{name}";
-//     scroll-method:			0;
-//     disable-history:			false;
-//     sidebar-mode:			false;
-// }
-//
-// @import "~/.config/rofi/rose-pine-moon.rasi"
-
 configuration{
     modi: ["drun", "window", "run"];
     icon-theme: "Papirus-Dark";
@@ -41,4 +26,4 @@ configuration{
     kb-move-char-forward: "Control+f";
     kb-mode-complete: "Control+o";
 }
-@theme "tokyonight.rasi"
+@theme "theme.rasi"
