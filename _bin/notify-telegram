@@ -9,6 +9,7 @@
 import httpx  # type: ignore
 import argparse
 import sys 
+import os
 
 
 # INFO: GET chat_id, send a message to bot first
@@ -16,7 +17,7 @@ import sys
 
 bot_configs = {
     'deimos': {
-        'token': '7466009788:AAH-BJBdSpwFG9-xe3cTERQbkDUuVKewP0w',  
+        'token': os.getenv('TELEGRAM_TOKEN_DEIMOS', ''),  
         'chat_id': '7510172345'  
     },
 }
