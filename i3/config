@@ -192,7 +192,8 @@ bindsym $mod+r mode "resize"
 
 #### JAKE ####
 
-font pango:FiraCode Nerd Font Light 10
+# font pango:FiraCode Nerd Font Light 10
+font pango:Hack Nerd Font Mono 10
 
 gaps inner 6
 gaps outer 2
@@ -209,14 +210,13 @@ bindsym $mod+Ctrl+m move workspace to output up
 bindsym $mod+Ctrl+n move workspace to output down
 bindsym Control+Shift+1 exec ~/.screenlayout/left.sh
 bindsym Control+Shift+2 exec ~/.screenlayout/right.sh
-bindsym Control+Shift+3 exec ~/.screenlayout/lap-mon-top-one.sh
-bindsym Control+Shift+4 exec ~/.screenlayout/lap-mon-top-two.sh
+bindsym Control+Shift+8 exec ~/.screenlayout/full-dock.sh
 bindsym Control+Shift+9 exec ~/.screenlayout/both.sh
 bindsym Control+Shift+0 exec ~/.screenlayout/none.sh
 
 bindsym $mod+Shift+x exec i3lock -c 000000
-bindsym $mod+t exec --no-startup-id ~/.local/_bin/toggle-input 17
-bindsym $mod+b exec --no-startup-id ~/.local/_bin/toggle-bluetooth
+bindsym $mod+t exec --no-startup-id ~/.local/_bin/tgl-input 17
+bindsym $mod+b exec --no-startup-id ~/.local/_bin/tgl-bluetooth
 
 bindsym $mod+Shift+i exec rofimoji --action copy
 bindsym $mod+Shift+w sticky toggle 
@@ -227,8 +227,8 @@ bindsym Mod1+Tab focus next
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-bindsym Ctrl+Shift+m exec --no-startup-id systemctl suspend
-bindsym Ctrl+Shift+n exec --no-startup-id systemctl hibernate
+bindsym $mod+Shift+m exec --no-startup-id systemctl suspend
+bindsym $mod+Shift+n exec --no-startup-id systemctl hibernate
 
 bindsym $mod+Shift+a exec powerprofilesctl set power-saver
 bindsym $mod+Shift+s exec powerprofilesctl set balanced

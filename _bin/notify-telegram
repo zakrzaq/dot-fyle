@@ -1,0 +1,84 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.13.3"
+# dependencies = [
+#    "httpx>=0.28.1",
+# ]
+# ///
+
+import httpx  # type: ignore
+import argparse
+import sys 
+
+
+# INFO: GET chat_id, send a message to bot first
+# http https://api.telegram.org/bot<TOKEN>/getUpdates
+
+bot_configs = {
+    'deimos': {
+        'token': '7466009788:AAH-BJBdSpwFG9-xe3cTERQbkDUuVKewP0w',  
+        'chat_id': '7510172345'  
+    },
+}
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Send a Telegram notification to a specified service.",
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    parser.add_argument(
+        '-service',
+        type=str,
+        help="The name of the configured service (e.g., 'personal_alerts', 'team_notifications').\n"
+             f"Available services: {', '.join(bot_configs.keys())}"
+    )
+    parser.add_argument(
+        '-message',
+        type=str,
+        required=True,
+        help="The text message to send."
+    )
+
+    return parser.parse_args()
+
+
+def send_telegram_notification(service_name: str, message_text: str):
+    if service_name not in bot_configs:
+        print(f"Error: Service '{service_name}' not found. Available services: {', '.join(bot_configs.keys())}", file=sys.stderr)
+        sys.exit(1) 
+
+    config = bot_configs[service_name]
+    bot_token = config.get('token')
+    chat_id = config.get('chat_id')
+
+    if not bot_token or not chat_id:
+        print(f"Error: Configuration for service '{service_name}' is incomplete (missing token or chat_id).", file=sys.stderr)
+        sys.exit(1)
+
+    telegram_api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    payload = {
+        'chat_id': chat_id,
+        'text': message_text,
+        'parse_mode': 'HTML' 
+    }
+
+    try:
+        response = httpx.post(telegram_api_url, json=payload)
+        response.raise_for_status() 
+        telegram_response = response.json()
+
+        if telegram_response.get('ok'):
+            print(f"Notification sent successfully to service '{service_name}'!")
+        else:
+            print(f"Error: Telegram API responded with an error for service '{service_name}': {telegram_response.get('description', 'Unknown error')}", file=sys.stderr)
+            sys.exit(1)
+    except httpx.RequestError as e:
+        print(f"Error: Failed to connect to Telegram API for service '{service_name}': {e}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error: An unexpected error occurred while sending notification for service '{service_name}': {e}", file=sys.stderr)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    args = parse_args()
+    send_telegram_notification(args.service if args.service else 'deimos', args.message)

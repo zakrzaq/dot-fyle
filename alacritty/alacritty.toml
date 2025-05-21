@@ -19,7 +19,7 @@ COLORTERM = "truecolor"
 TERM = "xterm-256color"
 
 [font]
-size = 10.0
+size = 11.0
 
 [font.bold]
 style = "Bold"
@@ -28,8 +28,13 @@ style = "Bold"
 style = "Italic"
 
 [font.normal]
-style = "Light"
-family = "FiraCode Nerd Font Mono"
+# style = "Light"
+style = "Regular"
+family = "Hack Nerd Font Mono"
+# family = "JetBrainsMono Nerd Font"
+# family = "CaskaydiaCove Nerd Font"
+# family = "FiraCode Nerd Font Mono"
+# family = "BlexMono Nerd Font"
 
 [scrolling]
 history = 10000

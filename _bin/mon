@@ -1,0 +1,36 @@
+#!/bin/bash
+
+echo "Monitoring CPU Temperature and Fan Speed (Dell Precision 2551)"
+echo "Press Ctrl+C to stop."
+
+# Loop indefinitely
+while true; do
+    # Get sensors output
+    SENSOR_OUTPUT=$(sensors)
+
+    # --- CPU Temperature ---
+    # Look for a line containing "Core" or "CPU" and extract the temperature.
+    # You might need to adjust the grep pattern and awk field.
+    # Example: "Core 0:        +45.0°C  (high = +80.0°C, crit = +90.0°C)"
+    CPU_TEMP=$(echo "$SENSOR_OUTPUT" | grep "Core 0:" | awk '{print $3}' | sed 's/+//;s/°C//')
+
+    # --- Fan Speed ---
+    # Look for a line containing "fan" and extract the RPM.
+    # You might have multiple fans (e.g., fan1, fan2). Adjust as needed.
+    # Example: "fan1:        1500 RPM  (min = 0 RPM)"
+    FAN_SPEED=$(echo "$SENSOR_OUTPUT" | grep "fan" | awk '{print $2, $3}')
+
+    # Check if values were found
+    if [ -z "$CPU_TEMP" ]; then
+        CPU_TEMP="N/A"
+    fi
+    if [ -z "$FAN_SPEED" ]; then
+        FAN_SPEED="N/A"
+    fi
+
+    # Print the results
+    echo "CPU Temp: ${CPU_TEMP}°C | Fan Speed: ${FAN_SPEED}"
+
+    # Wait for a few seconds before the next check
+    sleep 3 # Check every 3 seconds
+done
