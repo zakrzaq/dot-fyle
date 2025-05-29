@@ -1,5 +1,5 @@
 # === Shared base config for local network hosts ===
-Host oberon oberon-deepmirror oberon-dev
+Host oberon oberon-dev
   HostName 192.168.21.2
   User jake
 
@@ -10,9 +10,16 @@ Host oberon-dev
   LocalForward 8000 localhost:8000
   LocalForward 5173 localhost:5173
 
-Host oberon-deepmirror
-  LocalForward 5000 localhost:5000
-  LocalForward 5050 localhost:5050
+Host fobos fobos-wsl
+  HostName 192.168.21.13
+  user user
+
+Host fobos
+  # No overrides
+
+Host fobos-wsl
+  RemoteCommand wsl
+
 
 # === Shared base config for remote hosts ===
 Host rm-oberon rm-oberon-dev
@@ -26,7 +33,6 @@ Host rm-oberon
 Host rm-oberon-dev
   LocalForward 8000 localhost:8000   # Backend
   LocalForward 5173 localhost:5173   # Frontend
-
 
 
 Host deimos
