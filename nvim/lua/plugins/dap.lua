@@ -52,11 +52,11 @@ function M.setup()
 	-- 	command = vim.fn.exepath("python") or "python",
 	-- 	args = { "-m", "debugpy.adapter" },
 	-- }
-	dap.adapters.python = {
-		type = "executable",
-		command = require("mason-registry").get_package("debugpy"):get_install_path() .. "/venv/bin/python",
-		args = { "-m", "debugpy.adapter" },
-	}
+	-- dap.adapters.python = {
+	-- 	type = "executable",
+	-- 	command = require("mason-registry").get_package("debugpy"):get_install_path() .. "/venv/bin/python",
+	-- 	args = { "-m", "debugpy.adapter" },
+	-- }
 
 	-- Debug configurations for Python
 	dap.configurations.python = {
@@ -77,7 +77,7 @@ function M.setup()
 				elseif vim.fn.executable(cwd .. "/venv/Scripts/python.exe") == 1 then
 					return cwd .. "/venv/Scripts/python.exe" -- Windows
 				else
-					return vim.fn.exepath("python")      -- Fallback
+					return vim.fn.exepath("python") -- Fallback
 				end
 			end,
 		},

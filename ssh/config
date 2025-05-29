@@ -22,22 +22,20 @@ Host fobos-wsl
 
 
 # === Shared base config for remote hosts ===
-Host rm-oberon rm-oberon-dev
+Host rm-fobos rm-fobos-dev
   HostName ssh.zakrzaq.xyz
-  User jake
+  User user
   ProxyCommand cloudflared access ssh --hostname %h
 
-Host rm-oberon
+Host rm-fobos
   # No overrides
 
-Host rm-oberon-dev
+Host rm-fobos-dev
   LocalForward 8000 localhost:8000   # Backend
   LocalForward 5173 localhost:5173   # Frontend
 
 
-Host deimos
-  HostName 192.168.21.15
-  User jake
+# Work computers
 
 Host win-euvic
   HostName 192.168.21.11
