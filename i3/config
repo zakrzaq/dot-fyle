@@ -33,7 +33,7 @@ floating_modifier $mod
 # start a apps
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec alacritty
-bindsym $mod+n exec google-chrome-stable
+bindsym $mod+n exec firefox
 bindsym $mod+x exec thunar
 
 # kill focused window

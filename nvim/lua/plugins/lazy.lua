@@ -35,7 +35,16 @@ require("lazy").setup({
   { "meznaric/key-analyzer.nvim", event = "VeryLazy",    opts = {} },
   { "numToStr/Comment.nvim",      event = "VeryLazy",    opts = {} },
   { "folke/todo-comments.nvim",   event = "VeryLazy",    opts = {} },
-
+  {
+    "f-person/git-blame.nvim",
+    event = "VeryLazy",
+    opts = {
+      enabled = true, -- if you want to enable the plugin
+      message_template = " <summary> • <date> • <author> • <<sha>>",
+      date_format = "%m-%d-%Y %H:%M:%S",
+      virtual_text_column = 1,
+    },
+  },
   {
     "folke/snacks.nvim",
     priority = 1000,
