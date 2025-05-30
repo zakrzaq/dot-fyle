@@ -1,14 +1,29 @@
-# === Shared base config for local network hosts ===
-Host oberon oberon-dev
-  HostName 192.168.21.2
+#-- DEIMOS --#
+Host deimos oberon-dev
+  HostName 192.168.21.15
   User jake
 
-Host oberon
+Host deimos
   # No overrides
 
-Host oberon-dev
+Host deimos-dev
   LocalForward 8000 localhost:8000
   LocalForward 5173 localhost:5173
+
+Host rm-deimos rm-deimos-dev
+  HostName ssh.zakrzaq.xyz
+  User jake
+  ProxyCommand cloudflared access ssh --hostname %h
+
+Host rm-deimos
+  # No overrides
+
+Host rm-deimos-dev
+  LocalForward 8000 localhost:8000   # Backend
+  LocalForward 5173 localhost:5173   # Frontend
+
+
+#-- FOBOS --#
 
 Host fobos fobos-wsl
   HostName 192.168.21.13
@@ -20,23 +35,16 @@ Host fobos
 Host fobos-wsl
   RemoteCommand wsl
 
+#-- MBP --#
 
-# === Shared base config for remote hosts ===
-Host rm-fobos rm-fobos-dev
-  HostName ssh.zakrzaq.xyz
-  User user
-  ProxyCommand cloudflared access ssh --hostname %h
-
-Host rm-fobos
-  # No overrides
-
-Host rm-fobos-dev
-  LocalForward 8000 localhost:8000   # Backend
-  LocalForward 5173 localhost:5173   # Frontend
+Host mbp 
+  HostName 192.168.21.16
+  user jake
 
 
-# Work computers
+#-- WORK --#
 
+#-- EUVIC --#
 Host win-euvic
   HostName 192.168.21.11
   User jzakrzewski
@@ -58,9 +66,8 @@ Host euvic-ports
   LocalForward 5433 localhost:5432
   LocalForward 3000 localhost:3000
 
-
-Host euvic-cf
+Host rm-euvic-cf
   HostName 192.168.21.11
   User jake
   Port 2222
-  ProxyJump oberon-cf
+  ProxyJump rm-deimos
