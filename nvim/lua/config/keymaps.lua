@@ -190,6 +190,9 @@ end
 
 -- DAP / debugger
 map({ "n", "v" }, "<leader>dt", function()
+  require("dapui").toggle()
+end, { desc = "Toggle UI", silent = true })
+map({ "n", "v" }, "<leader>db", function()
   require("dap").toggle_breakpoint()
 end, { desc = "Toggle breakpoint", silent = true })
 map({ "n", "v" }, "<leader>dc", function()
@@ -215,7 +218,7 @@ map({ "n", "v" }, "<leader>dq", function()
   require("dapui").close()
   require("nvim-dap-virtual-text").toggle()
 end, { desc = "Terminate", silent = true })
-map({ "n", "v" }, "<leader>db", function()
+map({ "n", "v" }, "<leader>dL", function()
   require("dap").list_breakpoints()
 end, { desc = "List reakpoints", silent = true })
 map({ "n", "v" }, "<leader>de", function()

@@ -17,13 +17,35 @@ require("lazy").setup({
 
   -- Theme Configuration
   {
-    "catppuccin/nvim",
-    -- "rose-pine/neovim",
-    -- "shaunsingh/nord.nvim",
+    "rebelot/kanagawa.nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("catppuccin-mocha")
-      -- vim.cmd.colorscheme("nord")
+      require('kanagawa').setup({
+        compile = false,  -- enable compiling the colorscheme
+        undercurl = true, -- enable undercurls
+        commentStyle = { italic = true },
+        functionStyle = {},
+        keywordStyle = { italic = true },
+        statementStyle = { bold = true },
+        typeStyle = {},
+        transparent = false,   -- do not set background color
+        dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
+        terminalColors = true, -- define vim.g.terminal_color_{0,17}
+        colors = {             -- add/modify theme and palette colors
+          palette = {},
+          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+        },
+        overrides = function(colors) -- add/modify highlights
+          return {}
+        end,
+        theme = "wave",  -- Load "wave" theme
+        background = {   -- map the value of 'background' option to a theme
+          dark = "wave", -- try "dragon" !
+          light = "lotus"
+        },
+      })
+
+      vim.cmd.colorscheme("kanagawa-wave")
     end,
   },
 
@@ -124,35 +146,35 @@ require("lazy").setup({
   },
 
   -- DBMS
-  {
-    "kristijanhusak/vim-dadbod-ui",
-    dependencies = {
-      { "tpope/vim-dadbod",                     lazy = true },
-      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
-    },
-    cmd = {
-      "DBUI",
-      "DBUIToggle",
-      "DBUIAddConnection",
-      "DBUIFindBuffer",
-    },
-    init = function()
-      -- Your DBUI configuration
-      vim.g.db_ui_use_nerd_fonts = 1
-    end,
-  },
-  {
-    "kndndrj/nvim-dbee",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    build = function()
-      require("dbee").install()
-    end,
-    config = function()
-      require("dbee").setup({})
-    end,
-  },
+  -- {
+  --   "kristijanhusak/vim-dadbod-ui",
+  --   dependencies = {
+  --     { "tpope/vim-dadbod",                     lazy = true },
+  --     { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
+  --   },
+  --   cmd = {
+  --     "DBUI",
+  --     "DBUIToggle",
+  --     "DBUIAddConnection",
+  --     "DBUIFindBuffer",
+  --   },
+  --   init = function()
+  --     -- Your DBUI configuration
+  --     vim.g.db_ui_use_nerd_fonts = 1
+  --   end,
+  -- },
+  -- {
+  --   "kndndrj/nvim-dbee",
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  --   build = function()
+  --     require("dbee").install()
+  --   end,
+  --   config = function()
+  --     require("dbee").setup({})
+  --   end,
+  -- },
 
   -- DAP --
   {
