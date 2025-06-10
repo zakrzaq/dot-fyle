@@ -174,9 +174,12 @@ alias sshfs-deimos="sudo sshfs -o allow_other,default_permissions ${USER}@${DEIM
 alias sshfs-euvic="sudo sshfs -p 2222 -o allow_other,default_permissions ${USER}@${EUVIC}:/home/${USER} ${REMOTES_DIR}/euvic"
 alias sshfs-mbp-judy="sudo sshfs -o allow_other,default_permissions judy@${MBP}:/Users/judy ${REMOTES_DIR}/judy-mbp"
 
+# netowking
 ssh-port() {
   local PORT=$1
   local HOST=$2
   ssh -N -f -L ${PORT}:localhost:${PORT} ${HOST}
 }
 alias ssh-ports="ps aux | grep '[s]sh -N -f -L'"
+
+alias ls-ports="sudo ss -tulpn | rg LISTEN | rg '127.0.0.1'"

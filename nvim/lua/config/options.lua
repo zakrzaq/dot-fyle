@@ -31,8 +31,6 @@ vim.opt.updatetime = 250
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 
-vim.opt.completeopt = "menuone,noselect"
-
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
@@ -42,6 +40,27 @@ vim.opt.conceallevel = 2
 
 vim.opt.foldmethod = "manual"
 vim.opt.foldenable = true
+
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
+
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = paste,
+    ["*"] = paste,
+  },
+}
+
+vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
 
 vim.opt.spell = true                                                           -- Enable spell checking
 vim.opt.spelllang = { "en", "pl" }                                             -- Set languages to English and Polish
