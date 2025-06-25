@@ -72,6 +72,9 @@ alias lg='lazygit'
 alias pm='pulsemixer'
 alias bt='bluetui'
 
+alias pps='powerprofilectl set'
+alias ppg='powerprofilectl get'
+
 alias rs="redshift -l 50.2649:19.0238 -t 5700:3500"
 alias tt="EDITOR=nvim taskwarrior-tui"
 

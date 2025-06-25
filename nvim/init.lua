@@ -17,3 +17,18 @@ require("plugins.kulala").setup()
 require("config.options")
 require("config.autocmd")
 require("config.keymaps")
+
+local function set_theme_by_time()
+  local hour = tonumber(os.date("%H"))
+  local min = tonumber(os.date("%M"))
+  if (hour > 7 or (hour == 7 and min >= 0)) and (hour < 17 or (hour == 17 and min < 30)) then
+    vim.cmd("colorscheme rose-pine-dawn")
+  else
+    vim.cmd("colorscheme rose-pine-moon")
+  end
+end
+
+set_theme_by_time()
+
+local timer = vim.loop.new_timer()
+timer:start(0, 300000, vim.schedule_wrap(set_theme_by_time))
