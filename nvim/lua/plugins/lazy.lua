@@ -13,9 +13,10 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Core Utilities
-  { "tpope/vim-sleuth",           event = "VeryLazy" },
+  { "tpope/vim-sleuth", event = "VeryLazy" },
 
   -- Theme Configuration
+  { "rose-pine/neovim" },
   {
     "catppuccin/nvim",
     priority = 1000,
@@ -67,11 +68,10 @@ require("lazy").setup({
           },
         },
       })
-
-      vim.cmd.colorscheme("catppuccin")
     end,
   },
 
+  --
   -- UI Components
   { "nvim-lualine/lualine.nvim",  event = "VeryLazy",    opts = {} },
   { "akinsho/bufferline.nvim",    event = "VeryLazy",    opts = {} },
