@@ -75,7 +75,7 @@ require("lazy").setup({
   --
   -- UI Components
   { "nvim-lualine/lualine.nvim",  event = "VeryLazy",    opts = {} },
-  { "akinsho/bufferline.nvim",    event = "VeryLazy",    opts = {} },
+  -- { "akinsho/bufferline.nvim",    event = "VeryLazy",    opts = {} },
   { "windwp/nvim-autopairs",      event = "InsertEnter", opts = {} },
   { "folke/which-key.nvim",       event = "VeryLazy",    opts = {} },
   { "meznaric/key-analyzer.nvim", event = "VeryLazy",    opts = {} },

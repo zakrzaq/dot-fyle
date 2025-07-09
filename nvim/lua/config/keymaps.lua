@@ -159,16 +159,18 @@ map(
 )
 
 ---- Terminal
-map({ "n", "v" }, "<leader>t", ":lua Snacks.terminal.toggle()<CR>", { silent = true, desc = "Toggle Terminal" })
-map({ "t" }, "<leader>tt", function()
-  require("snacks").terminal.toggle()
+map({ "n", "v" }, "<leader>t", ":ToggleTerm<CR>", { silent = true, desc = "Toggle Terminal" })
+map({ "t" }, "<leader>t", function()
+  require("toggleterm").toggle()
 end
 , { silent = true, desc = "Toggle Terminal" })
-map({ "n", "v" }, "<C-j>", ":lua Snacks.terminal.toggle()<CR>", { silent = true, desc = "Toggle Terminal" })
+map({ "n", "v" }, "<C-j>", ":ToggleTerm<CR>", { silent = true, desc = "Toggle Terminal" })
 map({ "t" }, "<C-j>", function()
-  require("snacks").terminal.toggle()
+  require("toggleterm").toggle()
 end
 , { silent = true, desc = "Toggle Terminal" })
+map({ "n", "v" }, "<leader>tn", ":TermNew<CR>", { silent = true, desc = "Term New" })
+map({ "n", "v" }, "<leader>ts", ":TermSelect<CR>", { silent = true, desc = "Term Select" })
 
 -- Obsidian mappings
 local obsidian_maps = {
