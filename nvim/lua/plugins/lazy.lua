@@ -16,6 +16,7 @@ require("lazy").setup({
   { "tpope/vim-sleuth", event = "VeryLazy" },
 
   -- Theme Configuration
+  { "gbprod/nord.nvim" },
   { "rose-pine/neovim" },
   {
     "catppuccin/nvim",
@@ -90,6 +91,7 @@ require("lazy").setup({
       virtual_text_column = 1,
     },
   },
+  { 'akinsho/toggleterm.nvim' },
   {
     "folke/snacks.nvim",
     priority = 1000,
