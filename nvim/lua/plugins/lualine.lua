@@ -8,7 +8,7 @@ end
 lln.setup({
   options = {
     icons_enabled = false,
-    theme = "rose-pine",
+    theme = "everforest",
     component_separators = "|",
     section_separators = "",
   },

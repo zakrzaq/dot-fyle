@@ -44,7 +44,7 @@ end
 
 -- COPILOT SYNTAX HIGHLIGHT
 vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "nord",
+	pattern = "everforest",
 	-- group = ...,
 	callback = function()
 		vim.api.nvim_set_hl(0, "CopilotSuggestion", {
@@ -65,4 +65,12 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 			vim.bo.filetype = "python"
 		end
 	end
+})
+
+-- tur off spellchecker for terminal windows --
+vim.api.nvim_create_autocmd("TermOpen", {
+	pattern = "*",
+	callback = function()
+		vim.opt_local.spell = false
+	end,
 })

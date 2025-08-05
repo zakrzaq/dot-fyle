@@ -36,4 +36,4 @@ end
 -- local timer = vim.loop.new_timer()
 -- timer:start(0, 300000, vim.schedule_wrap(set_theme_by_time))
 
-vim.cmd("colorscheme nord")
+vim.cmd("colorscheme everforest")

@@ -3,7 +3,7 @@
     follow = mouse
     width = 300
     height = 100
-    offset = 10x50
+    offset = 5x5
     transparency = 10
     padding = 10
     horizontal_padding = 10

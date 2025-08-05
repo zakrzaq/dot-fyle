@@ -13,11 +13,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Core Utilities
-  { "tpope/vim-sleuth", event = "VeryLazy" },
+  { "tpope/vim-sleuth",       event = "VeryLazy" },
 
   -- Theme Configuration
   { "gbprod/nord.nvim" },
   { "rose-pine/neovim" },
+  { "neanias/everforest-nvim" },
   {
     "catppuccin/nvim",
     priority = 1000,
@@ -143,7 +144,7 @@ require("lazy").setup({
   },
 
   -- Formatting
-  { "stevearc/conform.nvim",   event = "BufReadPre",                   opts = {} },
+  { "stevearc/conform.nvim", event = "BufReadPre", opts = {} },
 
   -- Note Taking
   {

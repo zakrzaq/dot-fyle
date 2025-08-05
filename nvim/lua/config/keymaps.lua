@@ -250,3 +250,8 @@ vim.g.copilot_no_tab_map = true
 map({ "n", "v" }, "<leader>cp", "<cmd>:echo expand('%:p') <cr>", { desc = "[C]ode [P]ath", silent = true })
 
 map({ "n", "v" }, "<leader>Rs", ":lua require('kulala').run() <CR>", { silent = true, desc = "Run Request" })
+
+-- themes
+map({ "n", "v" }, "<leader>ul", "<cmd>:colorscheme rose-pine-dawn<CR>", { desc = "[U]se [L]ight Theme" })
+map({ "n", "v" }, "<leader>ud", "<cmd>:colorscheme nord<CR>", { desc = "[U]se [D]ark Theme" })
+

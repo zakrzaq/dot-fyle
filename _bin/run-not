@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+import argparse
+import subprocess
+import sys
+
+def notify_telegram(message):
+    """Send Telegram notification using the notify-telegram command."""
+    try:
+        subprocess.run(["notify-telegram", "-message", message], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error sending Telegram notification: {e}", file=sys.stderr)
+
+def main():
+    parser = argparse.ArgumentParser(description="Run a command and send a Telegram notification on completion or failure.")
+    parser.add_argument("-o", "--stdout", action="store_true", help="Include stdout in the success message.")
+    parser.add_argument("-e", "--stderr", action="store_true", help="Include stderr in the failure message.")
+    parser.add_argument("command", nargs="+", help="The command to execute.")
+    parser.add_argument("success_message", nargs="?", default="Task completed", help="The message to send on success.")
+    parser.add_argument("failure_message", nargs="?", default="Task failed", help="The message to send on failure.")
+
+    args = parser.parse_args()
+
+    command = " ".join(args.command)
+    success_message = args.success_message
+    failure_message = args.failure_message
+
+    try:
+        result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        exit_code = result.returncode
+        stdout = result.stdout
+        stderr = result.stderr
+
+        if exit_code == 0:
+            message = f"FINISHED: {success_message}"
+            if args.stdout:
+                message += f"\nSTDOUT: {stdout}"
+            notify_telegram(message)
+        else:
+            message = f"FAILED: {failure_message}"
+            if args.stderr:
+                message += f"\nSTDERR: {stderr}"
+            notify_telegram(message)
+
+        sys.exit(exit_code)
+
+    except FileNotFoundError as e:
+        print(f"Command not found: {e.filename}", file=sys.stderr)
+        sys.exit(127)  # Standard "command not found" exit code
+    except Exception as e:
+        print(f"An error occurred: {e}", file=sys.stderr)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
+

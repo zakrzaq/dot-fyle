@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Get battery info
+BAT_INFO=$(acpi -b)
+
+# Extract percentage and status
+PERCENT=$(echo "$BAT_INFO" | grep -oP '\d+%' | head -n1)
+STATUS=$(echo "$BAT_INFO" | grep -oP 'Charging|Discharging|Full')
+
+# Extract time remaining if available (may be missing)
+if echo "$BAT_INFO" | grep -qP '\d{2}:\d{2}:\d{2}'; then
+    TIME_REMAINING=$(echo "$BAT_INFO" | grep -oP '\d{2}:\d{2}:\d{2}' | head -n1)
+else
+    TIME_REMAINING="Unavailable"
+fi
+echo "Time remaining: $TIME_REMAINING" # Debugging line
+
+# Get current date and time
+CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+
+# Get volume info using pactl
+VOLUME_INFO=$(pactl get-sink-volume @DEFAULT_SINK@)
+MUTE_INFO=$(pactl get-sink-mute @DEFAULT_SINK@)
+
+# Extract volume percentage (splitting and reassembling to handle multiple channels)
+VOLUME_SUM=0
+VOLUME_COUNT=0
+while read -r LINE; do
+  if [[ "$LINE" =~ Volume:\ [[:digit:]]+% ]]; then
+    VOLUME_SUM=$((VOLUME_SUM + $(echo "$LINE" | grep -oP '[[:digit:]]+')))
+    VOLUME_COUNT=$((VOLUME_COUNT + 1))
+  fi
+done <<< "$VOLUME_INFO"
+
+if [[ $VOLUME_COUNT -gt 0 ]]; then
+  VOLUME_PERCENT=$((VOLUME_SUM / VOLUME_COUNT))
+else
+  VOLUME_PERCENT="N/A"
+fi
+echo "Volume percent: $VOLUME_PERCENT" # Debugging line
+
+# Extract mute status
+if [[ "$MUTE_INFO" == "Mute: yes" ]]; then
+    MUTE_STATUS="Muted"
+else
+    MUTE_STATUS="Unmuted"
+fi
+
+# Final message
+MESSAGE="$CURRENT_TIME
+Status: $STATUS
+Charge: $PERCENT
+Time left: $TIME_REMAINING
+Volume: $VOLUME_PERCENT% ($MUTE_STATUS)"
+
+# Show notification
+notify-send "🔋 Battery & Volume Status" "$MESSAGE"

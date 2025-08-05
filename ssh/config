@@ -42,32 +42,16 @@ Host mbp
   user jake
 
 
+#-- ZAS --#
+
+Host zas 
+  HostName 192.168.21.11
+  user jake
+
+Host rm-zas
+  HostName dangerous-emperor-reliance-fiber.trycloudflare.com
+  User jake
+  ProxyCommand cloudflared access ssh --hostname %h
+
 #-- WORK --#
 
-#-- EUVIC --#
-Host win-euvic
-  HostName 192.168.21.11
-  User jzakrzewski
-  Port 22
-
-Host euvic
-  HostName 192.168.21.11
-  User jake
-  Port 2222
-
-Host euvic-ports
-  HostName 192.168.21.11
-  User jake
-  Port 2222
-  LocalForward 8000 localhost:8000
-  LocalForward 8020 localhost:8020
-  LocalForward 7700 localhost:7700
-  LocalForward 5000 localhost:5000
-  LocalForward 5433 localhost:5432
-  LocalForward 3000 localhost:3000
-
-Host rm-euvic-cf
-  HostName 192.168.21.11
-  User jake
-  Port 2222
-  ProxyJump rm-deimos

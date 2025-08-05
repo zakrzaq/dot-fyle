@@ -1,0 +1,96 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+# ]
+# ///
+
+import os
+import socket
+from ftplib import FTP
+
+# ==== CONFIG ====
+FTP_HOST = os.getenv("ZAKRZAQ_FTP_HOST", "ftp.yourdomain.com")
+FTP_USER = os.getenv("ZAKRZAQ_FTP_USER", "username")
+FTP_PASS = os.getenv("ZAKRZAQ_FTP_PASS", "password")
+REMOTE_DIR = "htdocs/dot-fyles"
+
+# Local file mapping: {local_path: remote_relative_path}
+FILES_TO_UPLOAD = {
+    ".zshrc": ".zshrc",
+    ".bashrc": ".bashrc",
+    ".aliases": ".aliases",
+    ".gitconfig": ".gitconfig",
+    ".tmux.conf": ".tmux.conf",
+    "light-setup.sh": "setup.sh",
+    "minvim/init.lua": "nvim/init.lua",
+}
+
+def ensure_remote_dirs(ftp, remote_path):
+    """Ensure the remote directory structure exists."""
+    dirs = remote_path.strip("/").split("/")[:-1]
+    path = ""
+    for d in dirs:
+        path = f"{path}/{d}" if path else d
+        try:
+            ftp.mkd(path)
+        except:
+            pass  # ignore if already exists
+
+def upload_file(ftp, local_path, remote_path):
+    ensure_remote_dirs(ftp, remote_path)
+    with open(local_path, "rb") as f:
+        print(f"⬆️ Uploading {local_path} -> {remote_path}")
+        ftp.storbinary(f"STOR {remote_path}", f)
+
+        if remote_path.endswith('.sh'):
+            try:
+                ftp.voidcmd(f"SITE CHMOD 755 {remote_path}")
+                print(f"🔧 Made {remote_path} executable (755)")
+            except Exception as e:
+                print(f"⚠️  Could not set permissions for {remote_path}: {e}")
+                # Try alternative method
+                try:
+                    ftp.sendcmd(f"CHMOD 755 {remote_path}")
+                    print(f"🔧 Made {remote_path} executable (755) - alternative method")
+                except Exception as e2:
+                    print(f"⚠️  Permission setting failed: {e2}")
+
+def main():
+    # Debug environment variables
+    print(f"🔍 FTP_HOST: {FTP_HOST}")
+    print(f"🔍 FTP_USER: {FTP_USER}")
+    print(f"🔍 FTP_PASS: {'*' * len(FTP_PASS) if FTP_PASS != 'password' else 'using default!'}")
+    
+    if FTP_HOST == "ftp.yourdomain.com":
+        print("⚠️  WARNING: Using default FTP_HOST! Check your environment variables.")
+        return
+    
+    ftp = FTP()
+    try:
+        print("🌐 Starting upload...")
+        
+        # Force IPv4 resolution to avoid connection issues
+        ip = socket.gethostbyname(FTP_HOST)
+        print(f"🔗 Connecting to {FTP_HOST} ({ip})")
+        
+        ftp.connect(ip, 21, timeout=10)
+        ftp.login(FTP_USER, FTP_PASS)
+        ftp.set_pasv(True)
+        print(f"🔑 Logged in as {FTP_USER}")
+        
+        ftp.cwd(REMOTE_DIR)
+        print(f"📂 Switched to {REMOTE_DIR}")
+        
+        for local, remote_rel in FILES_TO_UPLOAD.items():
+            # Since we already cwd to REMOTE_DIR, just use the relative path
+            upload_file(ftp, local, remote_rel)
+            
+        ftp.quit()
+        print("✅ Upload complete.")
+        
+    except Exception as e:
+        print(f"❌ Upload failed: {e}")
+
+if __name__ == "__main__":
+    main()

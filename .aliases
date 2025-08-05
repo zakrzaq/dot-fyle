@@ -24,19 +24,6 @@ alias ta='tmux attach'
 alias td='tmux detach'
 alias tk='tmux kill-server'
 
-# SYS UBUNTU 
-alias apd='sudo apt update'
-alias apg='sudo apt upgrade'
-alias api='fn() { sudo apt install -y "$@" }; fn'
-alias apc='sudo apt autoremove && sudo apt autoclean'
-
-# SYS ARCH
-alias yai='fn() { yay -S "$@" }; fn'
-alias yar='fn() { yay -R "$@" }; fn'
-alias yau='yay -Syu'
-alias pai='fn() { sudo pacman -S "$@" }; fn'
-alias par='fn() { sudo pacman -R "$@" }; fn'
-alias pau='sudo pacman -Syu'
 
 
 # SYS TERM
@@ -54,17 +41,14 @@ alias ls-cmd='fc -l -n 1 | fzf | xargs -r -I {} /bin/zsh -c "{}"'
 alias fz="fzf --preview 'bat --color=always {}'"
 alias me='echo $(whoami) $(uname -n) $(uname -s) $(my-ip)'
 
-alias lt='exa --long --icons -T --git'
-alias lla='exa -a --long --icons --git'
-alias ll='exa --long --icons --git'
-alias la='exa -a --icons'
-alias l='exa --icons'
+alias et='exa --long --icons -T --git'
+alias ela='exa -a --long --icons --git'
+alias el='exa --long --icons --git'
+alias ea='exa -a --icons'
+alias e='exa --icons'
 
 alias dfh="df -h | grep home | awk '{print \$4}'"
 alias dff='duf -only local'
-alias ds='dust'
-
-alias fm='yazi'
 
 alias ld='lazydocker'
 alias lg='lazygit'
@@ -72,8 +56,8 @@ alias lg='lazygit'
 alias pm='pulsemixer'
 alias bt='bluetui'
 
-alias pps='powerprofilectl set'
-alias ppg='powerprofilectl get'
+alias pps='powerprofilesctl set && notify-send "Power profile set" -i display'
+alias ppg='powerprofilesctl get'
 
 alias rs="redshift -l 50.2649:19.0238 -t 5700:3500"
 alias tt="EDITOR=nvim taskwarrior-tui"
@@ -135,7 +119,6 @@ alias gstd='fn() { git stash drop stash@\{"$1"\} }; fn'
 
 # NVIM
 alias nv='nvim'
-alias lv="NVIM_APPNAME=lazyvim nvim"
 alias xv="NVIM_APPNAME=minvim nvim"
 
 # DOCKER
@@ -152,23 +135,6 @@ alias dc-sh='fn() { docker exec -it $(docker ps -qf expose=$1) sh }; fn'
 alias dc-up='docker compose up'
 alias dc-down='docker compose down'
 
-# TORRENT
-alias tra="transmission-remote -a"
-alias trl="transmission-remote -l"
-alias tr="transmission-remote -t"
-alias trs="transmission-remote -s"
-alias trsa="transmission-remote -t all --stop"
-
-# TODOIST
-alias tda="todoist add"
-alias tdc="todoist complete $@"
-alias tdd="todoist delete $@"
-alias tdl="todoist list"
-alias tdp="todoist projects"
-
-# WINDOW TOOLS
-alias window-get="xdotool selectwindow"
-alias window-name="fn() { xdotool set_window --name $1 $2 }; fn"
 
 # REMOTES
 alias sshfs-oberon="sudo sshfs -o allow_other,default_permissions ${USER}@${OBERON}:/home/${USER} ${REMOTES_DIR}/oberon"
