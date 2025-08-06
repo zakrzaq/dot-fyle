@@ -5,7 +5,7 @@ function M.init()
 end
 
 function M.setup()
-	local installed, module = pcall(require, "kulala")
+	local installed, kulala = pcall(require, "kulala")
 	if not installed then
 		vim.notify("Plugin 'kulala' is not installed")
 		return
@@ -13,7 +13,7 @@ function M.setup()
 
 	M.init()
 
-	module.setup({
+	kulala.setup({
 		ui = {
 			display_mode = "split",
 			split_direction = "vertical",

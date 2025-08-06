@@ -1,4 +1,10 @@
-require("conform").setup({
+local installed, conform = pcall(require, "conform")
+if not installed then
+	vim.notify("Plugin 'lualine' is not installed")
+	return
+end
+
+conform.setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "ruff", "black" },
@@ -12,7 +18,6 @@ require("conform").setup({
 		sql = { "sqlfmt" },
 	},
 	format_on_save = {
-		-- These options will be passed to conform.format()
 		timeout_ms = 500,
 		lsp_fallback = true,
 	},

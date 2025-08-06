@@ -10,7 +10,7 @@ declare -A FILES=(
   [".bashrc"]="$HOME/.bashrc"
   [".aliases"]="$HOME/.aliases"
   [".gitconfig"]="$HOME/.gitconfig"
-  [".tmux.conf"]="$HOME/.gitconfig"
+  [".tmux.conf"]="$HOME/.tmux.conf"
   ["nvim/init.lua"]="$HOME/.config/nvim/init.lua"
 )
 

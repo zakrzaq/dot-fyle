@@ -1,73 +1,52 @@
 vim.g.mapleader = " "
 
--- Helper function for mapping multiple keys
 local function map(mode, lhs, rhs, opts)
   opts = opts or {}
   opts.silent = opts.silent ~= false
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
--- Basic mappings
-map("i", "jj", "<ESC>")
-map({ "n", "v" }, "nn", ":noh <CR>", { silent = true, desc = "No Highlight" })
-map({ "i" }, "nnn", "<ESC>:noh<CR><ESC>i", { silent = true, desc = "No Highlight" })
-map("n", "<leader>ue", vim.cmd.Explore, { desc = "Nvim Explorer" })
+map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
+map("n", "<leader>tn", ":tabnew<CR>", { desc = "New tab" })
+map("n", "<leader>tc", ":tabclose<CR>", { desc = "Close tab" })
+map("n", "]t", ":tabnext<CR>", { desc = "Next tab" })
+map("n", "[t", ":tabprevious<CR>", { desc = "Previous tab" })
+map("n", "]b", ":bn<CR>", { desc = "Next tab" })
+map("n", "[b", ":bp<CR>", { desc = "Previous tab" })
+map('n', '<leader>z', '<C-^>', { noremap = true, silent = true })
+map("v", "<", "<gv", { silent = true })
+map("v", ">", ">gv", { silent = true })
+
+map("n", "<C-q>", ":qa!<CR>", { desc = "Quit!" })
+map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
+map("n", "<leader>x", ":x<CR>", { desc = "Save and quit file" })
+map("n", "<leader>q", ":bd<CR>", { desc = "Close buffer" })
+map("n", "<leader>Q", "<C-w>c", { desc = "Close current pane/window" })
+
+map("n", "<leader>uh", ":nohlsearch<CR>", { desc = "Clear search highlights" })
+map("n", "<leader>ue", ":Explore<CR>", { desc = "Explorer" })
+map("n", "<leader>ut", ":terminal<CR>", { desc = "Terminal" })
+map({ "n", "v" }, "<leader>up", "<cmd>:echo expand('%:p') <cr>", { desc = "[C]ode [P]ath", silent = true })
+map({ "n", "v" }, "<leader>ul", "<cmd>:colorscheme rose-pine-dawn<CR>", { desc = "[U]se [L]ight Theme" })
+map({ "n", "v" }, "<leader>ud", "<cmd>:colorscheme nord<CR>", { desc = "[U]se [D]ark Theme" })
+
+map("i", "jj", "<ESC>", { desc = "Escape" })
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
+map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
 
--- Center screen mappings
 local center_maps = { "<C-d>", "<C-u>", "n", "N" }
 for _, key in ipairs(center_maps) do
   map("n", key, key .. "zz")
 end
 
--- Clipboard operations
-map({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
-map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
 
--- Window navigation
-local window_maps = {
-  ["<C-h>"] = "h",
-  ["<C-l>"] = "l",
-  ["<C-k>"] = "k",
-  ["<M-h>"] = "h",
-  ["<M-j>"] = "j",
-  ["<M-k>"] = "k",
-  ["<M-l>"] = "l",
-  ["<leader>h"] = "h",
-  ["<leader>j"] = "j",
-  ["<leader>k"] = "k",
-  ["<leader>l"] = "l",
-}
-for key, dir in pairs(window_maps) do
-  map("n", key, "<C-w>" .. dir)
-end
-
-map({ "n", "v" }, "<leader>p", "<C-w>s", { desc = "Split window horizontally" })
-map({ "n", "v" }, "<leader>v", "<C-w>v", { desc = "Split window vertically" })
-
--- Buffer operations
-map("n", "<C-q>", "<cmd>qa!<CR>", { desc = "[Q]uit nvim" })
-map("n", "<space>w", "<cmd>write<cr>", { desc = "[W]rite changes" })
-map("n", "<C-s>", "<cmd>Format<cr> <cmd>write<cr>", { desc = "[W]rite changes" })
-map("n", "]b", "<cmd>bn<CR>", { desc = "Next buffer" })
-map("n", "[b", "<cmd>bp<CR>", { desc = "Previous buffer" })
-
--- Tab operations
-map("n", "<C-q>", "<cmd>qa!<CR>", { desc = "[Q]uit nvim" })
-map("n", "<space>w", "<cmd>write<cr>", { desc = "[W]rite changes" })
-map("n", "<C-s>", "<cmd>Format<cr> <cmd>write<cr>", { desc = "[W]rite changes" })
-map("n", "]b", "<cmd>bn<CR>", { desc = "Next buffer" })
-map("n", "[b", "<cmd>bp<CR>", { desc = "Previous buffer" })
-
--- Visual mode indentation
-map("v", "<", "<gv")
-map("v", ">", ">gv")
-
--- Custom
-map("n", "<C-f>", "<cmd>:silent !tmux neww tmux-sessionizer<CR>", { desc = "Create Tmux Session" })
-
--- Snacks
+-- SNACKS
 map({ "n", "v" }, "<leader>q", ":lua Snacks.bufdelete()<CR>", { silent = true, desc = "Delete buffer" })
 map({ "n", "v" }, "<leader>Q", ":close<CR>", { silent = true, desc = "Close" })
 map({ "n", "v" }, "<leader>e", ":lua Snacks.explorer()<CR>", { silent = true, desc = "Toggle Explorer" })
@@ -76,8 +55,6 @@ map({ "n", "v" }, "<C-b>", function()
 end
 , { silent = true, desc = "Toggle Explorer" })
 map({ "n", "v" }, "<leader>gg", ":lua Snacks.lazygit()<CR>", { silent = true, desc = "Toggle LazyGit" })
-map({ "n", "v" }, "<leader>rr", ":lua Snacks.rename_file()<CR>", { silent = true, desc = "Toggle LazyGit" })
-
 map({ "n", "v" }, "<leader><space>", ":lua Snacks.picker.files()<CR>", { silent = true, desc = "Smart Find Files" })
 map({ "n", "v" }, "<leader>,", ":lua Snacks.picker.buffers()<CR>", { silent = true, desc = "Buffers" })
 map({ "n", "v" }, "<leader>/", ":lua Snacks.picker.grep()<CR>", { silent = true, desc = "Grep" })
@@ -88,7 +65,6 @@ map(
   ":lua Snacks.picker.notifications()<CR>",
   { silent = true, desc = "Notification History" }
 )
-
 map({ "n", "v" }, "<leader>fb", ":lua Snacks.picker.buffers()<CR>", { silent = true, desc = "Buffers" })
 map(
   { "n", "v" },
@@ -100,7 +76,6 @@ map({ "n", "v" }, "<leader>ff", ":lua Snacks.picker.files()<CR>", { silent = tru
 map({ "n", "v" }, "<leader>fg", ":lua Snacks.picker.git_files() <CR>", { silent = true, desc = "Find Git Files" })
 map({ "n", "v" }, "<leader>fp", ":lua Snacks.picker.projects() <CR>", { silent = true, desc = "Projects" })
 map({ "n", "v" }, "<leader>fr", ":lua Snacks.picker.recent() <CR>", { silent = true, desc = "Recent" })
-
 map({ "n", "v" }, "<leader>gb", ":lua Snacks.picker.git_branches() <CR>", { silent = true, desc = "Git Branches" })
 map({ "n", "v" }, "<leader>gl", ":lua Snacks.picker.git_log() <CR>", { silent = true, desc = "Git Log" })
 map({ "n", "v" }, "<leader>gL", ":lua Snacks.picker.git_log_line() <CR>", { silent = true, desc = "Git Log Line" })
@@ -108,7 +83,6 @@ map({ "n", "v" }, "<leader>gs", ":lua Snacks.picker.git_status() <CR>", { silent
 map({ "n", "v" }, "<leader>gS", ":lua Snacks.picker.git_stash() <CR>", { silent = true, desc = "Git Stash" })
 map({ "n", "v" }, "<leader>gd", ":lua Snacks.picker.git_diff() <CR>", { silent = true, desc = "Git Diff (Hunks)" })
 map({ "n", "v" }, "<leader>gf", ":lua Snacks.picker.git_log_file() <CR>", { silent = true, desc = "Git Log File" })
-
 map({ "n", "v" }, "<leader>sb", ":lua Snacks.picker.lines() <CR>", { silent = true, desc = "Buffer Lines" })
 map({ "n", "v" }, "<leader>.", ":lua Snacks.picker.lines() <CR>", { silent = true, desc = "Buffer Lines" })
 map({ "n", "v" }, "<leader>sB", ":lua Snacks.picker.grep_buffers() <CR>", { silent = true, desc = "Grep Open Buffers" })
@@ -119,7 +93,6 @@ map(
   ":lua Snacks.picker.grep_word() <CR>",
   { silent = true, desc = "Visual selection or word" }
 )
-
 map({ "n", "v" }, '<leader>s"', ":lua Snacks.picker.registers() <CR>", { silent = true, desc = "Registers" })
 map({ "n", "v" }, "<leader>s/", ":lua Snacks.picker.search_history() <CR>", { silent = true, desc = "Search History" })
 map({ "n", "v" }, "<leader>sa", ":lua Snacks.picker.autocmds() <CR>", { silent = true, desc = "Autocmds" })
@@ -158,7 +131,7 @@ map(
   { silent = true, desc = "Todo" }
 )
 
----- Terminal
+-- TERMINAL
 map({ "n", "v" }, "<leader>t", ":ToggleTerm<CR>", { silent = true, desc = "Toggle Terminal" })
 map({ "t" }, "<leader>t", function()
   require("toggleterm").toggle()
@@ -172,7 +145,7 @@ end
 map({ "n", "v" }, "<leader>tn", ":TermNew<CR>", { silent = true, desc = "Term New" })
 map({ "n", "v" }, "<leader>ts", ":TermSelect<CR>", { silent = true, desc = "Term Select" })
 
--- Obsidian mappings
+-- OBSIDIAN
 local obsidian_maps = {
   ["<leader>oo"] = { "QuickSwitch", "[O]bsidian [o]pen" },
   ["<leader>os"] = { "Search", "[O]bsidian [s]earch" },
@@ -227,7 +200,7 @@ map({ "n", "v" }, "<leader>de", function()
   require("dap").set_exception_breakpoints({ "all" })
 end, { desc = "Set Exception Breakpoints", silent = true })
 
--- CodeCompanionChat
+-- CODE COMPANION
 map({ "n", "v" }, "<leader>at", ":CodeCompanionChat Toggle<CR>", { silent = true, desc = "CodeCompanion Toggle" })
 map({ "n", "v" }, "<C-M-i>", ":CodeCompanionChat Toggle<CR>", { silent = true, desc = "CodeCompanion Toggle" })
 map({ "n", "v" }, "<leader>aa", ":CodeCompanionActions<CR>", { silent = true, desc = "CodeCompanion Actions" })
@@ -239,19 +212,23 @@ map({ "v" }, "<leader>aT", ":CodeCompanionChat Ask test<CR>", { silent = true, d
 map({ "n" }, "<leader>ac", ":CodeCompanionChat Close<CR>", { silent = true, desc = "Close Current Chat" })
 map({ "n" }, "<leader>an", ":CodeCompanionChat Rename<CR>", { silent = true, desc = "Rename Current Chat" })
 
--- Copilot
+-- COPILOT
 map("i", "<M-enter>", 'copilot#Accept("\\<CR>")', {
   expr = true,
   replace_keycodes = false,
 })
 vim.g.copilot_no_tab_map = true
 
--- Other mappings
-map({ "n", "v" }, "<leader>cp", "<cmd>:echo expand('%:p') <cr>", { desc = "[C]ode [P]ath", silent = true })
-
+-- KULALA
 map({ "n", "v" }, "<leader>Rs", ":lua require('kulala').run() <CR>", { silent = true, desc = "Run Request" })
 
--- themes
-map({ "n", "v" }, "<leader>ul", "<cmd>:colorscheme rose-pine-dawn<CR>", { desc = "[U]se [L]ight Theme" })
-map({ "n", "v" }, "<leader>ud", "<cmd>:colorscheme nord<CR>", { desc = "[U]se [D]ark Theme" })
-
+-- LOAD PLUGINS
+map("n", "<leader>Lk", function()
+  require('plugins.kulala').setup()
+end, { desc = "Enable Kulala" })
+map("n", "<leader>Lo", function()
+  require("plugins.obsidian").setup()
+end, { desc = "Enable Obsidian" })
+map("n", "<leader>Ld", function()
+  require("plugins.dap").setup()
+end, { desc = "Enable DAP" })

@@ -208,7 +208,8 @@ bindsym $mod+t exec --no-startup-id ~/.local/_bin/tgl-input 17
 bindsym $mod+b exec --no-startup-id ~/.local/_bin/tgl-bluetooth
 
 bindsym $mod+Shift+i exec rofimoji --action copy
-bindsym $mod+Shift+w sticky toggle && notify-send "Sticky..." -i screen -t 500 
+bindsym $mod+Shift+w sticky toggle 
+# bindsym $mod+Shift+w sticky toggle && notify-send "Sticky..." -i screen -t 500 
 bindsym $mod+Shift+p exec --no-startup-id maim --select | xclip -selection clipboard -t image/png && notify-send "Screenshot taken..." -i screen -t 500
 bindsym $mod+Shift+t exec --no-startup-id feh --no-fehbg --geometry +0+0 --zoom fill --fullscreen ~/Pictures/wallpapers/background.jpg
 

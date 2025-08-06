@@ -1,4 +1,3 @@
--- requiring plugin
 local installed, lln = pcall(require, "lualine")
 if not installed then
   vim.notify("Plugin 'lualine' is not installed")

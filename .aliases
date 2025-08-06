@@ -1,45 +1,28 @@
 alias _="fn() {  }; fn"
 
-# SETUP
-mkdir -p "${HOME}/remotes"
-mkdir -p "${HOME}/remotes/oberon"
-mkdir -p "${HOME}/remotes/data"
-mkdir -p "${HOME}/remotes/deimos"
-mkdir -p "${HOME}/remotes/euvic"
-mkdir -p "${HOME}/remotes/jake-mbp"
-mkdir -p "${HOME}/remotes/judy-mbp"
-
-# VARS
-SSH_USER="jake"
-LOCAL_IP="192.168.21."
-OBERON="${LOCAL_IP}20"
-DEIMOS="${LOCAL_IP}"
-EUVIC="${LOCAL_IP}4"
-MBP="${LOCAL_IP}7"
-REMOTES_DIR="$HOME/remotes"
-
 # TMUX
-alias t='tmux'
+alias t='tmux has-session -t main 2>/dev/null && tmux attach-session -t main || tmux new-session -s main'
 alias ta='tmux attach'
 alias td='tmux detach'
 alias tk='tmux kill-server'
 
-
-
 # SYS TERM
-alias rsh="source ~/.zshrc"
+alias rzsh="source ~/.zshrc"
+alias rbsh="source ~/.bashrc"
 alias rmv='rm -rf'
 alias rmv-dirs='fn() { find . -name $1 -type d -prune -exec rm -rf '{}' + }; fn'
-alias la='ls -la'
-alias cl='clear'
+alias c='clear'
 alias x='exit'
-alias mkd='fn() { mkdir "$1" && cd "$1"; }; fn'
-alias wi='function _we() { watch -n "$1" "${@:2}"; }; _we'
+alias mkcd='fn() { mkdir "$1" && cd "$1"; }; fn'
 alias src='fn() { source ./"$1"/bin/activate }; fn'
 alias lc="fc -l 1 | tac | fzf --tac | xargs -r -I {} /bin/zsh -c '{}'"
-alias ls-cmd='fc -l -n 1 | fzf | xargs -r -I {} /bin/zsh -c "{}"'
 alias fz="fzf --preview 'bat --color=always {}'"
-alias me='echo $(whoami) $(uname -n) $(uname -s) $(my-ip)'
+
+alias lt='ls -l --color=auto -F -h'                       
+alias lla='ls -la --color=auto -F -h'                     
+alias ll='ls -l --color=auto -F -h'                       
+alias la='ls -a --color=auto -F'                          
+alias l='ls --color=auto -F'                              
 
 alias et='exa --long --icons -T --git'
 alias ela='exa -a --long --icons --git'
@@ -60,7 +43,6 @@ alias pps='powerprofilesctl set && notify-send "Power profile set" -i display'
 alias ppg='powerprofilesctl get'
 
 alias rs="redshift -l 50.2649:19.0238 -t 5700:3500"
-alias tt="EDITOR=nvim taskwarrior-tui"
 
 j() { # list / reopen jobs
   if [ -z "$1" ]; then
@@ -70,6 +52,9 @@ j() { # list / reopen jobs
     # jobs | grep -E "^\[$1\]" || echo "No such job: $1"
   fi
 }
+#
+# USAGE:  sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 alias nvr="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "
 
@@ -77,7 +62,8 @@ alias nvr="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "
 alias edit-hosts='fn() { sudo nvim /etc/hosts && sudo dscacheutil -flashcache}; fn'
 alias cheat='fn() { curl cheat.sh/$1 }; fn'
 alias fnd-comment-py="rg '^\s*#' --glob '*.py'"
-alias fnd-comment="rg '^\s*//|/\*|\*/' --glob '*.{js,ts}'"
+alias fnd-comment-js="rg '^\s*//|/\*|\*/' --glob '*.{js,ts}'"
+alias use-sdk='source "$HOME/.sdkman/bin/sdkman-init.sh"'
 
 # GIT:
 alias gini='git init && git branch -m main'
@@ -119,7 +105,8 @@ alias gstd='fn() { git stash drop stash@\{"$1"\} }; fn'
 
 # NVIM
 alias nv='nvim'
-alias xv="NVIM_APPNAME=minvim nvim"
+alias mv="NVIM_APPNAME=nvim-min nvim"
+alias lv="NVIM_APPNAME=nvim-light nvim"
 
 # DOCKER
 alias dc-ls='docker ps'
@@ -135,20 +122,11 @@ alias dc-sh='fn() { docker exec -it $(docker ps -qf expose=$1) sh }; fn'
 alias dc-up='docker compose up'
 alias dc-down='docker compose down'
 
-
-# REMOTES
-alias sshfs-oberon="sudo sshfs -o allow_other,default_permissions ${USER}@${OBERON}:/home/${USER} ${REMOTES_DIR}/oberon"
-alias sshfs-data="sudo sshfs -o allow_other,default_permissions ${USER}@${OBERON}:/home/${USER}/data ${REMOTES_DIR}/data"
-alias sshfs-deimos="sudo sshfs -o allow_other,default_permissions ${USER}@${DEIMOS}:/home/${USER} ${REMOTES_DIR}/deimos"
-alias sshfs-euvic="sudo sshfs -p 2222 -o allow_other,default_permissions ${USER}@${EUVIC}:/home/${USER} ${REMOTES_DIR}/euvic"
-alias sshfs-mbp-judy="sudo sshfs -o allow_other,default_permissions judy@${MBP}:/Users/judy ${REMOTES_DIR}/judy-mbp"
-
-# netowking
+# NETWORKING
 ssh-port() {
   local PORT=$1
   local HOST=$2
   ssh -N -f -L ${PORT}:localhost:${PORT} ${HOST}
 }
 alias ssh-ports="ps aux | grep '[s]sh -N -f -L'"
-
 alias ls-ports="sudo ss -tulpn | rg LISTEN | rg '127.0.0.1'"
