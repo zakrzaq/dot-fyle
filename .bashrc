@@ -64,3 +64,11 @@ if [[ -d BUN_INSTALL ]]; then
   export PATH="$BUN_INSTALL/bin:$PATH"
   [ -s "/home/jake/.bun/_bun" ] && source "/home/jake/.bun/_bun"
 fi
+
+# FNM
+FNM_PATH="/home/jake/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
