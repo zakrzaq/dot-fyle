@@ -70,5 +70,4 @@ vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
 -- timer:start(0, 300000, vim.schedule_wrap(set_theme_by_time))
 
 
-vim.cmd("colorscheme everforest")
-
+vim.cmd("colorscheme nord")
