@@ -24,11 +24,12 @@ plugins=(git fzf)
 [ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 
 [ -f $HOME/.aliases ] && source $HOME/.aliases
-[ -f $HOME/.local ] && source $HOME/.local
+[ -f $HOME/.localenv ] && source $HOME/.localenv
 
 # TOOLS
 [ -f $HOME/fzf.zsh ] && source ~/.fzf.zsh
 
+# STARSHIP
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
@@ -39,18 +40,6 @@ fi
 
 [ -d /snap/bin ] && export PATH=$PATH:/snap/bin
 [ -f $HOME/nix-profile/etc/profile.d/nix.sh ] && source $HOME/.nix-profile/etc/profile.d/nix.sh
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# NVM
-if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
-  autoload -U +X bashcompinit && bashcompinit
-  complete -o nospace -C /usr/bin/terraform terraform
-  source /usr/share/nvm/init-nvm.sh
-fi
 
 # PYENV
 export PYENV_ROOT="$HOME/.pyenv"

@@ -1,0 +1,59 @@
+general {
+        colors = true
+        interval = 5
+
+        # Nord Theme Colors
+        color_good = "#8FBCBB"         # Frost Green
+        color_degraded = "#EBCB8B"     # Aurora Yellow
+        color_bad = "#BF616A"          # Aurora Red
+}
+
+order += "cpu_usage"
+order += "memory"
+order += "disk /home"
+order += "wireless wlo1"
+order += "battery 0"
+order += "volume master"
+order += "time"
+
+cpu_usage {
+        format = "CPU: %usage"
+}
+
+memory {
+        # format = "RAM: %used / %available"
+        # You can also use:
+        # format = "RAM: %used"
+        format = "RAM: %percentage_used"
+        # format = "RAM: %free"
+        # format = "RAM: %available"
+}
+
+
+disk "/home" {
+        format = "Disk: %avail"
+}
+
+wireless wlo1 {
+        format_up = "WiFi: %essid (%quality)"
+        format_down = "WiFi: down"
+}
+
+battery 0 {
+        format = "Bat: %percentage %remaining"
+        low_threshold = 20
+        threshold_type = percentage
+        format_down = "No battery"
+}
+
+volume master {
+        format = "♪: %volume"
+        format_muted = "♪: muted (%volume)"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
+time {
+        format = "%Y-%m-%d %H:%M:%S"
+}

@@ -1,7 +1,8 @@
 [general]
 import = [
   "~/.config/alacritty/keybind.toml",
-  "~/.config/alacritty/themes/nord.toml",
+  "~/.config/alacritty/nord.toml",
+  # "~/.config/alacritty/rose-pine-dawn.toml",
 ]
 
 

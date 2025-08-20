@@ -129,9 +129,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "gbprod/nord.nvim",
+    "rebelot/kanagawa.nvim",
     config = function()
-      vim.cmd.colorscheme "nord"
+      vim.cmd.colorscheme "kanagawa"
     end,
   },
   { "rose-pine/neovim" },
@@ -142,7 +142,7 @@ require("lazy").setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = "nord",
+        theme = "kanagawa",
         component_separators = "|",
         section_separators = "",
       },
