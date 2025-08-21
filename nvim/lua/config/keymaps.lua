@@ -40,6 +40,9 @@ map("v", "K", ":m '<-2<CR>gv=gv")
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
 map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
 
+map("n", "gl", ":lua vim.diagnostic.open_float()<cr>", { desc = "Diagnostics float" })
+
+
 local center_maps = { "<C-d>", "<C-u>", "n", "N" }
 for _, key in ipairs(center_maps) do
   map("n", key, key .. "zz")
