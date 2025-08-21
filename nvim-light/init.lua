@@ -108,6 +108,8 @@ keymap("v", "K", ":m '<-2<CR>gv=gv")
 keymap({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
 keymap({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
 
+keymap("n", "gl", ":lua vim.diagnostic.open_float()<cr>", { desc = "Diagnostics float" })
+
 local center_maps = { "<C-d>", "<C-u>", "n", "N" }
 for _, key in ipairs(center_maps) do
   keymap("n", key, key .. "zz")
