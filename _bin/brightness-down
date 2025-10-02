@@ -1,2 +1,0 @@
-#!/bin/bash
-/usr/_bin/brightnessctl s +5%

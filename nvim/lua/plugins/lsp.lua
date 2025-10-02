@@ -13,12 +13,27 @@ function M.setup()
 
 	local mason_lspconfig = require("mason-lspconfig")
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	require("mason").setup()
+	require("mason").setup({
+		automatic_installation = {
+			"ts_ls",
+			"html",
+			"cssls",
+			"ruff",
+			"black",
+			"prettierd",
+			"prettier",
+			"stylua",
+			"sqruff",
+			"pylsp",
+			"pyright",
+			"debugpy",
+			"js-debug-adapter",
+		},
+	})
 
 	M.init()
 
 	mason_lspconfig.setup({
-		automatic_installation = { "ts_ls", "html", "cssls", "ruff" },
 		handlers = {
 			function(server_name)
 				local on_attach = function(client, bufnr)
@@ -33,7 +48,7 @@ function M.setup()
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-					vim.keymap.set("n", "<leader>f", function()
+					vim.keymap.set("n", "<leader>F", function()
 						vim.lsp.buf.format({ async = true })
 					end, opts)
 				end
@@ -52,7 +67,6 @@ function M.setup()
 end
 
 return M
-
 
 -- local util = require("lspconfig/util")
 --

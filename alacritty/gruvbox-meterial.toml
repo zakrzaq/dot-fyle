@@ -1,0 +1,26 @@
+# Gruvbox‑Material inspired Alacritty colors
+
+[colors.primary]
+background = "#282828"
+foreground = "#ddc7a1"   # or "#ebdbb2" depending on variant
+
+[colors.normal]
+black   = "#282828"
+red     = "#ea6962"
+green   = "#a9b665"
+yellow  = "#e78a4e"
+blue    = "#7daea3"
+magenta = "#d3869b"
+cyan    = "#89b482"
+white   = "#ddc7a1"   # or “fg” variant
+
+[colors.bright]
+black   = "#928374"
+red     = "#ea6962"
+green   = "#a9b665"
+yellow  = "#e3a84e"
+blue    = "#7daea3"
+magenta = "#d3869b"
+cyan    = "#89b482"
+white   = "#ddc7a1"
+

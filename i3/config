@@ -168,35 +168,20 @@ bar {
     position bottom
 
     colors {
-        # Nord Theme Palette
-        # Polar Night
-        background #2E3440
-        statusline #D8DEE9
-        separator #4C566A
+        # Gruvbox Material Palette (Dark)
+
+        background  #282828
+        statusline  #ddc7a1
+        separator   #928374
 
         # Bar colors for workspaces
-        #       border  background  text
-        focused_workspace  #4C566A #5E81AC #ECEFF4
-        active_workspace   #2E3440 #4C566A #D8DEE9
-        inactive_workspace #2E3440 #2E3440 #4C566A
-        urgent_workspace   #2E3440 #BF616A #ECEFF4
+        #                  border     background text
+        focused_workspace  #7daea3    #3c3836    #ebdbb2
+        active_workspace   #3c3836    #504945    #ddc7a1
+        inactive_workspace #282828    #282828    #928374
+        urgent_workspace   #ea6962    #ea6962    #282828
     }
 }
-# bar {
-#         status_command i3status
-#         # status_command i3blocks
-#         # status_command polybar
-#         position top
-#         tray_output HDMI-A-1
-#         colors {
-#                 background $base
-#                 separator $pine
-#
-#                 focused_workspace $base $gold $base $text $base
-#                 inactive_workspace $base $subtle $base $base $base
-#                 urgent_workspace $base $rose $base $text $base
-#     }
-# }
 
 #### JAKE ####
 

@@ -1,11 +1,11 @@
 general {
-        colors = true
-        interval = 5
+    colors = true
+    interval = 5
 
-        # Nord Theme Colors
-        color_good = "#8FBCBB"         # Frost Green
-        color_degraded = "#EBCB8B"     # Aurora Yellow
-        color_bad = "#BF616A"          # Aurora Red
+    # Gruvbox Material Colors
+    color_good     = "#a9b665"  # Green (Good)
+    color_degraded = "#e78a4e"  # Orange (Degraded)
+    color_bad      = "#ea6962"  # Red (Bad)
 }
 
 order += "cpu_usage"

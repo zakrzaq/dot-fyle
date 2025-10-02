@@ -140,11 +140,6 @@ map({ "t" }, "<leader>t", function()
   require("toggleterm").toggle()
 end
 , { silent = true, desc = "Toggle Terminal" })
-map({ "n", "v" }, "<C-j>", ":ToggleTerm<CR>", { silent = true, desc = "Toggle Terminal" })
-map({ "t" }, "<C-j>", function()
-  require("toggleterm").toggle()
-end
-, { silent = true, desc = "Toggle Terminal" })
 map({ "n", "v" }, "<leader>tn", ":TermNew<CR>", { silent = true, desc = "Term New" })
 map({ "n", "v" }, "<leader>ts", ":TermSelect<CR>", { silent = true, desc = "Term Select" })
 
@@ -235,3 +230,24 @@ end, { desc = "Enable Obsidian" })
 map("n", "<leader>Ld", function()
   require("plugins.dap").setup()
 end, { desc = "Enable DAP" })
+
+-- TRANSPARENCY
+local is_transparent = false
+
+function ToggleTransparency()
+  is_transparent = not is_transparent
+
+  if is_transparent then
+    vim.cmd('hi Normal guibg=NONE')  
+    vim.cmd('hi VertSplit guibg=NONE')  
+    vim.cmd('hi StatusLine guibg=NONE')
+  else
+    vim.cmd('hi Normal guibg=#282828')
+    vim.cmd('hi VertSplit guibg=#282828')
+    vim.cmd('hi StatusLine guibg=#282828')
+  end
+end
+-- Map the leader key to toggle transparency
+map('n', '<Leader>uT', ':lua ToggleTransparency()<CR>', { noremap = true, silent = true })
+
+
