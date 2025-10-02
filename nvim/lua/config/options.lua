@@ -34,25 +34,25 @@ vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/programming.utf-8.add"
 
 -- CROSS SSH, SYSTEM CLIPBOARD
 local function paste()
-  return {
-    vim.fn.split(vim.fn.getreg(""), "\n"),
-    vim.fn.getregtype(""),
-  }
+	return {
+		vim.fn.split(vim.fn.getreg(""), "\n"),
+		vim.fn.getregtype(""),
+	}
 end
 
 vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-  },
-  paste = {
-    ["+"] = paste,
-    ["*"] = paste,
-  },
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = paste,
+		["*"] = paste,
+	},
 }
 
-vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
+vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
 -- THEME BY TIME
 -- local function set_theme_by_time()
@@ -69,5 +69,4 @@ vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
 -- local timer = vim.loop.new_timer()
 -- timer:start(0, 300000, vim.schedule_wrap(set_theme_by_time))
 
-
-vim.cmd("colorscheme nord")
+vim.cmd("colorscheme grubbox-material")
