@@ -40,12 +40,17 @@ bindsym $mod+x exec thunar
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop --dmenu 'dmenu_run' -nb '#303446' -nf '#c6d0f5' -sb '#8caaee' -sf '#f2d5cf'
+set $dmenu_params dmenu -fn 'BlexMono Nerd Font-10' -nb '#2E3440' -nf '#D8DEE9' -sb '#81A1C1' -sf '#2E3440'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="$dmenu_params"
+
+
 
 # change focus
 bindsym $mod+h focus left
@@ -162,34 +167,30 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status finds out, if available)
 bar {
     status_command i3status
-    position bottom
+    position top
 
     colors {
-        # Gruvbox Material Palette (Dark)
+        background  #303446     # Frappe surface0
+        statusline  #c6d0f5     # Frappe text
+        separator   #a5adce     # Frappe overlay0
 
-        background  #282828
-        statusline  #ddc7a1
-        separator   #928374
-
-        # Bar colors for workspaces
-        #                  border     background text
-        focused_workspace  #7daea3    #3c3836    #ebdbb2
-        active_workspace   #3c3836    #504945    #ddc7a1
-        inactive_workspace #282828    #282828    #928374
-        urgent_workspace   #ea6962    #ea6962    #282828
+        #                border      background   text
+        focused_workspace  #8caaee   #292c3c     #f2d5cf   # border=blue, bg=surface0, text=rosewater
+        active_workspace   #5e81ac   #414559     #f2d5cf   # border=blue, bg=surface1, text=rosewater
+        inactive_workspace #303446   #303446     #737994   # border=surface0, bg=surface0, text=overlay1
+        urgent_workspace   #e78284   #e78284     #232634   # border=red, bg=red, text=base
     }
 }
 
 #### JAKE ####
 
-# font pango:FiraCode Nerd Font Light 10
-font pango:Hack Nerd Font Mono 10
+font pango:FiraCode Nerd Font Light 10
+# font pango:Hack Nerd Font Mono 10
 
-# gaps inner 6
-# gaps outer 2
+gaps inner 4
+gaps outer 2
 
 default_border pixel 0
 default_floating_border pixel 0
@@ -203,17 +204,14 @@ bindsym $mod+Ctrl+m move workspace to output up
 bindsym $mod+Ctrl+n move workspace to output down
 bindsym Control+Shift+1 exec ~/.screenlayout/left.sh && notify-send "Left Monitor..." -i screen -t 500
 bindsym Control+Shift+2 exec ~/.screenlayout/right.sh && notify-send "Right Monitor..." -i screen -t 500
-bindsym Control+Shift+8 exec ~/.screenlayout/full-dock.sh && notify-send "Kids Monitor..." -i screen -t 500
-bindsym Control+Shift+9 exec ~/.screenlayout/both.sh && notify-send "Dual Monitor..." -i screen -t 500
+bindsym Control+Shift+8 exec ~/.screenlayout/kids.sh && notify-send "Kids Monitor..." -i screen -t 500
+bindsym Control+Shift+9 exec ~/.screenlayout/aoc24.sh && notify-send "AOC24 Monitor..." -i screen -t 500
 bindsym Control+Shift+0 exec ~/.screenlayout/none.sh && notify-send "Laptop screen..." -i screen -t 500
 
 bindsym $mod+Shift+x exec i3lock -c 000000
-bindsym $mod+t exec --no-startup-id ~/.local/_bin/tgl-input 17
-bindsym $mod+b exec --no-startup-id ~/.local/_bin/tgl-bluetooth
 
 bindsym $mod+Shift+i exec rofimoji --action copy
 bindsym $mod+Shift+w sticky toggle 
-# bindsym $mod+Shift+w sticky toggle && notify-send "Sticky..." -i screen -t 500 
 bindsym $mod+Shift+p exec --no-startup-id maim --select | xclip -selection clipboard -t image/png && notify-send "Screenshot taken..." -i screen -t 500
 bindsym $mod+Shift+t exec --no-startup-id feh --no-fehbg --geometry +0+0 --zoom fill --fullscreen ~/Pictures/wallpapers/background.jpg
 
@@ -228,13 +226,11 @@ bindsym $mod+Shift+a exec powerprofilesctl set power-saver && notify-send "Power
 bindsym $mod+Shift+s exec powerprofilesctl set balanced && notify-send "Power profile set to Balanced" -i battery -t 1000
 bindsym $mod+Shift+d exec powerprofilesctl set performance && notify-send "Power profile set to Performance" -i battery -t 1000
 
-bindsym $mod+Shift+b exec --no-startup-id ~/.local/_bin/notify-battery
 
 # Startup
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-# exec --no-startup-id dunst
-# exec_always --no-startup-id picom  -b --config ~/.config/picom.conf
-exec gnome-settings-daemon
+exec --no-startup-id dunst
+exec_always --no-startup-id picom -b
+# exec gnome-settings-daemon
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec_always feh --bg-scale ~/Pictures/wallpapers/background.jpg
 exec --no-startup-id redshift -l 50.2649:19.0238 -t 5700:3500

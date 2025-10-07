@@ -1,7 +1,8 @@
 [general]
 import = [
   "~/.config/alacritty/keybind.toml",
-  "~/.config/alacritty/gruvbox-material.toml",
+  "~/.config/alacritty/catppuccin-frappe.toml",
+  # "~/.config/alacritty/gruvbox-material.toml",
   # "~/.config/alacritty/rose-pine-dawn.toml",
 ]
 
@@ -19,7 +20,6 @@ COLORTERM = "truecolor"
 TERM = "xterm-256color"
 
 [font]
-size = 11.0
 
 [font.bold]
 style = "Bold"
@@ -30,11 +30,7 @@ style = "Italic"
 [font.normal]
 style = "Light"
 # style = "Regular"
-# family = "Hack Nerd Font Mono"
-# family = "JetBrainsMono Nerd Font"
-# family = "CaskaydiaCove Nerd Font"
-family = "BlexMono Nerd Font"
-# family = "FiraCode Nerd Font Mono"
+family = "FiraCode Nerd Font Mono"
 
 [scrolling]
 history = 10000

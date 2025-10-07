@@ -69,4 +69,4 @@ vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 -- local timer = vim.loop.new_timer()
 -- timer:start(0, 300000, vim.schedule_wrap(set_theme_by_time))
 
-vim.cmd("colorscheme grubbox-material")
+vim.cmd("colorscheme catppuccin-frappe")
